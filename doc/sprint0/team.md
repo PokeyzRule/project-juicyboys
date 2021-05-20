@@ -9,3 +9,5 @@
 | Nevin Wong           | wongnevi | 1005391434 | nevin.wong@mail.utoronto.ca           | Discord             | Ducky#0735        | N/A          |
 | Vignesh Nanthakumar  | nantha33 | 1006278948 | vignesh.nanthakumar@mail.utoronto.ca  | Discord or Phone    | vignesh#9258      | 6476327590   |
 | Keshavaa Shaiskandan | shaiskan | 1006243940 | keshavaa.shaiskandan@mail.utoronto.ca | Email               | Keshavaa#4284     | 6475490857   |
+
+## Link to Discord Server: https://discord.gg/HEacusxN2x
