@@ -1,16 +1,13 @@
 # Done...
 
-What exactly does it mean to be done? By definition, if something is done or you are done with it, it is either finished or you have finished doing. For our team at JuicyBoys, the definition of done is no different. 
-
-Martin Luther King Jr. once said: “I have a dream that one day this nation will rise up and live out the true meaning of its creed". Much like Martin Luther King Jr, our team at JuicyBoys also has a dream, a dream and a vision of a final product and the definition of "done" directly corresponds to the acheivement of this vision. 
-
-Unfortunately, acheiving our final product is not a one step process and there are various smaller components that also need to be "done". Together, we have catagorized these smaller componenets into two main catagories, the User Interface and the Features/Functionalities. 
+What exactly does it mean to be done? By definition, if something is done or you are done with it, it is either finished or you have finished doing. For our team at JuicyBoys, the definition of done is no different. Martin Luther King Jr. once said: “I have a dream that one day this nation will rise up and live out the true meaning of its creed". Much like Martin Luther King Jr, our team at JuicyBoys also has a dream, a dream and a vision of a final product and the definition of "done" directly corresponds to the acheivement of this vision. Unfortunately, acheiving our final product is not a one step process and there are various smaller components that also need to be "done". Together, we have catagorized these smaller componenets into two main catagories, the User Interface and the Features/Functionalities. 
 
 
 ## What does done mean for the User Interface that we will implement?
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including vert.
+In the early days of our beloved computing machine, all we had was a command line that took commands from users to perform specific tasks and interact with the computer, typically used by programmers. Nowadays we have multiple operating systems with their own dedicated graphical interface that can be used to perform the same tasks as the command line. Why the huge change in how we interact with our computers? This is mainly due to the fact that not everyone knows how to use the command line. A graphical interface gives users visual representation of the things they are interacting with, while the same information is portrayed in the form of text on the command line. This emergence of graphical interface is an example of User Interface Design. 
 
+A User Interface Design connects users to an application. 
 
 ## What does done mean for the Features/Functionalities that we will implement?
 
