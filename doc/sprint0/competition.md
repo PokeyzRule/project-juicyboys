@@ -4,13 +4,13 @@
 ## Coursera - https://www.coursera.org
 * hello
 * 
-## Udemy
+## Udemy - https://www.udemy.com
 * hello
 
-## LinkedIn Learning
+## LinkedIn Learning - https://www.linkedin.com/learning
 * hello
 
-## Top Hat - 
+## Top Hat - https://tophat.com
 * hello
 
 ## Every Other C01 Group :wink:
