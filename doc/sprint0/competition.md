@@ -13,6 +13,12 @@
 ## Top Hat - https://tophat.com
 * hello
 
+## Google Classroom - https://tophat.com
+* hello
+
+## Canvas - https://tophat.com
+* hello
+
 ## Every Other C01 Group :wink:
 * hello
 
