@@ -12,4 +12,7 @@
 | As a company, I should be able to create an account and login with that account | Company | Core Feature |
 | As a company, I should have a dedicated page to list all relevant info about the company | Company | Core Feature |
 | As a user, I should be able to search/filter for courses and profiles I want to find | Any | Core Feature |
-| As a user, I should be able to create/edit posts, delete posts, like and comment on posts | Any | Core Feature
+| As a user, I should be able to create/edit posts, delete posts, like and comment on posts | Any | Core Feature | 
+| As a user, I should be able to create company profiles for upcoming startups | Any | Core Feature |
+| As a user, I should also be able to browse a feed to be prompted with startups/classes | Any | Important |
+| As a startup creator, I should be able to link my company profile with associated profiles,investors,etc | Any | Important |
