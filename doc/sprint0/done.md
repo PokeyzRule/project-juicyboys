@@ -33,15 +33,19 @@ For our Features to be considered "done", we must ensure the following key princ
       - Code gets messy working in large groups, code should be clean and  consistent for others  
             to read.
       - Code should be organized so important components are easily accessable
+      - Fllowing best practices for variable, function, and class names
+      - Doc strings, function headers, in line comments should be used for documantation
 2. **No errors in the feature**
       - Features should be tested throughly and ensure no errors are caused
       - Features are the building blocks of the product, errorless building  blocks minimize errors  
             on entire application
 4. **Features clearly match the requirements set by the user story**
-      - Features must clearly solve the problem the user is facing
+      - Features must clearly solve the problem the user is facing in the user story
+      - All CoS are satisfied
 5. **Fast Performance**
 	- Every large web-app needs to have good performance else users  will never visit again.
 	- Need to value database optimization, code efficiency, and good  software design choices.
 6. **Highly Responsive**
 	- The project should be responsive on all types of devices.
 	- App layout should be organized and consistent on mobile, tablet, PC, ...
+	- Software passes all integration tests on all major OS such as Windows, MacOS, Linux.
