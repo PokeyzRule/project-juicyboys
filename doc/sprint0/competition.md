@@ -23,7 +23,4 @@
 ## Joma Class - https://www.jomaclass.com
 * Subscription based service that gives users access to educational video libraries on computer science, and data science
 
-## Every Other C01 Group :wink:
-* hello
-
 ## How is Our Product Better
