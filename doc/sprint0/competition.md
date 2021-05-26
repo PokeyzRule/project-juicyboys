@@ -9,18 +9,18 @@
 * Gives independent instructors a platform to host their own courses for a fee
 
 ## LinkedIn Learning - https://www.linkedin.com/learning
-* hello
+* Recommends courses based on personal career profile
+* LinkedIn also allows you to search for jobs
 
 ## Top Hat - https://tophat.com
-* hello
+* Engagement platform that allows teachers to quiz students during classes and record attendance
 
 ## Google Classroom - https://tophat.com
-* hello
+* Allows teachers and students to organize work and the sharing of files between eachother
 
 ## Canvas - https://tophat.com
-* hello
+* Allows teachers and students manage online resources such as lectures and material
+* More options than Google Classroom
 
 ## Joma Class - https://www.jomaclass.com
 * Subscription based service that gives users access to educational video libraries on computer science, and data science
-
-## How is Our Product Better
