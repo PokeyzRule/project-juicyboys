@@ -19,6 +19,9 @@
 ## Canvas - https://tophat.com
 * hello
 
+## Joma Class - https://www.jomaclass.com
+* hello
+
 ## Every Other C01 Group :wink:
 * hello
 
