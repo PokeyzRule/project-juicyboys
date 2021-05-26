@@ -1,10 +1,16 @@
 <h1 align="center">Project JuicyBoys (name TBD)</h1>
 
 ## Motivation (TODO)
-* provide a short detailed description of the motivation behind the project: what is it, what problem(s) does it solve, and why it exists
+This project is being created to tackle one of Africa's biggest challenges: bringing the spotlight to market-creating innovations which were created using technology.
+The application is designed to spread knowledge, build a community, and encourage discussion revolving around a diverse range of topics. 
+It solves the problem of not having a single platform that ties e-learning and community building into one.
+The motivation behind creating this project is to create a simple way for people to spread their knowledge, digitally showcase their startup, or find a way to learn something new.
 
 ## Installation (TODO)
-We are using the PERN stack: PostgreSQL, Express, React, and Node.js
+We are using: 
+- PERN stack: PostgreSQL, Express, React, and Node.js
+- AWS S3 for image/video storage
+
 ### 1. Install all the required tools 
 Just do it.&trade;
 * PostgreSQL: https://www.postgresql.org/download/
