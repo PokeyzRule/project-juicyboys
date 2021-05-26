@@ -6,7 +6,7 @@
 * Course material is free to audit, however users must pay to experience graded assesments and receive certificates on completion
 
 ## Udemy - https://www.udemy.com
-* hello
+* Gives independent instructors a platform to host their own courses for a fee
 
 ## LinkedIn Learning - https://www.linkedin.com/learning
 * hello
@@ -21,7 +21,7 @@
 * hello
 
 ## Joma Class - https://www.jomaclass.com
-* hello
+* Subscription based service that gives users access to educational video libraries on computer science, and data science
 
 ## Every Other C01 Group :wink:
 * hello
