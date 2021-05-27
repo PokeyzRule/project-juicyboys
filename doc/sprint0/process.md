@@ -5,13 +5,21 @@ When we had to make decisions like when we decided our group name: JuicyBois. We
 
 To maximize our group communication and to make sure everyone understand what we need to do. We have decided to meet everyday (Workdays only) on discord as a scrum meeting. A meeting everyday at night where we are all free enables us to discuss what each members have done, what we need to do, distribute the workload, discuss about the project and possible roadblocks. For example in Sprint0, we met up in our daily meetings use the handouts we were given to decide what topic we should choose, since most of us agreed that e-learning & community was the more interesting and aligned with what we wanted to learn and do that became our topic. Discussion ensued about what we needed to finish for sprint0 and divided up workload for everyone to work towards during the week.
 
-For our next phase, we hope to continue how we meet each other and discussions on discord. Better our organization to more specific chat like frontend and backend on discord instead of putting everything in the general chat. This helps us organize our dissussion so that we aren't wasting people's time with irrelevant info.
+For our next phase, we hope to continue how we meet each other and discussions on discord. Better our organization to more specific chat like frontend, backend, resources, meeting notes and etc. on discord instead of putting everything in the general chat. This helps us organize our dissussion so that we aren't wasting people's time with irrelevant info.
 ### Roles
 We have decided to split everyone into either Frontend or Backend. This doesn't mean that people from the frontend can't work on the backend and vice versa. It's just what the majority of our work will be within.
 * Frontend
-    * Ammar
+    * Zhiqi
+    * Vignesh
+    * Nevin
+    * Keshavaa
+
 * Backend
-    *
+    * Ammar
+    * Gordon
+    * Tanzim
+
+Keshavaa will be the product manager, this means that he assigns tasks and are responsible for management of the various components of Jira. He is effectively the Scrum Master.
 
 
 ### Prioritizing User Stories
