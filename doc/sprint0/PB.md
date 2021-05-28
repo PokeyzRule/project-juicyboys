@@ -20,6 +20,8 @@
 | As a student user, I would like there to be chat feature with my teacher so I can dicuss marks, course material, etc with them. | Paula | Not Critical |
 | As a startup creator, I would like to be able to make posts to promote the startup and it's progress to spark interest in others | Timothy | Somewhat Important | 
 | As a startup creator, I would like a company page with a public link to promote my startup on other platforms to engage with a greater audient | Timothy | Important |
+| As a student user, I would like to be able to do quizzes for my classes as a way to be evaluated on my understanding of the class | Paula | Not Critical |
+| As a Teacher user, I would like to be able create quizzes for my students to have a representation of their understanding and application of their learning | John | Not Critical |
 
 ## Extra Stories will go down here
 
