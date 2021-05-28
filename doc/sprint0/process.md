@@ -22,3 +22,5 @@ We have decided to split everyone into either Frontend or Backend developers. Th
 Keshavaa will be the product owner, this means that he assigns tasks and are responsible for management of the various components of Jira; as well as checking to make sure customer's requirments are met by our team. While our TA is the Scrum Master.
 
 ### Prioritizing User Stories
+
+Currently we have a very simple way of assigning priority to user stories. Currently the core features are denoted with "Most Important" in the product backlog followed by features that are necessary but not as integral to the application denoted with "Important". Finally there are features we wish to add denoted by "Not Criticai", since these features aren't tied to the usability of the application. A bigger breakdown of priority may be done in the future perhaps when stories are assigned in the sprints, but for now this system works to show what's a core story, important story, and a "nice to have" story.
