@@ -21,5 +21,5 @@
 | As a startup creator, I would like to be able to make posts to promote the startup and it's progress to spark interest in others | Timothy | Somewhat Important | 
 | As a startup creator, I would like a company page with a public link to promote my startup on other platforms to engage with a greater audient | Timothy | Important |
 
-Extra Stories will go down here
+## Extra Stories will go down here
 
