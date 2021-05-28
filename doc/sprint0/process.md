@@ -7,20 +7,18 @@ To maximize our group communication and to make sure everyone understand what we
 
 For our next phase, we hope to continue how we meet each other and discussions on discord. Better our organization to more specific chat like frontend, backend, resources, meeting notes and etc. on discord instead of putting everything in the general chat. This helps us organize our dissussion so that we aren't wasting people's time with irrelevant info.
 ### Roles
-We have decided to split everyone into either Frontend or Backend. This doesn't mean that people from the frontend can't work on the backend and vice versa. It's just what the majority of our work will be within.
+We have decided to split everyone into either Frontend or Backend developers. This doesn't mean that people from the frontend can't work on the backend and vice versa. It's just what the majority of our work will be within.
 * Frontend
     * Zhiqi
-    * Vignesh
+    * Vignesh (Tester for Frontend)
     * Nevin
     * Keshavaa
 
 * Backend
-    * Ammar
+    * Ammar (Tester For Backend)
     * Gordon
     * Tanzim
 
-Keshavaa will be the product manager, this means that he assigns tasks and are responsible for management of the various components of Jira. He is effectively the Scrum Master.
-
+Keshavaa will be the product owner, this means that he assigns tasks and are responsible for management of the various components of Jira; as well as checking to make sure customer's requirments are met by our team. While our TA is the Scrum Master.
 
 ### Prioritizing User Stories
-
