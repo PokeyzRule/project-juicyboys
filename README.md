@@ -8,12 +8,12 @@ The motivation behind creating this project is to create a simple way for people
 
 ## Installation (TODO)
 We are using: 
-- PERN stack: PostgreSQL, Express, React, and Node.js
+- MERN stack: MongoDB, Express, React, and Node.js
 - AWS S3 for image/video storage
 
 ### 1. Install all the required tools 
 Just do it.&trade;
-* PostgreSQL: https://www.postgresql.org/download/
+* MongoDB: https://www.mongodb.com/try/download/community
 * Express: https://expressjs.com/en/starter/installing.html
 * Node: https://nodejs.org/
 
