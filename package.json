@@ -1,0 +1,36 @@
+{
+  "name": "project-juicyboys",
+  "version": "1.0.0",
+  "description": "CSCC01 Project - E-learning MERN App",
+  "main": "server.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UTSCCSCC01/project-juicyboys.git"
+  },
+  "author": "JuicyBois",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UTSCCSCC01/project-juicyboys/issues"
+  },
+  "homepage": "https://github.com/UTSCCSCC01/project-juicyboys#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.2.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.12"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
