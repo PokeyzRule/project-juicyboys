@@ -31,19 +31,19 @@ $ git pull
 ```
 
 ### 1. Create a feature branch from develop
-Create new branch names using snake_casing.
+Create new branch names following the convention used below.
 ```shell
-$ git switch -c feature_name develop
+$ git checkout -b feature/JUIC-{JIRA ISSUE NUMBER} develop
 ```
 
-### 2. Make changes and push them
+### 2. Commit changes and push them
+Please follow the convention shown below when writing commit messages.
 ```shell
-$ git push
+$ git add .
+$ git commit -m "JUIC-{ISSUE NUMBER} A detailed commit message"
+$ git push -u origin feature/JUIC-{ISSUE NUMBER}
 ```
 
 ### 3. Create a pull request for the feature
 Once you have completed a feature, [create a pull request](https://github.com/UTSCCSCC01/project-juicyboys/pulls) to review changes in the code. Be sure to set the pull request onto the develop branch. Reference the relevant issue from the Github issues board if applicable.
 ![New pull request button](https://i.imgur.com/3awEW0L.png)
-
-### 4. Ready to release!
-Once you are ready to make a release, create a pull request from the develop branch to the main branch.
