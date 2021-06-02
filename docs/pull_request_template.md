@@ -13,4 +13,4 @@
 	- [ ] I have commented and documented my code
 	- [ ] My changes generate no new warnings
 	- [ ] I have tested that my code locally passes all existing test cases
-	= [ ] I have tested my code locally with new test cases
+	- [ ] I have tested my code locally with new test cases
