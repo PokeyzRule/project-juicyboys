@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const teacherSchema = new Schema({
     name: {
-        type:String,
+        type: String,
         required: true
     },
     email: {
@@ -16,7 +16,7 @@ const teacherSchema = new Schema({
         required: true
     },
     teacherID: {
-        type:String,
+        type: String,
         required: true
     },
     currentCourses: {
