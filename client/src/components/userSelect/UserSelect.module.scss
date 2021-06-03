@@ -7,10 +7,15 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    border: 5px solid #F4F4F4;
+}
 
-    :hover{
-        cursor: pointer;
-    }
+.container:hover{
+    cursor: pointer;
+}
+
+.active{
+    border: 5px solid #6C63FF;
 }
 
 .title{
