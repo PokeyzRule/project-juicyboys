@@ -17,7 +17,7 @@ const studentSchema = new Schema({
     },
     password: {
         type: String,
-        required: true,
+        required: true
     },
     studentID: {
         type:String,
