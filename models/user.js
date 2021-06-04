@@ -24,8 +24,8 @@ const userSchema = new Schema({
         required: true
     },
     ID: {
-      type: String,
-      required: true
+        type: Schema.Types.ObjectId,
+        auto: true
     }
 })
 
