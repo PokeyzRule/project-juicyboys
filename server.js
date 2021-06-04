@@ -1,18 +1,23 @@
 const express = require('express');
-const mongoose = require("mongoose");
-const bodyParser = require('body-parser');
-const dotenv = require("dotenv").config();
+const mongoose = require('mongoose');
+require("dotenv").config();
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json());
+
+// Import routes
+const courses = require('./routes/api/courses');
 
 // DB Connection
 const uri = process.env.ATLAS_URI;
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connected to MongoDB"))
+  .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log(err));
+
+// Use routes
+app.use('/courses', courses);
 
 // Server setup
 const port = process.env.PORT || 5000;
