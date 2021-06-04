@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 // Import routes
-const createCourse = require('./routes/api/createCourse');
+const course = require('./routes/api/course');
 
 // DB Connection
 const uri = process.env.ATLAS_URI;
@@ -17,7 +17,7 @@ mongoose
   .catch((err) => console.log(err));
 
 // Use routes
-app.use('/createCourse', createCourse);
+app.use('/createCourse', course);
 
 // Server setup
 const port = process.env.PORT || 5000;
