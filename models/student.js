@@ -20,8 +20,8 @@ const studentSchema = new Schema({
         required: true
     },
     studentID: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        auto: true
     }
 })
 
