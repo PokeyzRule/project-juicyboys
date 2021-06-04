@@ -5,11 +5,11 @@ const router = express.Router()
 const Course = require('../../models/Course')
 
 /**
- * @route   POST createCourse
+ * @route   POST create
  * @desc    Create a course
  * @access  Public
  */
-router.post('/', (req, res) => {
+router.post('/create', (req, res) => {
     const newCourse = new Course({
         name: req.body.name,
         teacher: req.body.teacher,
