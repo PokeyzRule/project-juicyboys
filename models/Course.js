@@ -28,8 +28,7 @@ const CourseSchema = new Schema({
     },
     courseID: {
         type: Schema.Types.ObjectId,
-        required: True,
-        unique: True,
+        auto: True,
     },
 })
 
