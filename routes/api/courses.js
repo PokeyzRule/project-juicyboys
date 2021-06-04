@@ -5,6 +5,24 @@ const router = express.Router()
 const Course = require('../../models/Course')
 
 /**
+ * @route        GET /
+ * @queryParam   OPTIONAL Integer limit - results per page
+ * @queryParam   OPTIONAL Integer page - page number 
+ * @desc         Fetch all courses with pagination
+ * @access       Authenticated users
+ */
+ router.get('/', (req, res) => {
+    let limit = parseInt(req.query.limit) || 10
+    let page = (Math.abs(req.query.page) || 1) - 1;
+
+    Course.find()
+        .limit(limit)
+        .skip(limit * page)
+        .then(courses => res.status(200).json(courses))
+        .catch((err) => res.status(400).json(err))
+})
+
+/**
  * @route   POST create
  * @desc    Create a course
  * @access  Public
