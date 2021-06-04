@@ -16,8 +16,8 @@ const teacherSchema = new Schema({
         required: true
     },
     teacherID: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        auto: true
     },
     currentCourses: {
         type: [String],
