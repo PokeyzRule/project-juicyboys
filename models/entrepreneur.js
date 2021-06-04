@@ -20,8 +20,8 @@ const entrepreneurSchema = new Schema({
         required: true
     },
     entrepreneurID: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        auto: true
     }
 })
 
