@@ -6,7 +6,7 @@ const User = require('../../models/user');
 
 
 //Registering user
-router.post('/auth/register', (req, res) => {
+router.post('/register', (req, res) => {
 
     const { name, email, password } = req.body;
 
