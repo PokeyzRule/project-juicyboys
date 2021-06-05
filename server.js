@@ -18,7 +18,7 @@ mongoose
   .catch((err) => console.log(err));
 
 
-app.use('/users', users)
+app.use('/auth', users)
 
 // Server setup
 const port = process.env.PORT || 5000;
