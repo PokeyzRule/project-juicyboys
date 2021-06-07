@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs')
 require('dotenv').config();
 
 const app = express();
@@ -19,13 +20,10 @@ mongoose
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log(err));
 
-<<<<<<< HEAD
 // Use routes
 app.use('/courses', courses);
-=======
 
 app.use('/auth', users)
->>>>>>> 116dbfde5eb7584fe50485b52cee178763316123
 
 // Server setup
 const port = process.env.PORT || 5000;
