@@ -24,10 +24,13 @@
   },
   "homepage": "https://github.com/UTSCCSCC01/project-juicyboys#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "brcypt": "^1.0.1",
     "concurrently": "^6.2.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.12"
   },
   "devDependencies": {
