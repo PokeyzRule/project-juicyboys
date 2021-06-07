@@ -43,7 +43,7 @@ router.post('/register', (req, res) => {
                             if (err) throw err;
 
                             // Create and upload student object
-                            if(type == "Student"){
+                            if(type == "student"){
                                 const typedUser = new Student({
                                     name: user.name,
                                     email: user.email,
@@ -55,7 +55,7 @@ router.post('/register', (req, res) => {
                             }
 
                             // Create and upload teacher object
-                            if(type == "Teacher"){
+                            if(type == "teacher"){
                                 const typedUser = new Teacher({
                                     name: user.name,
                                     email: user.email,
@@ -67,7 +67,7 @@ router.post('/register', (req, res) => {
                             }
 
                             // Create and upload entrepreneur object
-                            if(type == "Entrepreneur"){
+                            if(type == "entrepreneur"){
                                 const typedUser = new Entrepreneur({
                                     name: user.name,
                                     email: user.email,
