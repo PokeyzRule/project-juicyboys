@@ -1,6 +1,20 @@
 
 .testingContainer{
-    background-color: blue;
-    height: 250px;
     color: white;
+}
+
+.overlay{
+    background-color: #F7F7F7;
+    height: 80px;
+}
+
+.welcome{
+    font-family: "Robota", sans-serif;
+    color: black;
+    margin-left: 45px;
+    padding-top: 20px;
+}
+
+.highlight{
+    color: #167EFB;
 }
