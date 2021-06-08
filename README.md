@@ -1,24 +1,52 @@
 <h1 align="center">Project JuicyBoys (name TBD)</h1>
 
-## Motivation (TODO)
+## Motivation
 This project is being created to tackle one of Africa's biggest challenges: bringing the spotlight to market-creating innovations which were created using technology.
 The application is designed to spread knowledge, build a community, and encourage discussion revolving around a diverse range of topics. 
 It solves the problem of not having a single platform that ties e-learning and community building into one.
 The motivation behind creating this project is to create a simple way for people to spread their knowledge, digitally showcase their startup, or find a way to learn something new.
 
-## Installation (TODO)
+## Installation
 We are using: 
 - MERN stack: MongoDB, Express, React, and Node.js
 - AWS S3 for image/video storage
 
-### 1. Install all the required tools 
-Just do it.&trade;
-* MongoDB: https://www.mongodb.com/try/download/community
-* Express: https://expressjs.com/en/starter/installing.html
-* Node: https://nodejs.org/
+### 0. Clone the repository
+```shell
+$ git clone git@github.com:UTSCCSCC01/project-juicyboys.git
+```
 
-### 2. More detailed installation and setup instructions to come...
-soon&trade;
+### 1. Install Node.js and npm
+* Node: https://nodejs.org/
+* You can also use [Node Version Manager](https://github.com/nvm-sh/nvm#installing-and-updating)
+```shell
+$ nvm install --lts
+```
+
+### 2. Install required dependencies
+```shell
+$ npm ci
+$ npm run client-install
+```
+
+### 3. Create a .env file and add the connection to the MongoDB
+On Unix:
+```shell
+$ echo "ATLAS_URI=mongodb+srv://ammarT:C7kHJ42WzHCbuvEG@juicyboys.bqnoy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" >> .env
+```
+Or, manually create a `.env` file in the root directory:
+```shell
+$ touch .env
+```
+Open the file and paste in the following key-value pair:
+```
+ATLAS_URI=mongodb+srv://ammarT:C7kHJ42WzHCbuvEG@juicyboys.bqnoy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+```
+
+### 4. Run the (dev) server
+```shell
+$ npm run dev
+```
 
 ## Contribution
 
@@ -31,19 +59,19 @@ $ git pull
 ```
 
 ### 1. Create a feature branch from develop
-Create new branch names using snake_casing.
+Create new branch names following the convention used below.
 ```shell
-$ git switch -c feature_name develop
+$ git switch -c feature/JUIC-{JIRA ISSUE NUMBER} develop
 ```
 
-### 2. Make changes and push them
+### 2. Commit changes and push them
+Please follow the convention shown below when writing commit messages.
 ```shell
-$ git push
+$ git add .
+$ git commit -m "JUIC-{ISSUE NUMBER} A detailed commit message"
+$ git push -u origin feature/JUIC-{ISSUE NUMBER}
 ```
 
 ### 3. Create a pull request for the feature
 Once you have completed a feature, [create a pull request](https://github.com/UTSCCSCC01/project-juicyboys/pulls) to review changes in the code. Be sure to set the pull request onto the develop branch. Reference the relevant issue from the Github issues board if applicable.
 ![New pull request button](https://i.imgur.com/3awEW0L.png)
-
-### 4. Ready to release!
-Once you are ready to make a release, create a pull request from the develop branch to the main branch.
