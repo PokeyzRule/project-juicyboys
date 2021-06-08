@@ -2,13 +2,15 @@ const express = require('express')
 const router = express.Router();
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
+const auth = require('../../middleware/auth');
+
 const User = require('../../models/user');
 const Student = require('../../models/student');
 const Teacher = require('../../models/teacher');
 const Entrepreneur = require('../../models/entrepreneur');
 
 
-//Registering user
+// Registering user
 router.post('/register', (req, res) => {
 
     const { name, email, password, type } = req.body;
@@ -93,6 +95,45 @@ router.post('/register', (req, res) => {
                 })
             })
         })
+    })
+})
+
+
+// Login user
+router.post('/login', (req, res) => {
+
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({status: "failure", msg: "Please enter all fields"})
+    }
+
+    User.findOne({ email })
+    .then(user => {
+        if (!user) return res.status(400).json({status: "failure", msg: "User does not exist"})
+
+        bcrypt.compare(password, user.password)
+            .then(isMatch => {
+                if (!isMatch) return res.status(400).json({status: "failure", msg: "Bad credentials"})
+                jwt.sign(
+                    { id: user.id },
+                    'africanImpactProject',
+                    { expiresIn: 3600 },
+                    (err, token) => {
+                        if (err) throw err;
+                        res.status(200).json(
+                            {
+                                token,
+                                user: {
+                                    id: user.id,
+                                    name: user.name,
+                                    email: user.email
+                                }
+                            }
+                        )
+                    }
+                )
+            })
     })
 })
 
