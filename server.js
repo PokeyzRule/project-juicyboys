@@ -9,7 +9,7 @@ app.use(express.json());
 
 // Import routes
 const courses = require('./routes/api/courses');
-
+const students = require('./routes/api/students');
 const users = require('./routes/api/users');
 
 
@@ -22,7 +22,7 @@ mongoose
 
 // Use routes
 app.use('/courses', courses);
-
+app.use('/students', students);
 app.use('/auth', users)
 
 // Server setup
