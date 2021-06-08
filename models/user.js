@@ -11,17 +11,12 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
-    currentCourses: {
-        type: [String],
-        required: true
-    },
     password: {
         type: String,
         required: true
     },
     type: {
         type: String,
-        required: true
     },
     ID: {
         type: Schema.Types.ObjectId,
@@ -29,4 +24,4 @@ const userSchema = new Schema({
     }
 })
 
-module.exports = User = mongoose.model('user', userSchema)
+module.exports = User = mongoose.model('User', userSchema)
