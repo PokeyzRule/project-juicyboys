@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const auth = require('../../middleware/auth')
 
 // Course Model
 const Course = require('../../models/course')
@@ -11,15 +12,22 @@ const Course = require('../../models/course')
  * @desc         Fetch all courses with pagination
  * @access       Authenticated users
  */
- router.get('/', (req, res) => {
+ router.get('/', auth, (req, res) => {
     let limit = parseInt(req.query.limit) || 10
     let page = (Math.abs(req.query.page) || 1) - 1;
 
     Course.find()
         .limit(limit)
         .skip(limit * page)
-        .then(courses => res.status(200).json(courses))
-        .catch((err) => res.status(400).json(err))
+        .then(courses => res.status(200).json({
+            courses: courses,
+            status: 'Success!',
+            message: 'Courses retrieved!'
+        }))
+        .catch((err) => res.status(400).json({
+            status: 'Failure!',
+            message: 'Unable to retrieve courses'
+        }))
 })
 
 /**
