@@ -12,22 +12,22 @@ const Course = require('../../models/course')
  * @desc         Fetch all courses with pagination
  * @access       Authenticated users
  */
- router.get('/', auth, (req, res) => {
-    let limit = parseInt(req.query.limit) || 10
-    let page = (Math.abs(req.query.page) || 1) - 1;
+router.get('/', auth, (req, res) => {
+  let limit = parseInt(req.query.limit) || 10
+  let page = (Math.abs(req.query.page) || 1) - 1;
 
-    Course.find()
-        .limit(limit)
-        .skip(limit * page)
-        .then(courses => res.status(200).json({
-            courses: courses,
-            status: 'Success!',
-            message: 'Courses retrieved!'
-        }))
-        .catch((err) => res.status(400).json({
-            status: 'Failure!',
-            message: 'Unable to retrieve courses'
-        }))
+  Course.find()
+    .limit(limit)
+    .skip(limit * page)
+    .then(courses => res.status(200).json({
+      courses: courses,
+      status: 'Success!',
+      message: 'Courses retrieved!'
+    }))
+    .catch((err) => res.status(400).json({
+      status: 'Failure!',
+      message: 'Unable to retrieve courses'
+    }))
 })
 
 /**
@@ -35,7 +35,7 @@ const Course = require('../../models/course')
  * @desc    Create a course
  * @access  Public
  */
-router.post('/create', (req, res) => {
+router.post('/create', auth, (req, res) => {
   const newCourse = new Course({
     name: req.body.name,
     teacher: req.body.teacher,
