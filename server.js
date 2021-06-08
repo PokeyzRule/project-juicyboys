@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require("dotenv").config();
+const bcrypt = require('bcryptjs')
+require('dotenv').config();
 
 const app = express();
 
@@ -8,6 +9,9 @@ app.use(express.json());
 
 // Import routes
 const courses = require('./routes/api/courses');
+
+const users = require('./routes/api/users');
+
 
 // DB Connection
 const uri = process.env.ATLAS_URI;
@@ -18,6 +22,8 @@ mongoose
 
 // Use routes
 app.use('/courses', courses);
+
+app.use('/auth', users)
 
 // Server setup
 const port = process.env.PORT || 5000;
