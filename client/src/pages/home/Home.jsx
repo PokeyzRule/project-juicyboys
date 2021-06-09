@@ -9,7 +9,7 @@ function Home() {
     const { state, dispatch } = useContext(AuthContext)
     const [ courses, setCourses ] = useState([]);
     const [ loading, setLoading ] = useState(true)
-    console.log(state.token)
+    console.log(state)
 
     useEffect(() => {
         axios.get("http://localhost:5000/courses/", {
