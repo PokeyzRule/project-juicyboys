@@ -5,15 +5,20 @@ import styles from './Course.module.scss'
 
 
 function Course({course}) {
-    const { state } = useContext(AuthContext)
-    const [ isEnrolled, setEnrolled ] = useState(false)
+    const { state, dispatch } = useContext(AuthContext)
+    const [ isEnrolled, setEnrolled ] = useState(course.students.includes(state.user.id))
     console.log(course)
 
     function enrollCourse(e) {
-        axios.post("http://localhost:5000/courses/enroll", {
-            body: {
-                studentID: state.user.id,
-                courseID: course.courseID
+        e.preventDefault()
+        const body = JSON.stringify({ courseID: course.courseID, studentID: state.user.id})
+        axios({
+            method: 'post',
+            url: 'http://localhost:5000/courses/enroll',
+            data: body,
+            headers: {
+                'Content-Type': 'application/json',
+                token: state.token
             }
         }).then((resp) => {
             console.log(resp)
