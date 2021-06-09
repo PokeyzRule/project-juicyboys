@@ -1,15 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
+const cors = require('cors')
 require('dotenv').config();
 
 const app = express();
 
 app.use(express.json());
+app.use(cors())
+app.use(express.urlencoded({extended: true}));
 
 // Import routes
 const courses = require('./routes/api/courses');
-
+const students = require('./routes/api/students');
 const users = require('./routes/api/users');
 
 
@@ -22,7 +25,7 @@ mongoose
 
 // Use routes
 app.use('/courses', courses);
-
+app.use('/students', students);
 app.use('/auth', users)
 
 // Server setup
