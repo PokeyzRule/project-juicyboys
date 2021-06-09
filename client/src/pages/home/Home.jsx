@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import styles from './Home.module.scss'
+import {AuthContext} from '../../App'
 
 function Home() {
+    const { state, dispatch } = useContext(AuthContext)
+    console.log(state.user)
+
     return (
         <div className={styles.testingContainer}>
             <Navbar />
