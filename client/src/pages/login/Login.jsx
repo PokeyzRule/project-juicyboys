@@ -1,11 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import LoginStyles from '../signup/Login.module.scss'
 import { Link } from 'react-router-dom'
 import LoginImage from '../../assets/Login.png'
+import { AuthContext } from '../../App'
+import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 function Login() {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
+    const { state, dispatch } = useContext(AuthContext)
+    const history = useHistory()
+
+    function handleSubmit(e) {
+
+        e.preventDefault();
+        const body = JSON.stringify({ email, password })
+        console.log(body)
+        axios({
+            method: 'post',
+            url: 'http://localhost:5000/auth/login',
+            data: body,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((resJson => {
+            console.log(resJson)
+            dispatch({
+                type: "LOGIN",
+                payload: resJson.data
+            })
+        })).catch(error => {
+            console.log(error)
+        })
+    }
+
+    if (state.isAuthenticated){
+        history.push("/")
+    }
 
     return (
         <div className={LoginStyles.wrapper}>
@@ -22,7 +54,7 @@ function Login() {
                             <p className={LoginStyles.label}>Password</p>
                             <input type="password" className={LoginStyles.input} onChange={(e) => {setPassword(e.target.value)}} />
                             <div className={LoginStyles.next}>
-                                <button onClick={(e) => {console.log("registering!")}} style={{backgroundColor:"#6C63FF"}}>Login</button>
+                                <button onClick={(e) => handleSubmit(e)} style={{backgroundColor:"#6C63FF"}}>Login</button>
                             </div>
                         </div>
                     </div>
