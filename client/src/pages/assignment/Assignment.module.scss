@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300&display=swap');
+
+.wrapper{
+    background-color: #ffffff;
+    // height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container{
+    width: 1600px;
+    height: 775px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.courseContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.contentContainer{
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    padding-top: 45px;
+    padding-left: 25px;
+    padding-right: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+}
+.infoBar{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f7F7F7;
+}
+
+.info{
+    height: 80px;
+    width: 500px;
+    border-left: 1px solid #C4C4C4;
+    border-right: 1px solid #C4C4C4;
+    background-color: #f7F7F7;
+    font-family: "Roboto", sans-serif;
+    padding-left: 20px;
+    h1{
+        font-weight: 400;
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+    h2{
+        font-weight: 200;
+        font-size: 20px;
+    }
+}
+
+.carousel{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+
+
+.header{
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.subheader{
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    margin-bottom: 30px;
+    font-size: 18px;
+
+}
+
+
+
