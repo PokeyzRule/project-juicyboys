@@ -13,43 +13,6 @@ function Profile() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    const Form = () => {
-
-        if (step == 0){
-            return(
-                <div>
-                    <h2>Which one are you?</h2>
-                    <div className={StudentProfileStyles.selectContainer}>
-                    </div>
-                    <div className={StudentProfileStyles.next}>
-                        <button onClick={(e) => {setStep(1)}} style={{backgroundColor: user == "" ? "#9A9AAC" : "#6C63FF"}}>Next</button>
-                    </div>
-                </div>
-            )
-        }else{
-            return(
-                <div className={StudentProfileStyles.credentialsContainer}>
-                    <p className={StudentProfileStyles.label}>Name</p>
-                    <input className={StudentProfileStyles.input} onChange={(e) => {setName(e.target.value)}}/>
-                    <p className={StudentProfileStyles.label}>Email</p>
-                    <input className={StudentProfileStyles.input} onChange={(e) => {setEmail(e.target.value)}}/>
-                    <p className={StudentProfileStyles.label}>Password</p>
-                    <input type="password" className={StudentProfileStyles.input} onChange={(e) => {setPassword(e.target.value)}} />
-
-                    <div className={StudentProfileStyles.next}>
-                        <button onClick={(e) => {setStep(0)}} style={{backgroundColor: "#9A9AAC" }}>Back</button>
-                    </div>
-
-                    <div className={StudentProfileStyles.next}>
-                        <button onClick={(e) => {console.log("registering!")}} style={{backgroundColor:"#6C63FF"}}>Register</button>
-                    </div>
-                </div>
-            )
-        }
-
-    }
-
-
     function handleInput(userType){
         setUser(userType)
     }
