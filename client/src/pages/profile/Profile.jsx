@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import StudentProfileStyles from './Profile.module.scss'
 import student from '../../assets/student.png'
+import logo from '../../assets/tempLogo.png'
+import course from '../../assets/tempCourseImg.png'
 import entrepreneur from '../../assets/entrepreneur.png'
 import { Link } from 'react-router-dom'
 
@@ -54,11 +56,13 @@ function Profile() {
 
 
     return (
+<div>
+    <div className={StudentProfileStyles.navBar}>
+        <img src={logo}/>
+            <h2>Company Name</h2>
+        </div>
         <div className={StudentProfileStyles.wrapper}>
-            <div className={StudentProfileStyles.navBar}>
-                <p>Company Name</p>
-
-            </div>
+            
             <div className={StudentProfileStyles.container}>
                 
                 <div className={StudentProfileStyles.contentContainer}>
@@ -74,7 +78,8 @@ function Profile() {
                             <img src={student} alt="error"/>
                             <h1 className={StudentProfileStyles.header}>User Info</h1>
                             <p className={StudentProfileStyles.subheader}>Your Recent Courses</p>
-                            <hr width="100%" size="5" color="#3F3D56"/>
+                            <img src={course} alt=""/>
+                            <hr width="100%" size="5" color="#C4C4C4"/>
                             <br/>
                         </div>
                         <p className={StudentProfileStyles.subheader}>Don't forget your deadlines!</p>
@@ -83,6 +88,7 @@ function Profile() {
             </div>
             
         </div>
+</div>
     )
 }
 
