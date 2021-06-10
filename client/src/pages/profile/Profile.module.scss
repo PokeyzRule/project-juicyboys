@@ -9,11 +9,17 @@
 }
 
 .container{
-    width: 1395px;
+    width: 1600px;
     height: 775px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
+}
+
+.courseContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .contentContainer{
@@ -36,29 +42,29 @@
     
 }
 .infoBar{
-    background-color: #f7F7F7;
-    height: 15%;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-evenly;
-    p{
-        flex-grow: 1;
-        text-align: center;
-        padding: 10px;
-        font-family: "Roboto", sans-serif;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f7F7F7;
+}
+
+.info{
+    height: 80px;
+    width: 500px;
+    border-left: 1px solid #C4C4C4;
+    border-right: 1px solid #C4C4C4;
+    background-color: #f7F7F7;
+    font-family: "Roboto", sans-serif;
+    padding-left: 20px;
+    h1{
         font-weight: 400;
-        border-left: #C4C4C4;
-        border-left-width: 2px;
-        border-left-style: solid;
+        font-size: 25px;
+        margin-bottom: 10px;
     }
     h2{
-        flex-grow: 1;
-        padding: 10px;
-        font-family: "Roboto", sans-serif;
-        font-weight: 400;
-        text-align: center;
-        margin-bottom: 20px;
-        
+        font-weight: 200;
+        font-size: 20px;
     }
 }
 
@@ -66,27 +72,6 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
-}
-.navBar{
-    background-color: #2C2C2C;
-    height: 10%;
-
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    h2{
-        text-align: left;
-        padding: 10px;
-        color: #E5E5E5;
-        font-family: "Roboto", sans-serif;
-        font-weight: 400;
-    }
-    img {
-        padding-left: 20px;
-        height: 40px;
-        width: 40px;
-    }
 }
 
 
@@ -103,75 +88,6 @@
     font-size: 18px;
 
 }
-.text{
-        font-family: "Roboto", sans-serif;
-        font-weight: normal;
-        margin-bottom: 30px;
-        font-size: 15px;
-    }
-.selectContainer{
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
 
-.next{
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    button{
-        font-family: "Roboto", sans-serif;
-        width: 370px;
-        height: 50px;
-        outline: none;
-        border: none;
-        font-size: 24px;
-        color: white;
-        opacity: 0.8
-    }
 
-    button:hover{
-        cursor: pointer;
-        opacity: 1;
-        transition: 0.2s;
-    }
-}
 
-.label{
-    margin-bottom: 10px;
-    font-family: "Roboto", sans-serif;
-    font-size: 20px;
-    text-align: left;
-    width: 380px;
-}
-
-.input{
-    background-color: white;
-    outline: none;
-    border: none;
-    width: 370px;
-    height: 47px;
-    font-size: 20px;
-    padding-left: 10px;
-    margin-bottom: 20px;
-}
-
-.credentialsContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.alternate{
-    font-family: "Roboto", sans-serif;
-    font-size: 20px;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.sign{
-    text-decoration: none;
-    color: "#6C63FF";
-    font-weight: 500;
-}

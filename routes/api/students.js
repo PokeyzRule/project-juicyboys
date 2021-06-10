@@ -14,19 +14,16 @@ router.get('/:id', auth, (req, res) => {
     Student.findOne({ studentID : req.params.id })
         .then((student) => {
             const courseIDs = student.currentCourses
-            const courses = []
             
-            courseIDs.map((courseID) => {
-                Course.findById(courseID)
-                    .then((course) => courses.push(course))
+            Course.find({}).where('courseID').in(courseIDs).then((courses) => {
+                return res.status(200).json({
+                    user: student,
+                    courses: courses,
+                    status: 'Success',
+                    message: 'Student profile fetched successfully'
+                })
             })
 
-            return res.status(200).json({
-                user: student,
-                courses: courses,
-                status: 'Success',
-                message: 'Student profile fetched successfully'
-            })
         })
         .catch((err) => res.status(400).json({
             status: 'Failure',
