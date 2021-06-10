@@ -4,6 +4,7 @@ import './App.css'
 import { createContext, useReducer } from 'react'
 import SignUp from './pages/signup'
 import Login from './pages/login';
+import Profile from './pages/profile';
 
 export const AuthContext = createContext();
 const initialState = {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/signup" exact component={SignUp} />
         <Route path="/login" exact component={Login} />
+        <Route path="/profile" exact component={Profile} />
       </BrowserRouter>
     </div>
     </AuthContext.Provider>
