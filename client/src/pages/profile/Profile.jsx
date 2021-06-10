@@ -1,57 +1,80 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import StudentProfileStyles from './Profile.module.scss'
 import student from '../../assets/student.png'
-import logo from '../../assets/tempLogo.png'
-import course from '../../assets/tempCourseImg.png'
-import entrepreneur from '../../assets/entrepreneur.png'
-import { Link } from 'react-router-dom'
+import Navbar from '../../components/Navbar'
+import axios from 'axios'
+import { AuthContext } from '../../App'
+import Course from '../../components/Course'
+
 
 function Profile() {
-    const [step, setStep] = useState(0)
-    const [user, setUser] = useState("");
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
 
-    function handleInput(userType){
-        setUser(userType)
-    }
+    const { state, dispatch } = useContext(AuthContext)
+    const [user, setUser] = useState()
+    const [loading, setLoading] = useState(true)
 
+    console.log(state)
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/students/${state.user.id}`, {
+            headers: {
+                token: state.token
+            }
+        }).then((resp) => {
+            setUser(resp.data)
+            console.log(resp.data)
+            setLoading(false)
+        })
+    }, [])
 
     return (
-<div>
-    <div className={StudentProfileStyles.navBar}>
-        <img src={logo}/>
-            <h2>Company Name</h2>
-        </div>
-        <div className={StudentProfileStyles.wrapper}>
-            
-            <div className={StudentProfileStyles.container}>
-                
-                <div className={StudentProfileStyles.contentContainer}>
-                    <div>
-                        <div className={StudentProfileStyles.infoBar}>
-                                <h2>Anthony Davis</h2>
-                                <p>information</p>
-                                <p>information</p>
-                                <p>information</p>
-                        </div>
-                        <div>
-                            
-                            <img src={student} alt="error"/>
-                            <h1 className={StudentProfileStyles.header}>User Info</h1>
-                            <p className={StudentProfileStyles.subheader}>Your Recent Courses</p>
-                            <img src={course} alt=""/>
-                            <hr width="100%" size="5" color="#C4C4C4"/>
-                            <br/>
-                        </div>
-                        <p className={StudentProfileStyles.subheader}>Don't forget your deadlines!</p>
-                    </div>
+        <div>
+            < Navbar />
+            <div className={StudentProfileStyles.infoBar}>
+                <div className={StudentProfileStyles.info}>
+                    <h1>Name</h1>
+                    <h2>{state.user.name}</h2>
+                </div>
+                <div className={StudentProfileStyles.info}>
+                    <h1>Email</h1>
+                    <h2>{state.user.email}</h2>
+                </div>
+                <div className={StudentProfileStyles.info}>
+                    <h1>Bio</h1>
+                    <h2>Lorem Ipsum</h2>
                 </div>
             </div>
-            
+            <div className={StudentProfileStyles.wrapper}>
+
+                <div className={StudentProfileStyles.container}>
+
+                    <div className={StudentProfileStyles.contentContainer}>
+                        <div>
+
+                            <div>
+                                <h1 className={StudentProfileStyles.header}>User Info</h1>
+                                <p className={StudentProfileStyles.subheader}>Your Recent Courses</p>
+                                {loading ?
+                                    <h1>Loading</h1>
+                                    :
+                                    <div className={StudentProfileStyles.courseContainer}>
+                                        {user.courses.map((course) => {
+                                            return (
+                                                <Course course={course} />
+                                            )
+                                        })}
+                                    </div>
+                                }
+                                <hr width="100%" size="2" color="#C4C4C4" />
+                                <br />
+                            </div>
+                            <p className={StudentProfileStyles.subheader}>Don't forget your deadlines!</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-</div>
     )
 }
 

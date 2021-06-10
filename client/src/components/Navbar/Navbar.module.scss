@@ -4,11 +4,29 @@
     justify-content: space-between;
     background-color: #1A0936;
     width: 100%;
+    color: white;
     height: 85px;
 }
 
 .menu{
     width: 25px;
+}
+
+.linkContainer{
+    color: white;
+    padding-left: 20px;
+    height: 60px;
+    border-bottom: 2px solid grey;
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.link{
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
 }
 
 .menu:hover{
@@ -32,6 +50,7 @@
     font-size: 20px;
     font-family: "Roboto", sans-serif;
     margin-left: 20px;
+    color: white;
 }
 
 .pic{
