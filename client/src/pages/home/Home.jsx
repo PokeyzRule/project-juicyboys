@@ -4,12 +4,17 @@ import styles from './Home.module.scss'
 import {AuthContext} from '../../App'
 import axios from 'axios'
 import Course from '../../components/Course'
+import { useHistory } from 'react-router-dom'
 
 function Home() {
     const { state, dispatch } = useContext(AuthContext)
     const [ courses, setCourses ] = useState([]);
     const [ loading, setLoading ] = useState(true)
-    console.log(state)
+    const history = useHistory()
+    
+    if (!state.isAuthenticated){
+        history.push("/login")
+    }
 
     useEffect(() => {
         axios.get("http://localhost:5000/courses/", {
