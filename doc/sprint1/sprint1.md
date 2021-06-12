@@ -17,15 +17,6 @@ Complete basic frontend and backend functionality for teacher and student users.
 
 ## Participants/team capacity
 
-Gordon Xiong
-Ammar Tariq
-Zhiqi Chen
-Nevin Wong
-Vignesh Nanthakumar
-Keshavaa Shaiskandan
-
-## Task breakdown
-
 Gordon Xiong - Backend
 Ammar Tariq - Backend
 Zhiqi Chen - Backend
