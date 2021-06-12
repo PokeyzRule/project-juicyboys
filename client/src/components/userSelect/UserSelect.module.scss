@@ -1,0 +1,36 @@
+.container{
+    width: 170px;
+    height: 170px;
+    background-color: #F4F4F4;
+    border-radius: 50px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    border: 5px solid #F4F4F4;
+}
+
+.container:hover{
+    cursor: pointer;
+}
+
+.active{
+    border: 5px solid #6C63FF;
+}
+
+.title{
+    font-family: "Robota", sans-serif;
+    font-weight: 200;
+    font-size: 18px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.graphic{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    img{
+        margin-bottom: 20px;
+    }
+}

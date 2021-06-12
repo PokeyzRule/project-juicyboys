@@ -1,0 +1,66 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #1A0936;
+    width: 100%;
+    color: white;
+    height: 85px;
+}
+
+.menu{
+    width: 25px;
+}
+
+.linkContainer{
+    color: white;
+    padding-left: 20px;
+    height: 60px;
+    border-bottom: 2px solid grey;
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.link{
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+}
+
+.menu:hover{
+    cursor: pointer;
+}
+
+.drawer{
+    width: 320px;
+    background-color: #2C2C2C;
+    height: 100%;
+}
+
+.left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 25px;
+}
+
+.heading{
+    font-size: 20px;
+    font-family: "Roboto", sans-serif;
+    margin-left: 20px;
+    color: white;
+}
+
+.pic{
+    border-radius: 50%;
+    width: 35px;
+}
+
+.right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 25px;
+}

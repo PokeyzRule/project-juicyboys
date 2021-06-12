@@ -9,7 +9,7 @@
 | As a teacher user, I should be able to view student submissions for a given assignment to provide feecback and grades | John | Most Important |
 | As a teacher user, I should be able to upload various media types for course material delivery so student's have a variety of materials to work with | John | Most Important |
 | As a company, I should have a dedicated page to list all relevant info about the company | Timothy | Most Important |
-| As a user, I should be able to search/filter for courses and profiles I want to find to easily join classes I'm interested in | Paula | Most Important |
+| As a user, I should be able to search/filter for courses and profiles I want to find to easily join classes I'm interested in on a landing page feed | Paula | Most Important |
 | As a user, I should be able to create/edit posts, delete posts and submissions, like and comment on posts in case of errors and mistakes | Any | Most Important | 
 | As a user, I should be able to create company profiles for upcoming startups so others can see my idea and join! | Timothy | Most Important |
 | As a user, I should also be able to browse a feed to be prompted with startups/classes to be able to find new communities to join easily | Timothy | Important |
