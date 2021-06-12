@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
 const cors = require('cors')
+const swaggerUI = require('swagger-ui-express')
+const YAML = require('yamljs')
+const swaggerDoc = YAML.load('./swagger.yml')
 require('dotenv').config();
 
 const app = express();
@@ -27,6 +30,7 @@ mongoose
 app.use('/courses', courses);
 app.use('/students', students);
 app.use('/auth', users)
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
 
 // Server setup
 const port = process.env.PORT || 5000;
