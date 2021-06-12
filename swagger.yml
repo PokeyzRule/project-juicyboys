@@ -1,0 +1,250 @@
+openapi: 3.0.0
+info:
+  title: JUICY BOYS
+  description: Backend API for CSCC01 Project
+  version: 0.1.9
+servers:
+  - url: http://localhost:5000/
+    description: For local version, for development testing and usage
+paths:
+  /auth/register:
+    post:
+      tags:
+      - "Authentication"
+      summary: Logs in a user and provides a jwt token for uploading images
+      description: Provide email and password to login to pre-existing account to upload images
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: testuser
+                email:
+                  type: string
+                  example: testuser@gmail.com
+                password:
+                  type: string
+                  example: password
+                type:
+                  type: string
+                  enum: [student, teacher, entrepreneur]
+      responses:
+        200:    # status code
+          description: A JSON object containing your user object and a jwt token valid for 1 hour
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.elYTVjODY4MGRlMDg1ODQwNjZkYyIsImlhdCI6MTYyMDQ1MDM0NSwiZXhwIjoxNjIwNDUzOTQ1fQ.qWF4jABj9NLv2vfKcKI_CoGB0_gg5vpTOE2IXG4xDo4
+                  user:
+                    type: object
+                    properties:
+                      name: 
+                        type: string
+                        example: loggedInUser
+                      email: 
+                        type: string
+                        example: loggedInUser@gmail.com
+                      id: 
+                        type: string
+                        example: 6089ea5c8680de08584066dc
+                      type:
+                        type: string
+                        enum: [student, teacher, entrepreneur]
+        400:
+          description: Request body missing necessary fields OR user doesn't exist
+  /auth/login:
+    post:
+      tags:
+      - "Authentication"
+      summary: Logs in a user and provides a jwt token for uploading images
+      description: Provide email and password to login to pre-existing account to upload images
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: testuser@gmail.com
+                password:
+                  type: string
+                  example: password
+      responses:
+        200:    # status code
+          description: A JSON object containing your user object and a jwt token valid for 1 hour
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.elYTVjODY4MGRlMDg1ODQwNjZkYyIsImlhdCI6MTYyMDQ1MDM0NSwiZXhwIjoxNjIwNDUzOTQ1fQ.qWF4jABj9NLv2vfKcKI_CoGB0_gg5vpTOE2IXG4xDo4
+                  user:
+                    type: object
+                    properties:
+                      name: 
+                        type: string
+                        example: loggedInUser
+                      email: 
+                        type: string
+                        example: loggedInUser@gmail.com
+                      id: 
+                        type: string
+                        example: 6089ea5c8680de08584066dc
+                      type:
+                        type: string
+                        enum: [student, teacher, entrepreneur]
+        400:
+          description: Request body missing necessary fields OR user doesn't exist
+  /student/{id}:
+    get:
+      tags:
+      - "Student"
+      summary: Retrieves user profile of student user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing your user object and a jwt token valid for 1 hour
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      name: 
+                        type: string
+                        example: loggedInUser
+                      email: 
+                        type: string
+                        example: loggedInUser@gmail.com
+                      id: 
+                        type: string
+                        example: 6089ea5c8680de08584066dc
+                      type:
+                        type: string
+                        enum: [student, teacher, entrepreneur]
+                  courses:
+                    type: object
+                  status:
+                    type: string
+                    enum: [success,failure]
+                  msg:
+                    type: string
+        400:
+          description: Request body missing necessary fields OR user doesn't exist
+  /courses/:
+    get:
+      tags:
+      - "Course"
+      summary: Retrieves all available courses
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing your user object and a jwt token valid for 1 hour
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  courses:
+                    type: object
+        400:
+          description: Bad token
+  /courses/create:
+    post:
+      tags:
+      - "Course"
+      summary: Creates a new course for a teacher
+        - in: header
+          name: token
+          type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                color:
+                  type: string
+                teacher:
+                  type: string
+      responses:
+        200:    # status code
+          description: A JSON object containing your user object and a jwt token valid for 1 hour
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  code:
+                    type: string
+                  status:
+                    type: string
+                    enum: [success,failure]
+                  msg:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /courses/enroll:
+    post:
+      tags:
+      - "Course"
+      summary: Enrolls a student into a course
+        - in: header
+          name: token
+          type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                courseID:
+                  type: string
+                studentID:
+                  type: string
+      responses:
+        200:    # status code
+          description: A JSON object containing your user object and a jwt token valid for 1 hour
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  code:
+                    type: string
+                  status:
+                    type: string
+                    enum: [success,failure]
+                  msg:
+                    type: string
+        400:
+          description: Bad token or missing fields
