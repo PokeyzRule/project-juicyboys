@@ -15,6 +15,14 @@ Complete basic frontend and backend functionality for teacher and student users.
 | As a student user, I should be able to view potential classes to join and enroll in new courses on my landing page |
 | As a teacher user, I should be able to upload various media types for course material delivery so student's have a variety of materials to work with |
 
+## Taks Breakdown
+
+Task breakdown can be seen on JIRA but half the group was split into frontend and the other half into backend. This was done to see team member's strong and weak points for future sprints and planning. Future sprints will now be planned keeping each team member's weaknesses and strenghts in mind to more effectively finish tasks and user stories.
+
+## Sprint Decisions
+
+The stories that were worked on during this sprint are the most basic yet fundamental stories that needed to be finished first before further features are implemented. This includes but isn't limited to establishing authentication, basic profile creation, security middlewares, course creation and enrolling students into those courses. Future stories will levereage implementations made in Sprint 1 which is why Sprint 1 was key for establishing db structure, project architecture and workflows.
+
 ## Participants/team capacity
 
 Gordon Xiong - Backend
