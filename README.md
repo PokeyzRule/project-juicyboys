@@ -47,6 +47,21 @@ ATLAS_URI=mongodb+srv://ammarT:C7kHJ42WzHCbuvEG@juicyboys.bqnoy.mongodb.net/myFi
 ```shell
 $ npm run dev
 ```
+## Documentation for backend
+
+Documentation for backend routes can be viewed at localhost:5000/api-docs when project is run locally. URLs, type of request, request and response bodies are all documented there.
+
+## Documentation for frontend
+
+Each page is given a dedicated directory under ```/client/src/pages```, in which 3 files should exist:
+```
+index.js - For exporting the jsx element
+PAGE.jsx - Frontend page component
+PAGE.MODULE.SCSS - Scoped scss for styling
+```
+Furthermore components can also be created under ```/client/src/components/``` in which the same 3 files should exist under each dedicated directory.
+Assets like pictures and svgs can be saved under the ```assets``` folder for frontend use.
+
 
 ## Contribution
 
