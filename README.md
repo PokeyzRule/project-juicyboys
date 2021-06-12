@@ -76,7 +76,7 @@ $ git pull
 ### 1. Create a feature branch from develop
 Create new branch names following the convention used below.
 ```shell
-$ git switch -c feature/JUIC-{JIRA ISSUE NUMBER} develop
+$ git checkout -b feature/JUIC-{JIRA ISSUE NUMBER} develop
 ```
 
 ### 2. Commit changes and push them

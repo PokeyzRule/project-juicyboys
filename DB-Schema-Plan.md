@@ -41,3 +41,13 @@
 ### Entrepreneur Endpoints
 
 - [ ] /getCompany
+
+### General User Schema
+
+- Name (String)
+- Email (String, UNIQUE FIELD)
+- Current Courses (Array, filled with document IDs of Courses enrolled)
+- Passowrd (String, Hashed)
+- Type (String, has a value of either Student, Teacher, Entrepreneur)
+- ID (String, corresponds to the ID of their document)
+
