@@ -1,29 +1,24 @@
-import axios from 'axios'
 import React, { useContext, useState } from 'react'
+import courseAPI from '../../api/courseAPI'
 import { AuthContext } from '../../App'
 import styles from './Course.module.scss'
 
 
 function Course({course}) {
-    const { state, dispatch } = useContext(AuthContext)
+    const { state } = useContext(AuthContext)
     const [ isEnrolled, setEnrolled ] = useState(course.students.includes(state.user.id))
     console.log(course)
 
     function enrollCourse(e) {
         e.preventDefault()
+
         const body = JSON.stringify({ courseID: course.courseID, studentID: state.user.id})
-        axios({
-            method: 'post',
-            url: 'http://localhost:5000/courses/enroll',
-            data: body,
-            headers: {
-                'Content-Type': 'application/json',
-                token: state.token
-            }
-        }).then((resp) => {
-            console.log(resp)
-            setEnrolled(true)
-        })
+        
+        courseAPI.enrollCourse(body).then(
+            (response) => {
+                console.log(response)
+                setEnrolled(true)
+            })
     }
 
     return (
