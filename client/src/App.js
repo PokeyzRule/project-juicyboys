@@ -5,40 +5,13 @@ import { createContext, useReducer } from 'react'
 import SignUp from './pages/signup'
 import Login from './pages/login';
 import Profile from './pages/profile';
+import authReducer, { initialState } from './reducers/authReducer'
 
 export const AuthContext = createContext();
-const initialState = {
-    isAuthenticated: false,
-    user: localStorage['user'] ? localStorage['user'] : null,
-    token: localStorage['token'] ? localStorage['token'] : null
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-      case "LOGIN":
-          localStorage.setItem("user", JSON.stringify(action.payload.user));
-          localStorage.setItem("token", JSON.stringify(action.payload.token));
-          return {
-              ...state,
-              isAuthenticated: true,
-              user: action.payload.user,
-              token: action.payload.token
-          }
-      case "LOGOUT":
-          localStorage.clear();
-          return {
-              ...state,
-              isAuthenticated: false,
-              user: null
-          }
-      default: 
-          return state;
-  }
-}
 
 function App() {
 
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(authReducer, initialState)
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>

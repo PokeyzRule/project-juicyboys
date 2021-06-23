@@ -3,8 +3,8 @@ import LoginStyles from '../signup/Login.module.scss'
 import { Link } from 'react-router-dom'
 import LoginImage from '../../assets/Login.png'
 import { AuthContext } from '../../App'
-import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import { loginUser } from '../../actions/authActions'
 
 function Login() {
     const [password, setPassword] = useState("")
@@ -13,26 +13,11 @@ function Login() {
     const history = useHistory()
 
     function handleSubmit(e) {
-
         e.preventDefault();
-        const body = JSON.stringify({ email, password })
-        console.log(body)
-        axios({
-            method: 'post',
-            url: 'http://localhost:5000/auth/login',
-            data: body,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).then((resJson => {
-            console.log(resJson)
-            dispatch({
-                type: "LOGIN",
-                payload: resJson.data
-            })
-        })).catch(error => {
-            console.log(error)
-        })
+
+        const data = JSON.stringify({ email, password })
+
+        loginUser(data, dispatch)
     }
 
     if (state.isAuthenticated){
