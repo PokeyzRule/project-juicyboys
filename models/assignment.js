@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Comment = require('./comment').schema
 const Schema = mongoose.Schema
 
 const AssignmentSchema = new Schema({
