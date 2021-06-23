@@ -19,7 +19,7 @@ const AssignmentSchema = new Schema({
     default: []
   },
   comments: {
-    type: [Object],
+    type: [Comment],
     default: []
   },
   dueDate: {
