@@ -3,6 +3,10 @@ const Schema = mongoose.Schema
 
 const CommentSchema = new Schema(
   {
+    commentID: {
+      type: Schema.Types.ObjectId,
+      auto: true
+    },
     userID: {
       type: String,
       required: true,
