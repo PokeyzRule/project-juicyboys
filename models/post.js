@@ -4,6 +4,10 @@ const Schema = mongoose.Schema
 
 const PostSchema = new Schema(
   {
+    postID: {
+      type: Schema.Types.ObjectId,
+      auto: true
+    },
     courseID: {
       type: String,
       required: true
