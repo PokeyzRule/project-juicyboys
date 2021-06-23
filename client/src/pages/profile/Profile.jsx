@@ -2,27 +2,20 @@ import React, { useState, useEffect, useContext } from 'react'
 import StudentProfileStyles from './Profile.module.scss'
 import student from '../../assets/student.png'
 import Navbar from '../../components/Navbar'
-import axios from 'axios'
 import { AuthContext } from '../../App'
 import Course from '../../components/Course'
+import studentAPI from '../../api/studentAPI'
 
 
 function Profile() {
 
-    const { state, dispatch } = useContext(AuthContext)
+    const { state } = useContext(AuthContext)
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(true)
 
-    console.log(state)
-
     useEffect(() => {
-        axios.get(`http://localhost:5000/students/${state.user.id}`, {
-            headers: {
-                token: state.token
-            }
-        }).then((resp) => {
-            setUser(resp.data)
-            console.log(resp.data)
+        studentAPI.getStudentByID(state.user.id).then((response) => {
+            setUser(response.data)
             setLoading(false)
         })
     }, [])

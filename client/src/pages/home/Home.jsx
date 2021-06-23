@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import styles from './Home.module.scss'
 import {AuthContext} from '../../App'
-import axios from 'axios'
 import Course from '../../components/Course'
 import { useHistory } from 'react-router-dom'
+import courseAPI from '../../api/courseAPI'
 
 function Home() {
-    const { state, dispatch } = useContext(AuthContext)
+    const { state } = useContext(AuthContext)
     const [ courses, setCourses ] = useState([]);
     const [ loading, setLoading ] = useState(true)
     const history = useHistory()
@@ -17,12 +17,8 @@ function Home() {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:5000/courses/", {
-            headers: {
-                token: state.token
-            }
-        }).then((resp) => {
-            setCourses(resp.data.courses)
+        courseAPI.getAllCourses().then((response) => {
+            setCourses(response.data.courses)
             setLoading(false)
         })
     }, [])
