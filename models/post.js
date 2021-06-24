@@ -27,10 +27,6 @@ const PostSchema = new Schema(
     likes: {
       type: [String],
       default: []
-    },
-    comments: {
-      type: [Comment],
-      default: []
     }
   },
   { timestamps: true }
