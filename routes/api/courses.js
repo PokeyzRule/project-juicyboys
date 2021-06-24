@@ -32,6 +32,25 @@ router.get('/', auth, (req, res) => {
 })
 
 /**
+ * @route       GET /:courseID
+ * @queryParam  courseID to search
+ * @desc        Fetch the course specified by the provided courseID
+ * @access      Authenticated users
+ */
+router.get("/:courseID", auth, (req, res) => {
+  Course.findOne({ courseID: req.params.courseID })
+    .then(course => res.status(200).json({
+      status: 'success',
+      msg: 'Course retrieved successfully',
+      course: course,
+    }))
+    .catch(() => res.status(400).json({
+      status: 'failure',
+      msg: 'Course retrieval failed',
+    }))
+})
+
+/**
  * @route   POST create
  * @desc    Create a course
  * @access  Authenticated users
