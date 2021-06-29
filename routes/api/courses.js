@@ -93,6 +93,7 @@ router.post('/createAssignment', auth, async (req, res) => {
   const newAssignment = new Assignment({
     title: req.body.title,
     description: req.body.desc,
+    courseID: req.body.courseID,
     uploads: req.body.uploads,
     dueDate: req.body.dueDate,
     assignedDate: req.body.assignedDate,
