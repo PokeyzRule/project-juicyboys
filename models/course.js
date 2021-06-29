@@ -19,6 +19,10 @@ const CourseSchema = new Schema({
     type: [String],
     default: [],
   },
+  assignments: {
+    type: [String],
+    default: []
+  },
   color: {
     type: String,
     required: true,

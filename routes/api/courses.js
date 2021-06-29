@@ -3,6 +3,7 @@ const router = express.Router()
 const auth = require('../../middleware/auth')
 
 // Models
+const Assignment = require('../../models/assignment')
 const Course = require('../../models/course')
 const Student = require('../../models/student')
 
@@ -39,11 +40,19 @@ router.get('/', auth, (req, res) => {
  */
 router.get("/:courseID", auth, (req, res) => {
   Course.findOne({ courseID: req.params.courseID })
-    .then(course => res.status(200).json({
-      status: 'success',
-      msg: 'Course retrieved successfully',
-      course: course,
-    }))
+    .then(course => {
+      const assignmentIDs = course.assignments
+
+      Assignment.find().where('assignmentID').in(assignmentIDs)
+        .then(assignments =>
+          res.status(200).json({
+            status: 'success',
+            msg: 'Course retrieved successfully',
+            course: course,
+            assignments: assignments
+          })
+        )
+    })
     .catch(() => res.status(400).json({
       status: 'failure',
       msg: 'Course retrieval failed',
@@ -72,6 +81,40 @@ router.post('/create', auth, (req, res) => {
       status: 'failure',
       msg: 'Course creation failed',
     }))
+})
+
+/**
+ * @route   POST createAssignment
+ * @desc    Create an assignment for a course
+ * @access  Authenticated users
+ */
+router.post('/createAssignment', auth, async (req, res) => {
+  const courseID = req.body.courseID
+  const newAssignment = new Assignment({
+    title: req.body.title,
+    description: req.body.desc,
+    uploads: req.body.uploads,
+    dueDate: req.body.dueDate,
+    assignedDate: req.body.assignedDate,
+  })
+
+  try {
+    let assignment = await newAssignment.save()
+    await Course.updateOne({ courseID }, { $addToSet: { assignments: assignment.assignmentID } })
+
+    res.status(200).json({
+      status: 'success',
+      msg: 'Assignment created successfully',
+      assignmentID: assignment.assignmentID,
+    })
+  } catch (err) {
+    res.status(400).json({
+      status: 'failure',
+      msg: 'Assignment creation failed',
+      err: err
+    })
+  }
+
 })
 
 /**
