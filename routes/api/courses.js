@@ -130,7 +130,6 @@ router.post("/submitAssignment", auth, async(req, res) => {
 
   try {
     let submissionConfirmation = await submission.save()
-    console.log(submissionConfirmation)
 
     await Assignment.updateOne({ assignmentID }, { $addToSet: { submissions: submissionConfirmation._id } })
 
