@@ -6,6 +6,7 @@ const auth = require('../../middleware/auth')
 const Assignment = require('../../models/assignment')
 const Course = require('../../models/course')
 const Student = require('../../models/student')
+const Submission = require("../../models/submission")
 
 /**
  * @route        GET /
@@ -112,6 +113,35 @@ router.post('/createAssignment', auth, async (req, res) => {
     res.status(400).json({
       status: 'failure',
       msg: 'Assignment creation failed',
+      err: err
+    })
+  }
+
+})
+
+router.post("/submitAssignment", auth, async(req, res) => {
+  const assignmentID = req.body.assignmentID;
+  const submission = new Submission({
+    date: Date.now(),
+    uploads: req.body.uploads,
+    studentID: req.body.studentID,
+    assignmentID: req.body.assignmentID
+  })
+
+  try {
+    let submissionConfirmation = await submission.save()
+
+    await Assignment.updateOne({ assignmentID }, { $addToSet: { submissions: submissionConfirmation._id } })
+
+    res.status(200).json({
+      status: 'success',
+      msg: 'Assignment submission submitted successfully',
+      submission,
+    })
+  } catch (err) {
+    res.status(400).json({
+      status: 'failure',
+      msg: 'Assignment submission failed',
       err: err
     })
   }
