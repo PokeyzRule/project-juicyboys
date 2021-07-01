@@ -6,11 +6,13 @@ export const enrollCourse = (payload) => axiosClient.post(`/courses/enroll`, pay
 
 // GET
 export const getAllCourses = () => axiosClient.get(`/courses`);
+export const getCourseByID = (id) => axiosClient.get(`/courses/${id}`);
 
 const courseAPI = {
     insertCourse,
     enrollCourse,
-    getAllCourses
+    getAllCourses,
+    getCourseByID,
 };
 
 export default courseAPI;
