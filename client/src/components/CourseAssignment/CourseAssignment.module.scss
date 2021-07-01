@@ -1,0 +1,46 @@
+.container{
+    width: 350px;
+    margin-bottom: 25px;
+    margin-right: 25px;
+}
+
+.background{
+    background-color: #C4C4C4;
+    height: 160px;
+    padding: 20px;
+    color: black;
+}
+
+.info{
+    background-color: #ECECEC;
+    min-height: 75px;
+    height: fit-content;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title{
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+}
+
+.subtitle{
+    padding-top: 15px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 200;
+}
+
+.desc{
+    font-family: "Roboto", sans-serif;
+    font-weight: 200;
+    color: black;
+}
+
+.details{
+    margin-top: 20px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    color: black;
+}
