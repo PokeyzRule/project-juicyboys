@@ -119,7 +119,7 @@ router.post('/createAssignment', auth, async (req, res) => {
 
 })
 
-router.post("/submitAssignment", auth, async(req, res) => {
+router.post("/submitAssignment", auth, async (req, res) => {
   const assignmentID = req.body.assignmentID;
   const submission = new Submission({
     date: Date.now(),
