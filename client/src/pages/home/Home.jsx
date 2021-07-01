@@ -5,10 +5,13 @@ import {AuthContext} from '../../App'
 import Course from '../../components/Course'
 import { useHistory } from 'react-router-dom'
 import courseAPI from '../../api/courseAPI'
+import postAPI from '../../api/postAPI'
+import Post from '../../components/Post'
 
 function Home() {
     const { state } = useContext(AuthContext)
     const [ courses, setCourses ] = useState([]);
+    const [ posts, setPosts ] = useState([]);
     const [ loading, setLoading ] = useState(true)
     const history = useHistory()
     
@@ -20,6 +23,11 @@ function Home() {
         courseAPI.getAllCourses().then((response) => {
             setCourses(response.data.courses)
             setLoading(false)
+        })
+        postAPI.getPostsByCourseId('60bda486097d6b6a8294b91e').then((response) => {
+            setPosts(response.data.posts)
+            setLoading(false)
+            console.log(posts)
         })
     }, [])
 
@@ -41,6 +49,15 @@ function Home() {
                         <Course course={course}/>
                     )
                 })
+                }
+            </div>
+            <div className={styles.postContainer}>
+                {loading ? <h1>Loading</h1> : 
+                    posts.map((post) => {
+                        return(
+                            <Post post={post}/>
+                        )
+                    })
                 }
             </div>
         </div>

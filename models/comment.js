@@ -7,11 +7,11 @@ const CommentSchema = new Schema(
       type: Schema.Types.ObjectId,
       auto: true
     },
-    userID: {
+    postID: {
       type: String,
       required: true,
     },
-    postID: {
+    author: {
       type: String,
       required: true,
     },
