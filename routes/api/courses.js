@@ -15,7 +15,7 @@ const Submission = require("../../models/submission")
  * @desc         Fetch all courses with pagination
  * @access       Authenticated users
  */
-router.get('/', auth, (req, res) => {
+router.get('/', (req, res) => {
   let limit = parseInt(req.query.limit) || 10
   let page = (Math.abs(req.query.page) || 1) - 1;
 
