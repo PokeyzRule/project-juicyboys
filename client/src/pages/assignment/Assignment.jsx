@@ -64,21 +64,21 @@ function Assignment() {
 
                     <div className={assignmentStyles.contentContainer}>
                         <div>
+                            <h1 className={assignmentStyles.header}>Create Course</h1>
                             <div className={assignmentStyles.credentialsContainer}>
-                                <h1 className={assignmentStyles.header}>Create Course</h1>
                                 <p className={assignmentStyles.label}>Course Name</p>
                                 <input className={assignmentStyles.input} onChange={(e) => {setNewCourseName(e.target.value)}}/>
                                 <p className={assignmentStyles.label}>Description</p>
                                 <input className={assignmentStyles.input} onChange={(e) => {setNewCourseDescription(e.target.value)}}/>
                                 <div className={assignmentStyles.next}>
-                                    <button onClick={(e) => newCourse(e)} style={{backgroundColor:"#6C63FF"}}>Create Assignment</button>
-                                </div>
+                                    <button onClick={(e) => newCourse(e)} style={{backgroundColor:"#6C63FF"}}>Create Course</button>
+                            </div>
 
                             </div>
                             <br/><br/>
                             <div>
+                                <h1 className={assignmentStyles.header}>Create New Assigment By Selecting Course</h1>
                                 <div className={assignmentStyles.credentialsContainer}>
-                                    <h1 className={assignmentStyles.header}>Create New Assigment by selecting course</h1>
                                     <div className={assignmentStyles.courseContainer}>
                                         {/* {loading ? <h1>Loading</h1> : 
                                         // courses.map((course) => {
