@@ -57,3 +57,27 @@
     margin-left: 75px;
     margin-right: 75px;
 }
+
+.searchContainer{
+    margin-left: 75px;
+    margin-top: 25px;
+    margin-right: 75px;
+    display: flex;
+    justify-content: center;
+}
+
+.search{
+    outline: none;
+    border: none;
+    background-color: #f1f0f0;
+    height: 25px;
+    width: 200px;
+    padding: 10px;
+    font-family: "Roboto", sans-serif;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
