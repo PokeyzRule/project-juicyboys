@@ -39,11 +39,11 @@ function CoursePage() {
             })
             setPastAssignments(past)
             setUpcomingAssignments(upcoming)
-            setLoading(false)
-        })
-        postAPI.getPostsByCourseId(id).then((response) => {
-            setPosts(response.data.posts)
-            setLoading(false)
+        }).then(() => {
+            postAPI.getPostsByCourseId(id).then((response) => {
+                setPosts(response.data.posts)
+                setLoading(false)
+            })
         })
     }, [id])
 
@@ -135,6 +135,7 @@ function CoursePage() {
                                 setPosts={setPosts}
                                 handleClose={toggleCreatePost}
                             />}
+                            <div className={CoursePageStyles.divider}></div>
                             <div className={CoursePageStyles.postsFeed}>
                                 {loading ? <h1>Loading</h1> : 
                                     posts.map((post) => {

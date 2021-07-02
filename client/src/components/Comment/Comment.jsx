@@ -7,7 +7,6 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Delete from '@material-ui/icons/Delete';
-import studentAPI from "../../api/studentAPI";
 
 const Comment = ({comment, deleteComment}) => {
 
