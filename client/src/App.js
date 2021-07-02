@@ -7,6 +7,7 @@ import Login from './pages/login';
 import Profile from './pages/profile';
 import CoursePage from './pages/course';
 import authReducer, { initialState } from './reducers/authReducer'
+import Assignment from './pages/assignment';
 
 export const AuthContext = createContext();
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/profile" exact component={Profile} />
           <Route path="/course/:id" exact component={CoursePage} />
+          <Route path="/assignment" exact component={Assignment} />
         </BrowserRouter>
       </div>
     </AuthContext.Provider>
