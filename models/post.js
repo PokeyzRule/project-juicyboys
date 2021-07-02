@@ -15,6 +15,10 @@ const PostSchema = new Schema(
       type: String,
       required: true
     },
+    creator: {
+      type: String,
+      required: true
+    },
     message: {
       type: String,
       required: true
