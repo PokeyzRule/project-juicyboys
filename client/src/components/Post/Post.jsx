@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../App'
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -11,37 +11,31 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CommentIcon from '@material-ui/icons/Comment';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import styles from './Post.module.scss'
 import CommentsPopup from '../CommentsPopup/CommentsPopup';
 import postAPI from '../../api/postAPI';
 
-function Post({ post }) {
+function Post({ post, deletePost }) {
     
     const { state } = useContext(AuthContext)
+    const user = JSON.parse(state.user);
     const [isOpen, setIsOpen] = useState(false);
     const [likes, setLikes] = useState(post.likes);
+    const [comments, setComments] = useState(post.comments);
 
-    const handleClick = (event) => {
-        
-    };
-
-    const openComments = () => {
-        setIsOpen(!isOpen);
-    }
+    const toggleComments = () => setIsOpen(!isOpen);
 
     const toggleLike = async () => {
         const like = {
             postID: post.postID,
-            likerID: state.user.id
+            likerID: user.id
         };
-        if (!likes.includes(state.user.id)) {
-            setLikes([...likes, state.user.id])
+        if (!likes.includes(user.id)) {
+            setLikes([...likes, user.id])
             await postAPI.addLike(like)
         } else {
-            setLikes(likes.filter(like => like !== state.user.id))
+            setLikes(likes.filter(like => like !== user.id))
             await postAPI.removeLike(like)
         }
     }
@@ -55,40 +49,38 @@ function Post({ post }) {
                     </Avatar>
                 }
                 action={
-                    state.user.id == post.userID ? <div> 
-                        <IconButton aria-label="edit" onClick={handleClick}>
-                            <EditIcon />
-                        </IconButton>
-                        <IconButton aria-label="delete" onClick={handleClick}>
+                    user.id == post.userID ? <div> 
+                        <IconButton aria-label="delete" onClick={() => deletePost(post.postID)}>
                             <DeleteIcon />
                         </IconButton>
                     </div> : null
                 }
                 title={post.creator}
-                subheader={new Date(post.date).toDateString()}
+                subheader={new Date(post.createdAt).toDateString()}
             />
-            {post.mediaURL ? <CardMedia
-                className={styles.media}
-                src={post.mediaURL}
-                title="Paella dish"
-            /> : null}
             <CardContent>
                 <Typography variant="body1" color="textPrimary" component="p">
                 {post.message}
                 </Typography>
             </CardContent>
+            {post.mediaURL ? <CardMedia> 
+                <img className={styles.media} src={post.mediaURL}/> 
+            </CardMedia> : null}
             <CardActions disableSpacing>
-                <div style={{ color: 'black', fontSize: 20, marginLeft: 10 }}>{likes.length} </div>
+                <div className={styles.values}>{likes.length} </div>
                 <IconButton aria-label="like" onClick={toggleLike}>
-                    {likes.includes(state.user.id) ? <FavoriteIcon htmlColor="red"/> : <FavoriteBorderIcon htmlColor="red"/>}
+                    {likes.includes(user.id) ? <FavoriteIcon htmlColor="red"/> : <FavoriteBorderIcon htmlColor="red"/>}
                 </IconButton>
-                <div style={{ color: 'black', fontSize: 20, marginLeft: 10 }}>{post.comments.length} </div>
-                <IconButton aria-label="comment" onClick={openComments}>
+                <div className={styles.values}>{comments.length} </div>
+                <IconButton aria-label="comment" onClick={toggleComments}>
                      <CommentIcon htmlColor="blue"/>
                 </IconButton>
                 {isOpen && <CommentsPopup
-                    comments={post.comments}
-                    handleClose={openComments}
+                    post={post}
+                    author={user.name}
+                    comments={comments}
+                    setComments={setComments}
+                    handleClose={toggleComments}
                 />}
             </CardActions>
     </Card>

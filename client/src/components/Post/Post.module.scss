@@ -1,10 +1,13 @@
 .root {
-    max-width: 345,
+    width: 80%;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%) !important;
 }
 
 .media {
-    height: 140;
-    padding-top: '56.25%'; // 16:9
+    height: 20em;
+    width: 100%;
+    margin-top: 30;
 }
 
 .expand {
@@ -20,9 +23,7 @@
     background-color: red;
 }
 
-.likeComment {
-    font-weight: 'bold';
-    font-size: 18; 
-    margin-left: 10; 
-    margin-right: -5;
+.values {
+    font-family: "Roboto", sans-serif;
+    margin-left: 10px;
 }

@@ -2,17 +2,29 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import CoursePageStyles from './CoursePage.module.scss'
 import Navbar from '../../components/Navbar'
+import { Button } from '@material-ui/core';
+import Post from '../../components/Post'
 import courseAPI from '../../api/courseAPI'
+import postAPI from '../../api/postAPI'
 import CourseAssignment from '../../components/CourseAssignment/CourseAssignment'
-
+import CreatePost from '../../components/CreatePost';
 
 function CoursePage() {
 
     const { id } = useParams()
     const [course, setCourse] = useState()
+    const [posts, setPosts] = useState([])
     const [pastAssignments, setPastAssignments] = useState()
     const [upcomingAssignments, setUpcomingAssignments] = useState()
+    const [isOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true)
+
+    const toggleCreatePost = () => setIsOpen(!isOpen);
+
+    const deletePost = async (id) => {
+        await postAPI.deletePost(id);
+        setPosts(posts.filter(post => post.postID !== id))
+    }
 
     useEffect(() => {
         courseAPI.getCourseByID(id).then((response) => {
@@ -27,6 +39,10 @@ function CoursePage() {
             })
             setPastAssignments(past)
             setUpcomingAssignments(upcoming)
+            setLoading(false)
+        })
+        postAPI.getPostsByCourseId(id).then((response) => {
+            setPosts(response.data.posts)
             setLoading(false)
         })
     }, [id])
@@ -107,8 +123,27 @@ function CoursePage() {
                             </div>
                         </div>
                         <div className={CoursePageStyles.postsContainer}>
-                            <h1 className={CoursePageStyles.header}>Posts Feed</h1>
-                            <p className={CoursePageStyles.subheader}>TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO </p>
+                            <h1 className={CoursePageStyles.header}>
+                                Posts
+                                <Button variant="contained" color="primary" style={{float: 'right'}} onClick={toggleCreatePost}>
+                                       Create Post
+                                </Button>
+                            </h1>
+                            {isOpen && <CreatePost
+                                courseID={id}
+                                posts={posts}
+                                setPosts={setPosts}
+                                handleClose={toggleCreatePost}
+                            />}
+                            <div className={CoursePageStyles.postsFeed}>
+                                {loading ? <h1>Loading</h1> : 
+                                    posts.map((post) => {
+                                        return(
+                                            <Post key={post.postID} post={post} deletePost={deletePost}/>
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

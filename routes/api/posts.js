@@ -11,14 +11,15 @@ router.post('/create', auth, (req, res) => {
     const newPost = new Post({
         courseID: req.body.courseID,
         userID: req.body.userID,
+        creator: req.body.creator,
         message: req.body.message,
         mediaURL: req.body.mediaURL,
-      })
+    })
     
     newPost.save().then(post => res.status(200).json({
         status: 'success',
         msg: 'Post created successfully',
-        code: post.postID,
+        post: post,
     })).catch(() => res.status(400).json({
         status: 'failure',
         msg: 'Post creation failed',
@@ -62,7 +63,7 @@ router.get('/course/:id', auth, (req, res) => {
                 postID: post.postID,
                 userID: post.userID,
                 creator: creator,
-                date: post.createdAt,
+                createdAt: post.createdAt,
                 message: post.message,
                 mediaURL: post.mediaURL,
                 likes: likerIDs,
@@ -79,7 +80,7 @@ router.get('/course/:id', auth, (req, res) => {
     })
     .catch((err) => res.status(400).json({
         status: 'Failure!',
-        message: 'Unable to retrieve posts'
+        message: 'Unable to retrieve posts' + err
     }))
 })
 
@@ -153,7 +154,7 @@ router.post('/comments/create', auth, (req, res) => {
         res.status(200).json({
             status: 'Success',
             msg: 'Comment created successfully',
-            code: comment.commentID,
+            comment: comment,
         })
     }).catch(() => res.status(400).json({
         status: 'Failure',
