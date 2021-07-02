@@ -50,6 +50,14 @@
     flex-wrap: wrap;
 }
 
+.postContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
 .searchContainer{
     margin-left: 75px;
     margin-top: 25px;

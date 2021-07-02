@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow-y: scroll; 
 }
 
 .container{
@@ -43,8 +44,14 @@
     grid-template-columns: repeat(auto-fit, 1fr);
 }
 
-.postsContainer{
+.postsContainer {
     width: 31%;
+}
+
+.postsFeed {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .infoBar{
@@ -80,6 +87,14 @@
     }
 }
 
+.divider {
+    height: 3px;
+    margin-left: 0px;
+    margin-right: 115px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #CCCCCC;
+}
 
 .carousel{
     display: flex;
@@ -92,6 +107,7 @@
     font-family: "Roboto", sans-serif;
     font-weight: normal;
     margin-bottom: 10px;
+    width: 80%
 }
 
 .subheader{

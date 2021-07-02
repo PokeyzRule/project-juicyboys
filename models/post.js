@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const Comment = require('./comment').schema
 const Schema = mongoose.Schema
 
 const PostSchema = new Schema(
@@ -16,9 +15,17 @@ const PostSchema = new Schema(
       type: String,
       required: true
     },
+    creator: {
+      type: String,
+      required: true
+    },
     message: {
       type: String,
       required: true
+    },
+    comments: {
+      type: [String],
+      default: []
     },
     mediaURL: {
       type: String,
