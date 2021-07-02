@@ -17,12 +17,12 @@ function Assignment() {
     // const [ uploads, setUploads] = useState("")
     // const [ submissions, setSubmissions] = useState("")
     // const [ comments, setComments] = useState("")
-    const [ assignedDate, setAssignedDate] = useState("")
+    const [ dueDate, setDueDate] = useState("")
     const [ assignmentID, setAssignmentID] = useState("")
 
 
     const d = new Date()
-    const dueDate = d.getTime();
+    const assignedDate = d.getTime();
     console.log(state)
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(true)
@@ -30,27 +30,27 @@ function Assignment() {
     const [ newCourseName, setNewCourseName] = useState("")
     const [ newCourseDescription, setNewCourseDescription] = useState("")
 
-    useEffect(() => {
-            teacherAPI.getTeacherByID(state.user.id).then((response) => {
-            setUser(response.data)
-            setLoading(false)
-        })
-    }, []) 
+    // useEffect(() => {
+    //         teacherAPI.getTeacherByID(state.user.id).then((response) => {
+    //         setUser(response.data)
+    //         setLoading(false)
+    //     })
+    // }, []) 
     function newCourse(e){
-        let req = {
-            name: newCourseName,
-            teacher: state.user.id,  //NEED TO CHANGE THIS TO TEACHER
-            description: newCourseDescription,
-            color: "#ffffff"
-        }
-        courseAPI.insertCourse(req).then((response) => {
+        // let req = {
+        //     name: newCourseName,
+        //     teacher: state.user.id,  //NEED TO CHANGE THIS TO TEACHER
+        //     description: newCourseDescription,
+        //     color: "#ffffff"
+        // }
+        // courseAPI.insertCourse(req).then((response) => {
             
-        })
+        // })
     }
     function newAssignment(e) {
-        e.preventDefault();
+        // e.preventDefault();
 
-        const data = JSON.stringify({ title, description, courseID, dueDate, assignedDate, assignmentID })
+        // const data = JSON.stringify({ title, description, courseID, dueDate, assignedDate, assignmentID })
 
         
     }
@@ -78,7 +78,7 @@ function Assignment() {
                             <br/><br/>
                             <div>
                                 <div className={assignmentStyles.credentialsContainer}>
-                                    <h1 className={assignmentStyles.header}>Create new assigment by selecting course</h1>
+                                    <h1 className={assignmentStyles.header}>Create New Assigment by selecting course</h1>
                                     <div className={assignmentStyles.courseContainer}>
                                         {/* {loading ? <h1>Loading</h1> : 
                                         // courses.map((course) => {
@@ -92,10 +92,8 @@ function Assignment() {
                                     <input className={assignmentStyles.input} onChange={(e) => {setTitle(e.target.value)}}/>
                                     <p className={assignmentStyles.label}>Description</p>
                                     <input className={assignmentStyles.input} onChange={(e) => {setDescription(e.target.value)}}/>
-                                    <p className={assignmentStyles.label}>CourseID</p>
-                                    <input className={assignmentStyles.input} onChange={(e) => {setAssignedDate(e.target.value)}}/>
-                                    <p className={assignmentStyles.label}>AssignmentID</p>
-                                    <input className={assignmentStyles.input} onChange={(e) => {setAssignmentID(e.target.value)}}/>
+                                    <p className={assignmentStyles.label}>Due Date</p>
+                                    <input className={assignmentStyles.input} onChange={(e) => {setDueDate(e.target.value)}}/>
                                     
                                     <div className={assignmentStyles.next}>
                                         <button onClick={(e) => newAssignment(e)} style={{backgroundColor:"#6C63FF"}}>Create Assignment</button>
