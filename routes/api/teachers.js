@@ -2,32 +2,32 @@ const express = require('express')
 const router = express.Router()
 const auth = require('../../middleware/auth')
 
-const Student = require('../../models/teacher')
+const Teacher = require('../../models/teacher')
 const Course = require('../../models/course')
 
 /**
  * @route   GET /:id
- * @desc    Fetch a student's profile
+ * @desc    Fetch a teacher's profile
  * @access  Authenticated users
  */
 router.get('/:id', auth, (req, res) => {
-    Student.findOne({ studentID : req.params.id })
-        .then((student) => {
-            const courseIDs = student.currentCourses
+    Teacher.findOne({ teacherID : req.params.id })
+        .then((teacher) => {
+            const courseIDs = teacher.currentCourses
             
             Course.find({}).where('courseID').in(courseIDs).then((courses) => {
                 return res.status(200).json({
-                    user: student,
+                    user: teacher,
                     courses: courses,
                     status: 'Success',
-                    message: 'Student profile fetched successfully'
+                    message: 'teacher profile fetched successfully'
                 })
             })
 
         })
         .catch((err) => res.status(400).json({
             status: 'Failure',
-            message: 'Unable to retrieve student\'s profile'
+            message: 'Unable to retrieve teacher\'s profile'
         }))
 })
 
