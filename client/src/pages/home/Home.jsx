@@ -5,8 +5,6 @@ import {AuthContext} from '../../App'
 import Course from '../../components/Course'
 import { useHistory } from 'react-router-dom'
 import courseAPI from '../../api/courseAPI'
-import postAPI from '../../api/postAPI'
-import Post from '../../components/Post'
 
 function Home() {
 

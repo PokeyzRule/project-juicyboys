@@ -49,7 +49,7 @@ function Post({ post, deletePost }) {
                     </Avatar>
                 }
                 action={
-                    user.id == post.userID ? <div> 
+                    user.id === post.userID ? <div> 
                         <IconButton aria-label="delete" onClick={() => deletePost(post.postID)}>
                             <DeleteIcon />
                         </IconButton>
@@ -64,7 +64,7 @@ function Post({ post, deletePost }) {
                 </Typography>
             </CardContent>
             {post.mediaURL ? <CardMedia> 
-                <img className={styles.media} src={post.mediaURL}/> 
+                <img className={styles.media} src={post.mediaURL} alt="postMedia"/> 
             </CardMedia> : null}
             <CardActions disableSpacing>
                 <div className={styles.values}>{likes.length} </div>

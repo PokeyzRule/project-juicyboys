@@ -1,7 +1,7 @@
 import styles from './CommentsPopup.module.scss'
 import React, { useState } from 'react';
 import Comment from '../Comment/Comment';
-import { TextField, Button, Icon } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send'
 import postAPI from '../../api/postAPI';
 
