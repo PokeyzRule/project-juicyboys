@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Post = require('./post').schema
 const Schema = mongoose.Schema
 
 const CourseSchema = new Schema({
@@ -18,9 +19,9 @@ const CourseSchema = new Schema({
     type: [String],
     default: [],
   },
-  posts: {
-    type: [Object],
-    default: [],
+  assignments: {
+    type: [String],
+    default: []
   },
   color: {
     type: String,

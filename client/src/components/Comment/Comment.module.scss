@@ -1,0 +1,23 @@
+.root {
+    max-width: 345;
+    margin-bottom: 1%;
+    box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%) !important;
+}
+
+.media {
+    height: 140;
+    padding-top: '56.25%'; // 16:9
+}
+
+.expand {
+    transform: 'rotate(0deg)';
+    margin-left: 'auto';
+}
+
+.expandOpen {
+    transform: 'rotate(180deg)';
+}
+
+.avatar {
+    background-color: red;
+}
