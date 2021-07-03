@@ -62,7 +62,7 @@ PAGE.MODULE.SCSS - Scoped scss for styling
 Furthermore components can also be created under ```/client/src/components/``` in which the same 3 files should exist under each dedicated directory.
 Assets like pictures and svgs can be saved under the ```assets``` folder for frontend use.
 
-Documentation for each page can be found in the System Design Document, where a crc card is given for each front end page.
+Documentation for each page can be found in the System Design Document, where a crc card is given for each frontend page.
 
 
 ## Contribution
