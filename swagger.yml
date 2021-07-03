@@ -248,3 +248,547 @@ paths:
                     type: string
         400:
           description: Bad token or missing fields
+  /courses/createAssignment:
+    post:
+      tags:
+      - "Course"
+      summary: Create an assignment for a course
+        - in: header
+          name: token
+          type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                courseID:
+                  type: string
+                title:
+                  type: string
+                desc:
+                  type: string
+                uploads:
+                  type: [string]
+                dueDate:
+                  type: Date
+                assignedDate:
+                  type: Date
+      responses:
+        200:    # status code
+          description: A JSON object containing new assignmentID and status/message.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  assignmentID:
+                    type: string
+                  status:
+                    type: string
+                    enum: [success, failure]
+                  msg:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /courses/submitAssignment:
+    post:
+      tags:
+      - "Course"
+      summary: Adds new submission to an existing assignment
+        - in: header
+          name: token
+          type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assignmentID:
+                  type: string
+                studentID:
+                  type: string
+                uploads:
+                  type: [string]
+      responses:
+        200:    # status code
+          description: A JSON object containing the submission object and status/message.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  submission:
+                    type: Submission
+                  status:
+                    type: string
+                    enum: [success,failure]
+                  msg:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /teachers/{id}:
+    get:
+      tags:
+      - "Teacher"
+      summary: Retrieves user profile of teacher user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing your teacher object and their courses.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      name: 
+                        type: string
+                      email: 
+                        type: string
+                      password: 
+                        type: string
+                      teacherID:
+                        type: string
+                      currentCourses:
+                        type: [string]
+                  courses:
+                    type: [object]
+                    properties: 
+                      name: 
+                        type: string
+                      teacher: 
+                        type: string
+                      description: 
+                        type: string
+                      students: 
+                        type: [string]
+                      assignments: 
+                        type: [string]
+                      color: 
+                        type: string
+                      courseID: 
+                        type: string
+                  status:
+                    type: string
+                    enum: [success,failure]
+                  message:
+                    type: string
+        400:
+          description: Request body missing necessary fields OR user doesn't exist
+  /posts/create:
+    post:
+      tags:
+      - "Post"
+      summary: Create a post for a course
+        - in: header
+          name: token
+          type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                courseID:
+                  type: string
+                userID:
+                  type: string
+                creator:
+                  type: string
+                message:
+                  type: string
+                mediaURL:
+                  type: string
+      responses:
+        200:    # status code
+          description: A JSON object containing new post.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  post:
+                    type: object
+                    properies:
+                      postID: 
+                        type: string
+                      courseID: 
+                        type: string
+                      userID: 
+                        type: string
+                      creator: 
+                        type: string
+                      message: 
+                        type: string
+                      comments: 
+                        type: [string]
+                      mediaURL: 
+                        type: string
+                      likes: 
+                        type: [string]
+                  status:
+                    type: string
+                    enum: [success, failure]
+                  msg:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /posts/{id}:
+    put:
+      tags:
+      - "Post"
+      summary: Update a post's message
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: token
+          type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      responses:
+        200:    # status code
+          description: A JSON object containing updated post's ID.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  code:
+                    type: string
+                  status:
+                    type: string
+                    enum: [success, failure]
+                  msg:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /posts/course/{id}:
+    get:
+      tags:
+      - "Post"
+      summary: Get posts by a courseID
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing all posts of the course.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  posts:
+                    type: [object]
+                    properties:
+                      postID: 
+                        type: string
+                      userID: 
+                        type: string
+                      creator: 
+                        type: string
+                      createdAt: 
+                        type: Date
+                      message: 
+                        type: string
+                      mediaURL: 
+                        type: string
+                      likes: 
+                        type: [string]
+                      comments: 
+                        type: [object]
+                        properties: 
+                          commentID: 
+                            type: string
+                          postID:
+                            type: string
+                          author: 
+                            type: string
+                          message: 
+                            type: string
+                  status:
+                    type: string
+                    enum: [Success!, Failure!]
+                  message:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /posts/{id}:
+    delete:
+      tags:
+      - "Post"
+      summary: Delete post given its ID
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing the status and message.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [Success!, Failure!]
+                  message:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /posts/likes/add:
+    post:
+      tags:
+      - "Post"
+      summary: Add a like to a post
+        - in: header
+          name: token
+          type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postID:
+                  type: string
+                likerID:
+                  type: string
+      responses:
+        200:    # status code
+          description: A JSON object containing the updated likes of the post.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  likes:
+                    type: [string]
+                  status:
+                    type: string
+                    enum: [Success!,Failure]
+                  msg:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /posts/likes/remove:
+    post:
+      tags:
+      - "Post"
+      summary: Remove a like from a post
+        - in: header
+          name: token
+          type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postID:
+                  type: string
+                likerID:
+                  type: string
+      responses:
+        200:    # status code
+          description: A JSON object containing the updated likes of the post.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  likes:
+                    type: [string]
+                  status:
+                    type: string
+                    enum: [Success!,Failure]
+                  msg:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /posts/likes/{id}:
+    get:
+      tags:
+      - "Post"
+      summary: Get likes by postID
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing the likes of the post.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  likes:
+                    type: [string]
+                  status:
+                    type: string
+                    enum: [Success!,Failure!]
+                  message:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /posts/comments/create:
+    post:
+      tags:
+      - "Post"
+      summary: Add a comment to a post
+        - in: header
+          name: token
+          type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postID:
+                  type: string
+                author:
+                  type: string
+                message:
+                  type: string
+      responses:
+        200:    # status code
+          description: A JSON object containing the new comment object.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  comment:
+                    type: object
+                    properties:
+                      commentID: 
+                        type: string
+                      postID:
+                        type: string
+                      author: 
+                        type: string
+                      message: 
+                        type: string
+                  status:
+                    type: string
+                    enum: [Success,Failure]
+                  msg:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /posts/comments/{id}:
+    get:
+      tags:
+      - "Post"
+      summary: Get comments by postID
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing the likes of the post.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  comments:
+                    type: [object]
+                    properties:
+                      commentID: 
+                        type: string
+                      postID:
+                        type: string
+                      author: 
+                        type: string
+                      message: 
+                        type: string
+                  status:
+                    type: string
+                    enum: [Success!,Failure!]
+                  message:
+                    type: string
+        400:
+          description: Bad token or missing fields
+  /posts/comments/{id}:
+    delete:
+      tags:
+      - "Comment"
+      summary: Delete comment given its ID
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing the status and message.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [Success!, Failure!]
+                  message:
+                    type: string
+        400:
+          description: Bad token or missing fields

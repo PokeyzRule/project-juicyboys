@@ -7,7 +7,7 @@ import student from '../../assets/student.png'
 import teacher from '../../assets/teacher.png'
 import entrepreneur from '../../assets/entrepreneur.png'
 import { Link, useHistory } from 'react-router-dom'
-import axios from 'axios'
+import { registerUser } from '../../actions/authActions'
 
 function SignUp() {
     const [step, setStep] = useState(0)
@@ -20,26 +20,10 @@ function SignUp() {
 
     function submitForm(e) {
         e.preventDefault()
+        
+        const data = JSON.stringify({ name, email, password, "type": user })
 
-        const body = JSON.stringify({ name, email, password, "type": user })
-        console.log(body)
-        axios({
-            method: 'post',
-            url: 'http://localhost:5000/auth/register',
-            data: body,
-            headers: {
-                'Content-Type': 'application/json',
-                'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYzAxZjk2ZTk1NmRkNzFiNGFhMmY3OSIsImlhdCI6MTYyMzIxMjA2OSwiZXhwIjoxNjIzMjE1NjY5fQ.NlSABKukS_GG8h4F4tVy263dxJGQt0AO1NNsbX6lbLs'
-            }
-        }).then((resJson => {
-            console.log(resJson)
-            dispatch({
-                type: "LOGIN",
-                payload: resJson.data
-            })
-        })).catch(error => {
-            console.log(error)
-        })
+        registerUser(data, dispatch)
     }
 
     function handleInput(userType) {
