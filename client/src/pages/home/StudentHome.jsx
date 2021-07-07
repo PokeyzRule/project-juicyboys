@@ -6,7 +6,7 @@ import Course from '../../components/Course'
 import { useHistory } from 'react-router-dom'
 import courseAPI from '../../api/courseAPI'
 
-function Home() {
+function StudentHome() {
 
     const { state } = useContext(AuthContext)
     const [ allCourses, setAllCourses ] = useState([])
@@ -65,4 +65,4 @@ function Home() {
     )
 }
 
-export default Home
+export default StudentHome
