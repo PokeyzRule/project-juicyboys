@@ -285,8 +285,29 @@ paths:
               schema: 
                 type: object
                 properties:
-                  assignmentID:
-                    type: string
+                  assignment:
+                    type: object
+                    properties:
+                      title: 
+                        type: String
+                      description: 
+                        type: String
+                      courseID: 
+                        type: String
+                      uploads: 
+                        type: [String]
+                      submissions: 
+                        type: [String]
+                      comments: 
+                        type: [Comment]
+                      dueDate: 
+                        type: Date
+                      assignedDate: 
+                        type: Date
+                      toSubmit: 
+                        type: Boolean
+                      assignmentID: 
+                        type: String
                   status:
                     type: string
                     enum: [success, failure]
