@@ -275,6 +275,8 @@ paths:
                   type: Date
                 assignedDate:
                   type: Date
+                toSubmit:
+                  type: boolean
       responses:
         200:    # status code
           description: A JSON object containing new assignmentID and status/message.
