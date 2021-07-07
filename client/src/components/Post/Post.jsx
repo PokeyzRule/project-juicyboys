@@ -16,7 +16,7 @@ import styles from './Post.module.scss'
 import CommentsPopup from '../CommentsPopup/CommentsPopup';
 import postAPI from '../../api/postAPI';
 
-function Post({ post, deletePost }) {
+function Post({ post, setPosts }) {
     
     const { state } = useContext(AuthContext)
     const user = JSON.parse(state.user);
@@ -38,6 +38,11 @@ function Post({ post, deletePost }) {
             setLikes(likes.filter(like => like !== user.id))
             await postAPI.removeLike(like)
         }
+    }
+
+    const deletePost = async (id) => {
+        await postAPI.deletePost(id);
+        setPosts(posts => posts.filter(post => post.postID !== id))
     }
 
     return (

@@ -108,9 +108,10 @@ router.post('/createAssignment', auth, async (req, res) => {
     res.status(200).json({
       status: 'success',
       msg: 'Assignment created successfully',
-      assignmentID: assignment.assignmentID,
+      assignment: assignment,
     })
   } catch (err) {
+    console.log(err)
     res.status(400).json({
       status: 'failure',
       msg: 'Assignment creation failed',
