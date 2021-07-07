@@ -1,5 +1,4 @@
 import { BrowserRouter, Route } from 'react-router-dom'
-import Home from './pages/home'
 import './App.css'
 import { createContext, useReducer } from 'react'
 import SignUp from './pages/signup'
@@ -8,6 +7,7 @@ import Profile from './pages/profile';
 import CoursePage from './pages/course';
 import authReducer, { initialState } from './reducers/authReducer'
 import Assignment from './pages/assignment';
+import HomeHandler from './pages/home'
 
 export const AuthContext = createContext();
 
@@ -19,7 +19,7 @@ function App() {
     <AuthContext.Provider value={{ state, dispatch }}>
       <div className="App">
         <BrowserRouter>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={HomeHandler} />
           <Route path="/signup" exact component={SignUp} />
           <Route path="/login" exact component={Login} />
           <Route path="/profile" exact component={Profile} />
