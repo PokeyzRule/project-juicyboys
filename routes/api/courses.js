@@ -98,6 +98,7 @@ router.post('/createAssignment', auth, async (req, res) => {
     uploads: req.body.uploads,
     dueDate: req.body.dueDate,
     assignedDate: req.body.assignedDate,
+    toSubmit: req.body.toSubmit
   })
 
   try {

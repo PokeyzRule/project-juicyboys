@@ -35,6 +35,10 @@ const AssignmentSchema = new Schema({
     type: Date,
     required: true
   },
+  toSubmit: {
+    type: Boolean,
+    required: true
+  },
   assignmentID: {
     type: Schema.Types.ObjectId,
     auto: true
