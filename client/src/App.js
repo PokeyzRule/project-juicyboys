@@ -22,8 +22,9 @@ function App() {
         <BrowserRouter>
           <Route path="/" exact component={HomeHandler} />
           <Route path="/assignment" exact component={Assignment} />
-          <Route path="/course/:id" exact component={CompanyPage} />
+          <Route path="/company/:id" exact component={CompanyPage} />
           <Route path="/course/:id" exact component={CoursePage} />
+          <Route path="/course/:cid/assignments/:aid" exact component={Assignment} />
           <Route path="/login" exact component={Login} />
           <Route path="/profile" exact component={Profile} />
           <Route path="/signup" exact component={SignUp} />
