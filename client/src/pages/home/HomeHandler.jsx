@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import styles from './Home.module.scss'
-import {AuthContext} from '../../App'
+import { AuthContext } from '../../App'
 import Course from '../../components/Course'
 import StudentHome from './StudentHome'
 import { useHistory } from 'react-router-dom'
@@ -12,21 +12,21 @@ function HomeHandler() {
 
     const { state } = useContext(AuthContext)
     const history = useHistory()
-    
-    if (!state.isAuthenticated){
+
+    if (!state.isAuthenticated) {
         history.push("/login")
     }
-
-    if (state.user.type == "student"){
-        return(
+    console.log(state.user.type)
+    if (state.user.type == "student") {
+        return (
             <StudentHome />
         )
-    }else if (state.user.type == "teacher"){
-        return(
+    } else if (state.user.type == "teacher") {
+        return (
             <TeacherHome />
         )
-    }else{
-        return(
+    } else {
+        return (
             <EntrepreneurHome />
         )
     }
