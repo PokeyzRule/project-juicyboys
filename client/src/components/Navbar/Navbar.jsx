@@ -19,9 +19,6 @@ function Navbar() {
                     <div className={styles.linkContainer}>
                         <Link className={styles.link} to="/profile">Profile</Link>
                     </div>
-                    <div className={styles.linkContainer}>
-                        <Link className={styles.link} to="/assignment">Assignment</Link>
-                    </div>
                 </div>
             </Drawer> 
             <div className={styles.left}>

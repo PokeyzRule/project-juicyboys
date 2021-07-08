@@ -24,7 +24,7 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/profile" exact component={Profile} />
           <Route path="/course/:id" exact component={CoursePage} />
-          <Route path="/assignment" exact component={Assignment} />
+          <Route path="/course/:cid/assignments/:aid" exact component={Assignment} />
         </BrowserRouter>
       </div>
     </AuthContext.Provider>
