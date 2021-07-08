@@ -5,6 +5,8 @@ import styles from './CourseAssignment.module.scss'
 function CourseAssignment({ assignment }) {
 
     function parseDate(date) {
+        if (date == null) return "N/A"
+         
         const months = [
             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
