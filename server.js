@@ -18,6 +18,7 @@ const courses = require('./routes/api/courses');
 const students = require('./routes/api/students');
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts')
+const companies = require('./routes/api/companies');
 
 // DB Connection
 const uri = process.env.ATLAS_URI;
@@ -30,6 +31,7 @@ mongoose
 app.use('/courses', courses);
 app.use('/students', students);
 app.use('/posts', posts)
+app.use('/companies', companies);
 app.use('/auth', users)
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
 
