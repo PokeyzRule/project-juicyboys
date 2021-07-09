@@ -11,15 +11,15 @@ const companySchema = new Schema({
         type: String,
         required: true
     },
-    Owners: {
+    owners: {
         type: [String],
         required: true
     },
-    Documents: {
+    documents: {
         type: [String],
         default: []
     },
-    Posts: {
+    posts: {
         type: [Post],
         default: []
     },
