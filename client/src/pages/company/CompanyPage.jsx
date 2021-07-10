@@ -4,17 +4,16 @@ import CoursePageStyles from './CompanyPage.module.scss'
 import Navbar from '../../components/Navbar'
 import { Button } from '@material-ui/core';
 import Post from '../../components/Post'
-import courseAPI from '../../api/courseAPI'
+import companyAPI from '../../api/companyAPI'
 import postAPI from '../../api/postAPI'
 import CreatePost from '../../components/CreatePost';
 
 function CompanyPage() {
 
     const { id } = useParams()
-    const [course, setCourse] = useState()
+    const [company, setCompany] = useState()
     const [posts, setPosts] = useState([])
-    const [pastAssignments, setPastAssignments] = useState()
-    const [upcomingAssignments, setUpcomingAssignments] = useState()
+    const [documents, setDocuments] = useState()
     const [isOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true)
 
@@ -26,24 +25,32 @@ function CompanyPage() {
     }
 
     useEffect(() => {
-        courseAPI.getCourseByID(id).then((response) => {
-            setCourse(response.data)
-            let past = []
-            let upcoming = []
-            response.data.assignments.forEach(assignment => {
-                assignment.dueDate < new Date().toISOString() ?
-                    past.push(assignment)
-                    :
-                    upcoming.push(assignment)
-            })
-            setPastAssignments(past)
-            setUpcomingAssignments(upcoming)
+        companyAPI.getCompanyByID(id).then(response => {
+            setCompany(response.data)
         }).then(() => {
-            postAPI.getPostsByCourseId(id).then((response) => {
+            postAPI.getPostsByCompanyId(id).then(response => {
                 setPosts(response.data.posts)
                 setLoading(false)
             })
         })
+        // courseAPI.getCourseByID(id).then((response) => {
+        //     setCourse(response.data)
+        //     let past = []
+        //     let upcoming = []
+        //     response.data.assignments.forEach(assignment => {
+        //         assignment.dueDate < new Date().toISOString() ?
+        //             past.push(assignment)
+        //             :
+        //             upcoming.push(assignment)
+        //     })
+        //     setPastAssignments(past)
+        //     setUpcomingAssignments(upcoming)
+        // }).then(() => {
+        //     postAPI.getPostsByCourseId(id).then((response) => {
+        //         setPosts(response.data.posts)
+        //         setLoading(false)
+        //     })
+        // })
     }, [id])
 
     return (
@@ -51,33 +58,36 @@ function CompanyPage() {
             < Navbar />
             <div className={CoursePageStyles.infoBar}>
                 <div className={CoursePageStyles.info}>
-                    <h1>Course</h1>
+                    <h1>Company</h1>
                     <h2>
-                        {loading ?
+                        {/* {loading ?
                             'Loading...'
                             :
                             course.course.name
-                        }
+                        } */}
+                        Company 1
                     </h2>
                 </div>
                 <div className={CoursePageStyles.info}>
-                    <h1>Teacher</h1>
+                    <h1>Owner</h1>
                     <h2>
-                        {loading ?
+                        {/* {loading ?
                             'Loading...'
                             :
                             course.course.teacher
-                        }
+                        } */}
+                        Owner 1, Owner 2
                     </h2>
                 </div>
                 <div className={CoursePageStyles.info}>
                     <h1>Description</h1>
                     <h2>
-                        {loading ?
+                        {/* {loading ?
                             'Loading...'
                             :
-                            course.course.description
-                        }
+                            company.company.description
+                        } */}
+                        Description here
                     </h2>
                 </div>
             </div>
