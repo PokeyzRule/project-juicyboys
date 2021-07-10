@@ -34,7 +34,7 @@ router.post('/create', auth, (req, res) => {
  * @desc        Fetch the company specified by the provided companyID
  * @access      Authenticated users
  */
-router.get("/:companyID", auth, (req, res) => {
+router.get('/:companyID', auth, (req, res) => {
   Company.findOne({ companyID: req.params.companyID }).then(company => res.status(200).json({
     status: 'success',
     msg: 'Company retrieved successfully',
@@ -43,6 +43,31 @@ router.get("/:companyID", auth, (req, res) => {
     status: 'failure',
     msg: 'Company retrieval failed',
   }))
+})
+
+/**
+ * @route        GET /
+ * @queryParam   OPTIONAL Integer limit - results per page
+ * @queryParam   OPTIONAL Integer page - page number 
+ * @desc         Fetch all companies with pagination
+ * @access       Authenticated users
+ */
+router.get('/allCompanies', auth, (req, res) => {
+  let limit = parseInt(req.query.limit) || 10
+  let page = (Math.abs(req.query.page) || 1) - 1;
+
+  Company.find()
+    .limit(limit)
+    .skip(limit * page)
+    .then(companies => res.status(200).json({
+      companies: companies,
+      status: 'Success!',
+      message: 'Companies retrieved!'
+    }))
+    .catch((err) => res.status(400).json({
+      status: 'Failure!',
+      message: 'Unable to retrieve companies'
+    }))
 })
 
 module.exports = router
