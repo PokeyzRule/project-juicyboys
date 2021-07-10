@@ -28,7 +28,6 @@ router.post('/create', auth, (req, res) => {
     }))
 })
 
-
 /**
  * @route       GET /:companyID
  * @queryParam  companyID to search
