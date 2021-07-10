@@ -16,7 +16,7 @@ function HomeHandler() {
     if (!state.isAuthenticated) {
         history.push("/login")
     }
-    console.log(state.user.type)
+
     if (state.user.type == "student") {
         return (
             <StudentHome />
