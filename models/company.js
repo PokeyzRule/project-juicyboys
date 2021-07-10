@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const Post = require('./post').schema
+const Entrepreneur = require('./entrepreneur').schema
 
 const companySchema = new Schema({
     name: {
@@ -12,7 +13,7 @@ const companySchema = new Schema({
         required: true
     },
     owners: {
-        type: [String],
+        type: [Entrepreneur],
         required: true
     },
     documents: {
