@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
-import CoursePageStyles from './CompanyPage.module.scss'
+import CompanyPageStyles from './CompanyPage.module.scss'
 import Navbar from '../../components/Navbar'
 import { Button } from '@material-ui/core';
 import Post from '../../components/Post'
@@ -13,8 +13,9 @@ function CompanyPage() {
     const { id } = useParams()
     const [company, setCompany] = useState()
     const [posts, setPosts] = useState([])
+    const [owners, setOwners] = useState([])
     const [documents, setDocuments] = useState()
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
     const [loading, setLoading] = useState(true)
 
     const toggleCreatePost = () => setIsOpen(!isOpen);
@@ -26,87 +27,68 @@ function CompanyPage() {
 
     useEffect(() => {
         companyAPI.getCompanyByID(id).then(response => {
-            setCompany(response.data)
-        }).then(() => {
-            postAPI.getPostsByCompanyId(id).then(response => {
-                setPosts(response.data.posts)
-                setLoading(false)
-            })
-        })
-        // courseAPI.getCourseByID(id).then((response) => {
-        //     setCourse(response.data)
-        //     let past = []
-        //     let upcoming = []
-        //     response.data.assignments.forEach(assignment => {
-        //         assignment.dueDate < new Date().toISOString() ?
-        //             past.push(assignment)
-        //             :
-        //             upcoming.push(assignment)
-        //     })
-        //     setPastAssignments(past)
-        //     setUpcomingAssignments(upcoming)
-        // }).then(() => {
-        //     postAPI.getPostsByCourseId(id).then((response) => {
-        //         setPosts(response.data.posts)
-        //         setLoading(false)
-        //     })
-        // })
+            let company = response.data.company
+            setCompany(company)
+            // Uncomment below if you want to test the owners part, since we don't have working data yet
+            // company.owners = [{ name: "Elon \"uwu\" Musk", email: "uwu@tesla.com" }]
+            company.owners = [{ name: "Elon \"uwu\" Musk", email: "uwu@tesla.com", entrepreneurID: "e1" }, { name: "X AE A-XII Musk", email: "owo@tesla.com", entrepreneurID: "x1" }, { name: "Elon \"uwu\" Musk2", email: "uwu2@tesla.com", entrepreneurID: "e2" }, { name: "X AE A-XII Musk2", email: "owo2@tesla.com", entrepreneurID: "x2" }, { name: "Elon \"uwu\" Musk3", email: "uwu3@tesla.com", entrepreneurID: "e3" }, { name: "X AE A-XII Musk3", email: "owo3@tesla.com", entrepreneurID: "x3" }]
+            setOwners(company.owners)
+            setDocuments(company.documents)
+            setPosts(company.posts)
+        }).then(() => setLoading(false)
+        )
     }, [id])
 
     return (
         <div>
             < Navbar />
-            <div className={CoursePageStyles.infoBar}>
-                <div className={CoursePageStyles.info}>
+            <div className={CompanyPageStyles.infoBar}>
+                <div className={CompanyPageStyles.info}>
                     <h1>Company</h1>
                     <h2>
-                        {/* {loading ?
+                        {loading ?
                             'Loading...'
                             :
-                            course.course.name
-                        } */}
-                        Company 1
+                            company.name
+                        }
                     </h2>
                 </div>
-                <div className={CoursePageStyles.info}>
-                    <h1>Owner</h1>
-                    <h2>
-                        {/* {loading ?
-                            'Loading...'
-                            :
-                            course.course.teacher
-                        } */}
-                        Owner 1, Owner 2
-                    </h2>
-                </div>
-                <div className={CoursePageStyles.info}>
+                <div className={CompanyPageStyles.info}>
                     <h1>Description</h1>
                     <h2>
-                        {/* {loading ?
+                        {loading ?
                             'Loading...'
                             :
-                            company.company.description
-                        } */}
-                        Description here
+                            company.description
+                        }
                     </h2>
                 </div>
             </div>
 
-            <div className={CoursePageStyles.wrapper}>
-                <div className={CoursePageStyles.container}>
-                    <div className={CoursePageStyles.contentContainer}>
-                        <div className={CoursePageStyles.assignmentsParentContainer}>
-                            <h1 className={CoursePageStyles.header}>Upcoming Assignments</h1>
-                            <div className={CoursePageStyles.assignmentsContainer}>
-                                xd
-                            </div>
-                            <h1 className={CoursePageStyles.header}>Past Assignments</h1>
-                            <div className={CoursePageStyles.assignmentsContainer}>
-                                xd
-                            </div>
+            <div className={CompanyPageStyles.wrapper}>
+                <div className={CompanyPageStyles.container}>
+                    <div className={CompanyPageStyles.contentContainer}>
+                        <div className={CompanyPageStyles.ownersContainer}>
+                            <h1 className={CompanyPageStyles.header}>{loading ?
+                                'Loading...'
+                                :
+                                owners.length === 1 ? 'Owner' : 'Owners'
+                            }</h1>
+                            {loading ?
+                                'Loading...'
+                                :
+                                owners.map(owner => {
+                                    return <p key={owner.entrepreneurID}>{`${owner.name} (${owner.email})`}</p>
+                                })
+                            }
                         </div>
-                        <div className={CoursePageStyles.postsContainer}>
-                            <h1 className={CoursePageStyles.header}>
+                        <div className={CompanyPageStyles.documentsContainer}>
+                            <h1 className={CompanyPageStyles.header}>Documents</h1>
+                            TODO: Render documents next sprint somehow
+                        </div>
+                        <div className={CompanyPageStyles.postsContainer}>
+                            {/* Code from the course page, not sure if its the same or not but it should be similar */}
+                            <h1 className={CompanyPageStyles.header}>
                                 Posts
                                 <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleCreatePost}>
                                     Create Post
@@ -118,8 +100,8 @@ function CompanyPage() {
                                 setPosts={setPosts}
                                 handleClose={toggleCreatePost}
                             />}
-                            <div className={CoursePageStyles.divider}></div>
-                            <div className={CoursePageStyles.postsFeed}>
+                            <div className={CompanyPageStyles.divider}></div>
+                            <div className={CompanyPageStyles.postsFeed}>
                                 {loading ? <h1>Loading</h1> :
                                     posts.map((post) => {
                                         return (
@@ -131,9 +113,8 @@ function CompanyPage() {
                         </div>
                     </div>
                 </div>
-                <hr width="100%" size="2" color="#C4C4C4" />
             </div>
-
+            <hr />
         </div>
     )
 
