@@ -11,10 +11,10 @@ const Course = require('../../models/course')
  * @access  Authenticated users
  */
 router.get('/:id', auth, (req, res) => {
-    Student.findOne({ studentID : req.params.id })
+    Student.findOne({ studentID: req.params.id })
         .then((student) => {
             const courseIDs = student.currentCourses
-            
+
             Course.find({}).where('courseID').in(courseIDs).then((courses) => {
                 return res.status(200).json({
                     user: student,
