@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styles from './CreateAssignment.module.scss'
 import { TextField, Button, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import courseAPI from "../../api/courseAPI";
 import { useParams } from "react-router-dom";
+import uploadAPI from "../../api/uploadAPI";
+import { Chip } from "@material-ui/core";
 
 const CreateAssignment = ({setAssignments, handleClose}) => {
 
@@ -14,13 +16,13 @@ const CreateAssignment = ({setAssignments, handleClose}) => {
     const [uploads, setUploads] = useState([])
     const [dueDate, setDueDate] = useState("")
     const [toSubmit, setToSubmit] = useState(true)
-
+    
     const addAssignment = async (e) => {
         const payload = {
             title: title,
             desc: description,
             courseID: id,
-            uploads: uploads,
+            uploads: Array.from(uploads.map((upload) => upload.location)),
             dueDate: dueDate,
             assignedDate: new Date().toISOString(),
             toSubmit: toSubmit
@@ -29,6 +31,19 @@ const CreateAssignment = ({setAssignments, handleClose}) => {
         const newAssignment = await (await courseAPI.addAssignment(payload)).data.assignment;
         setAssignments((assignments) => [newAssignment, ...assignments])
         handleClose()
+    }
+
+    const handleFileUpload = (e) => {
+        const file = e.target.files[0]
+        
+        uploadAPI.addFile(file).then((data) => {
+            setUploads(uploads => [...uploads, data])
+        })
+    }
+
+    const handleDelete = (name) => {
+        // uploadAPI.removeFile(name).catch((err) => console.log(err))
+        setUploads(uploads => uploads.filter(upload => upload.key !== name))
     }
 
     return (
@@ -85,14 +100,20 @@ const CreateAssignment = ({setAssignments, handleClose}) => {
                     />
                 </form> : <div />}
             </div> 
-            <Button
-                variant="contained"
-                color="secondary"
-                className={styles.uploadButton}
-                startIcon={<CloudUploadIcon />}
-            >
-                Upload Files
-            </Button>
+            <div style={{ marginBottom: '10px' }}>
+                {uploads.map((upload) => <Chip key={upload.key} className={styles.file} label={upload.key} onDelete={() => handleDelete(upload.key)} />)}
+            </div>
+            <input
+                hidden
+                id="contained-button-file"
+                type="file"
+                onChange={handleFileUpload}
+            />
+            <label htmlFor="contained-button-file">
+                <Button variant="contained" color="secondary" component="span" className={styles.uploadButton} startIcon={<CloudUploadIcon />}>
+                    Upload Files
+                </Button>
+            </label>
             <Button
                 variant="contained"
                 color="primary"
