@@ -84,6 +84,7 @@ router.get('/course/:id', auth, (req, res) => {
     }))
 })
 
+
 // DELETE post by postID
 router.delete("/:id", auth, (req, res) => {
     Post.findOneAndDelete({ postID: req.params.id })
