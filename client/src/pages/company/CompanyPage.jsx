@@ -96,7 +96,6 @@ function CompanyPage() {
                             TODO: Render documents next sprint somehow
                         </div>
                         <div className={CompanyPageStyles.postsContainer}>
-                            {/* Code from the course page, not sure if its the same or not but it should be similar */}
                             <h1 className={CompanyPageStyles.header}>
                                 Posts
                                 {company.owners.includes(JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleCreatePost}>
