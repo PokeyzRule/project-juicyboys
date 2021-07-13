@@ -41,10 +41,10 @@ function CompanyPage() {
             // setPosts(company.posts)
         }).then(() => {
             postAPI.getPostsByCourseId(id).then((res) => {
-                setPosts(res.data.posts) 
+                setPosts(res.data.posts)
                 setLoading(false)
             })
-            
+
         })
     }, [id])
 
@@ -95,30 +95,33 @@ function CompanyPage() {
                             <h1 className={CompanyPageStyles.header}>Documents</h1>
                             TODO: Render documents next sprint somehow
                         </div>
-                        <div className={CompanyPageStyles.postsContainer}>
-                            <h1 className={CompanyPageStyles.header}>
-                                Posts
-                                {company.owners.includes(JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleCreatePost}>
-                                    Create Post
-                                </Button>}
-                            </h1>
-                            {isOpen && company.owners.includes(JSON.parse(state.user).email) && <CreatePost
-                                courseID={id}
-                                posts={posts}
-                                setPosts={setPosts}
-                                handleClose={toggleCreatePost}
-                            />}
-                            <div className={CompanyPageStyles.divider}></div>
-                            <div className={CompanyPageStyles.postsFeed}>
-                                {loading ? <h1>Loading</h1> :
-                                    posts.map((post) => {
-                                        return (
-                                            <Post key={post.postID} post={post} deletePost={deletePost} />
-                                        )
-                                    })
-                                }
-                            </div>
-                        </div>
+                        {loading ?
+                            <h1>Loading</h1>
+                            :
+                            <div className={CompanyPageStyles.postsContainer}>
+                                <h1 className={CompanyPageStyles.header}>
+                                    Posts
+                                    {company.owners.includes(JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleCreatePost}>
+                                        Create Post
+                                    </Button>}
+                                </h1>
+                                {isOpen && company.owners.includes(JSON.parse(state.user).email) && <CreatePost
+                                    courseID={id}
+                                    posts={posts}
+                                    setPosts={setPosts}
+                                    handleClose={toggleCreatePost}
+                                />}
+                                <div className={CompanyPageStyles.divider}></div>
+                                <div className={CompanyPageStyles.postsFeed}>
+                                    {loading ? <h1>Loading</h1> :
+                                        posts.map((post) => {
+                                            return (
+                                                <Post key={post.postID} post={post} deletePost={deletePost} />
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>}
                     </div>
                 </div>
             </div>
