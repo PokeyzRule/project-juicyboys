@@ -13,6 +13,12 @@
 | As a company, I should have a dedicated page to list all relevant info about the company | Timothy | Most Important |
 | As a startup creator, I would like to be able to make posts to promote the startup and it's progress to spark interest in others | Timothy | Somewhat Important |
 | As a startup creator, I should be able to link my company profile with associated profiles,investors,etc so other's know who the startup is associated with | Timothy | Important |
+| As a user, I should be able to create company profiles for upcoming startups so others can see my idea and join! | Timothy | Most Important |
+| As a student user, I would like there to be chat feature with my teacher so I can dicuss marks, course material, etc with them. | Paula | Not Critical |
+| As a startup creator, I would like a company page with a public link to promote my startup on other platforms to engage with a greater audient | Timothy | Important |
+| As a general user, I want to have a feed with classes that may interest with me or potential startups to join | Paula/Timothy | Somewhat Important |
+
+
 
 ## Incomplete
 | Story | Persona | Significance |
