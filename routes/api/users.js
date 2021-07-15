@@ -76,7 +76,7 @@ router.post('/register', (req, res) => {
                     email: user.email,
                     password: hash,
                     associatedStartups: [],
-                    associatedStartups: user.id
+                    entrepreneurID: user.id
                   })
                   typedUser.save();
                 }

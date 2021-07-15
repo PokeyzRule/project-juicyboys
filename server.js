@@ -19,6 +19,7 @@ const students = require('./routes/api/students');
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts')
 const companies = require('./routes/api/companies');
+const entrepreneurs = require('./routes/api/entrepreneur')
 
 // DB Connection
 const uri = process.env.ATLAS_URI;
@@ -33,6 +34,7 @@ app.use('/students', students);
 app.use('/posts', posts)
 app.use('/companies', companies);
 app.use('/auth', users)
+app.use('/entrepreneurs', entrepreneurs)
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
 
 // Server setup

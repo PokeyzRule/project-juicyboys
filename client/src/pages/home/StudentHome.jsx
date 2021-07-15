@@ -20,6 +20,7 @@ function StudentHome() {
 
     useEffect(() => {
         courseAPI.getAllCourses().then((response) => {
+            console.log(response)
             setCourses(response.data.courses)
             setAllCourses(response.data.courses)
             setLoading(false)
