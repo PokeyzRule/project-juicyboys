@@ -18,7 +18,6 @@ router.get('/:id', auth, (req, res) => {
             Course.find({}).where('courseID').in(courseIDs).then((courses) => {
                 return res.status(200).json({
                     user: teacher,
-                    courses: courses,
                     status: 'Success',
                     message: 'teacher profile fetched successfully'
                 })
