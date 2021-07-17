@@ -156,6 +156,7 @@ paths:
       tags:
       - "Course"
       summary: Retrieves all available courses
+      parameters:
         - in: header
           name: token
           type: string
@@ -177,6 +178,7 @@ paths:
       tags:
       - "Course"
       summary: Creates a new course for a teacher
+      parameters:
         - in: header
           name: token
           type: string
@@ -217,6 +219,7 @@ paths:
       tags:
       - "Course"
       summary: Enrolls a student into a course
+      parameters:
         - in: header
           name: token
           type: string
@@ -253,6 +256,7 @@ paths:
       tags:
       - "Course"
       summary: Create an assignment for a course
+      parameters:
         - in: header
           name: token
           type: string
@@ -270,11 +274,15 @@ paths:
                 desc:
                   type: string
                 uploads:
-                  type: [string]
+                  type: array
+                  items:
+                    type: string
                 dueDate:
-                  type: Date
+                  type: object  #Date object
                 assignedDate:
-                  type: Date
+                  type: object
+                toSubmit:
+                  type: boolean
       responses:
         200:    # status code
           description: A JSON object containing new assignmentID and status/message.
@@ -283,8 +291,35 @@ paths:
               schema: 
                 type: object
                 properties:
-                  assignmentID:
-                    type: string
+                  assignment:
+                    type: object
+                    properties:
+                      title: 
+                        type: string
+                      description: 
+                        type: string
+                      courseID: 
+                        type: string
+                      uploads: 
+                        type: array
+                        items:
+                          type: string
+                      submissions: 
+                        type: array
+                        items:
+                          type: string
+                      comments: 
+                        type: array
+                        items:
+                          type: object  #Comment object
+                      dueDate: 
+                        type: object  #Date object
+                      assignedDate: 
+                        type: object
+                      toSubmit: 
+                        type: boolean
+                      assignmentID: 
+                        type: string
                   status:
                     type: string
                     enum: [success, failure]
@@ -297,6 +332,7 @@ paths:
       tags:
       - "Course"
       summary: Adds new submission to an existing assignment
+      parameters:
         - in: header
           name: token
           type: string
@@ -312,7 +348,9 @@ paths:
                 studentID:
                   type: string
                 uploads:
-                  type: [string]
+                  type: array
+                  items:
+                    type: string
       responses:
         200:    # status code
           description: A JSON object containing the submission object and status/message.
@@ -322,7 +360,7 @@ paths:
                 type: object
                 properties:
                   submission:
-                    type: Submission
+                    type: object  #Submission object
                   status:
                     type: string
                     enum: [success,failure]
@@ -364,9 +402,13 @@ paths:
                       teacherID:
                         type: string
                       currentCourses:
-                        type: [string]
+                        type: array
+                        items:
+                          type: string
                   courses:
-                    type: [object]
+                    type: array
+                    items:
+                      type: object
                     properties: 
                       name: 
                         type: string
@@ -375,9 +417,13 @@ paths:
                       description: 
                         type: string
                       students: 
-                        type: [string]
+                        type: array
+                        items:
+                          type: string
                       assignments: 
-                        type: [string]
+                        type: array
+                        items:
+                          type: string
                       color: 
                         type: string
                       courseID: 
@@ -394,6 +440,7 @@ paths:
       tags:
       - "Post"
       summary: Create a post for a course
+      parameters:
         - in: header
           name: token
           type: string
@@ -422,25 +469,26 @@ paths:
               schema: 
                 type: object
                 properties:
-                  post:
-                    type: object
-                    properies:
-                      postID: 
-                        type: string
-                      courseID: 
-                        type: string
-                      userID: 
-                        type: string
-                      creator: 
-                        type: string
-                      message: 
-                        type: string
-                      comments: 
-                        type: [string]
-                      mediaURL: 
-                        type: string
-                      likes: 
-                        type: [string]
+                  postID: 
+                    type: string
+                  courseID: 
+                    type: string
+                  userID: 
+                    type: string
+                  creator: 
+                    type: string
+                  message: 
+                    type: string
+                  comments: 
+                    type: array
+                    items:
+                      type: string
+                  mediaURL: 
+                    type: string
+                  likes: 
+                    type: array
+                    items:
+                      type: string
                   status:
                     type: string
                     enum: [success, failure]
@@ -510,7 +558,9 @@ paths:
                 type: object
                 properties:
                   posts:
-                    type: [object]
+                    type: array
+                    items:
+                      type: object
                     properties:
                       postID: 
                         type: string
@@ -519,15 +569,19 @@ paths:
                       creator: 
                         type: string
                       createdAt: 
-                        type: Date
+                        type: object #Date object
                       message: 
                         type: string
                       mediaURL: 
                         type: string
                       likes: 
-                        type: [string]
+                        type: array
+                        items:
+                          type: string
                       comments: 
-                        type: [object]
+                        type: array
+                        items:
+                          type: object
                         properties: 
                           commentID: 
                             type: string
@@ -578,6 +632,7 @@ paths:
       tags:
       - "Post"
       summary: Add a like to a post
+      parameters:
         - in: header
           name: token
           type: string
@@ -601,7 +656,9 @@ paths:
                 type: object
                 properties:
                   likes:
-                    type: [string]
+                    type: array
+                    items:
+                      type: string
                   status:
                     type: string
                     enum: [Success!,Failure]
@@ -614,6 +671,7 @@ paths:
       tags:
       - "Post"
       summary: Remove a like from a post
+      parameters:
         - in: header
           name: token
           type: string
@@ -637,7 +695,9 @@ paths:
                 type: object
                 properties:
                   likes:
-                    type: [string]
+                    type: array
+                    items:
+                      type: string
                   status:
                     type: string
                     enum: [Success!,Failure]
@@ -668,7 +728,9 @@ paths:
                 type: object
                 properties:
                   likes:
-                    type: [string]
+                    type: array
+                    items:
+                      type: string
                   status:
                     type: string
                     enum: [Success!,Failure!]
@@ -681,6 +743,7 @@ paths:
       tags:
       - "Post"
       summary: Add a comment to a post
+      parameters:
         - in: header
           name: token
           type: string
@@ -746,7 +809,9 @@ paths:
                 type: object
                 properties:
                   comments:
-                    type: [object]
+                    type: array
+                    items:
+                      type: object
                     properties:
                       commentID: 
                         type: string
@@ -792,3 +857,175 @@ paths:
                     type: string
         400:
           description: Bad token or missing fields
+  /company/{id}:
+    get:
+      tags:
+      - "Company"
+      summary: fetch the company with the company ID
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing your Compnay object and a jwt token valid for 1 hour
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  company:
+                    type: object
+                    properties:
+                      name: 
+                        type: string
+                        example: companyExample
+                      description: 
+                        type: string
+                        example: company with very interesting descriptions
+                      owners:
+                        type: object
+                      id: 
+                        type: string
+                        example: 6089ea5c8680de08584066dc
+                      documents:
+                        type: array
+                        items:
+                          type: string
+                      posts:
+                        type: object
+                  status:
+                    type: string
+                    enum: [success,failure]
+                  msg:
+                    type: string
+        400:
+          description: Request body missing necessary fields OR company doesn't exist
+  /company/create:
+    post:
+      tags:
+      - "Company"
+      summary: create a company
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                owners:
+                  type: object
+      responses:
+        200:    # status code
+          description: A JSON object containing new company id as its code
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  code:
+                    type: string
+                  status:
+                    type: string
+                    enum: [success,failure]
+                  msg:
+                    type: string
+        400:
+          description: Request body missing necessary fields
+  /company/allCompanies:
+    get:
+      tags:
+      - "Company"
+      summary: fetch all companies with pagination
+      parameters:
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing your Compnay object
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  companies:
+                    type: object
+                    properties:
+                      name: 
+                        type: string
+                        example: companyExample
+                      description: 
+                        type: string
+                        example: company with very interesting descriptions
+                      owners:
+                        type: object
+                      id: 
+                        type: string
+                        example: 6089ea5c8680de08584066dc
+                      documents:
+                        type: array
+                        items:
+                          type: string
+                      posts:
+                        type: object
+                  status:
+                    type: string
+                    enum: [success,failure]
+                  msg:
+                    type: string
+        400:
+          description: Request body missing necessary fields OR couldn't retrieve companies
+  /teacher/{id}:
+    get:
+      tags:
+      - "Teacher"
+      summary: fetch teacher with the teacher id
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: token
+          type: string
+          required: true
+      responses:
+        200:    # status code
+          description: A JSON object containing teacher and courses
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      name: 
+                        type: string
+                        example: loggedInUser
+                      email: 
+                        type: string
+                        example: loggedInUser@gmail.com
+                      id: 
+                        type: string
+                        example: 6089ea5c8680de08584066dc
+                      type:
+                        type: string
+                        enum: [student, teacher, entrepreneur]
+                  status:
+                    type: string
+                    enum: [success,failure]
+                  msg:
+                    type: string
+        400:
+          description: Request body missing necessary fields OR no teacher with the id exists

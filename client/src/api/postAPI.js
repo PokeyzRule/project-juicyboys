@@ -2,6 +2,7 @@ import axiosClient from "../utils/axiosClient";
 
 // GET
 export const getPostsByCourseId = (id) => axiosClient.get(`/posts/course/${id}`);
+export const getPostsByCompanyId = (id) => axiosClient.get(`/posts/company/${id}`);
 export const getCommentsByPostId = (id) => axiosClient.get(`/posts/comments/${id}`);
 
 // POST
@@ -16,6 +17,7 @@ export const deleteCommentById = (id) => axiosClient.delete(`/posts/comments/${i
 
 const postAPI = {
     getPostsByCourseId,
+    getPostsByCompanyId,
     getCommentsByPostId,
     addLike,
     removeLike,

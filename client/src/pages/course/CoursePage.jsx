@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import CoursePageStyles from './CoursePage.module.scss'
 import Navbar from '../../components/Navbar'
-import { Button } from '@material-ui/core';
+import { Fab } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import Post from '../../components/Post'
 import courseAPI from '../../api/courseAPI'
 import postAPI from '../../api/postAPI'
 import CourseAssignment from '../../components/CourseAssignment/CourseAssignment'
-import CreatePost from '../../components/CreatePost';
+import PopupModal from '../../components/PopupModal';
 
 function CoursePage() {
 
@@ -19,12 +20,7 @@ function CoursePage() {
     const [isOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true)
 
-    const toggleCreatePost = () => setIsOpen(!isOpen);
-
-    const deletePost = async (id) => {
-        await postAPI.deletePost(id);
-        setPosts(posts.filter(post => post.postID !== id))
-    }
+    const toggleModal = () => setIsOpen(!isOpen);
 
     useEffect(() => {
         courseAPI.getCourseByID(id).then((response) => {
@@ -125,30 +121,32 @@ function CoursePage() {
                         <div className={CoursePageStyles.postsContainer}>
                             <h1 className={CoursePageStyles.header}>
                                 Posts
-                                <Button variant="contained" color="primary" style={{float: 'right'}} onClick={toggleCreatePost}>
-                                       Create Post
-                                </Button>
                             </h1>
-                            {isOpen && <CreatePost
-                                courseID={id}
-                                posts={posts}
+                            {isOpen && <PopupModal
                                 setPosts={setPosts}
-                                handleClose={toggleCreatePost}
+                                setAssignments={setUpcomingAssignments}
+                                handleClose={toggleModal}
                             />}
                             <div className={CoursePageStyles.divider}></div>
                             <div className={CoursePageStyles.postsFeed}>
                                 {loading ? <h1>Loading</h1> : 
                                     posts.map((post) => {
                                         return(
-                                            <Post key={post.postID} post={post} deletePost={deletePost}/>
+                                            <Post key={post.postID} post={post} setPosts={setPosts}/>
                                         )
                                     })
                                 }
                             </div>
                         </div>
                     </div>
+                    <div>
+                        
+                    </div>
                 </div>
                 <hr width="100%" size="2" color="#C4C4C4" />
+                <Fab style={{position:'fixed'}} className={CoursePageStyles.fab} color="primary" aria-label="add" onClick={toggleModal}>
+                    <AddIcon />
+                </Fab>
             </div>
 
         </div>
