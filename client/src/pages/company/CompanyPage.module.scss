@@ -129,6 +129,54 @@
 
 }
 
+.form{
+    width: 600px;
+    height: 500px;
+    background-color: #F6F6F6;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+
+    input{
+        height: 25px;
+        padding: 10px;
+        font-family: "Roboto", sans-serif;
+        margin-bottom: 20px;
+    }
+
+    h1{
+        font-family: "Roboto", sans-serif;
+        font-weight: lighter;
+        margin-bottom: 10px;
+    }
+}
+
+.submit{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50px;
+    padding: 10px;
+    font-family: "Roboto", sans-serif;
+    font-size: 22px;
+    border-radius: 25px;
+    border: none;
+    background-color: #3230AD;
+    color: white;
+    margin-top: 25px;
+}
+
+.submit:hover{
+    transition: 0.2s;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
 hr{
     width: 100%;
     border-left: 0;
