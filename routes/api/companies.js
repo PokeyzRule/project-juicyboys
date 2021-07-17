@@ -4,6 +4,7 @@ const auth = require('../../middleware/auth')
 
 // Models
 const Company = require('../../models/company')
+const Entrepreneur = require('../../models/entrepreneur')
 
 /**
  * @route   POST create
@@ -26,6 +27,24 @@ router.post('/create', auth, (req, res) => {
       status: 'failure',
       msg: 'Company creation failed',
     }))
+})
+
+router.post('/addOwner', auth, async (req, res) => {
+  const { companyID, newOwner } = req.body
+
+  try {
+    await Company.updateOne({ companyID }, { $addToSet: { owners: newOwner } })
+    res.status(200).json({
+      status: 'success',
+      msg: 'Owner added successfully'
+    })
+  } catch {
+    res.status(400).json({
+      status: 'failure',
+      msg: 'Owner failed to add'
+    })
+  }
+
 })
 
 /**
