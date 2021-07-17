@@ -11,7 +11,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 function EntrepreneurHome() {
     const { state } = useContext(AuthContext)
-    const [ open, setOpen ] = useState(false)
+    const [open, setOpen] = useState(false)
     const [name, setname] = useState("")
     const [disc, setdisc] = useState("")
     const [success, setSuccess] = useState(false)
@@ -37,13 +37,14 @@ function EntrepreneurHome() {
 
         entrepreneurAPI.getEntrepreneurByID(state.user.id).then((res) => {
             profile = res.data.user
+            console.log(res)
         }).then(() => {
             companyAPI.createCompany({
                 name: name,
                 description: disc,
                 owners: [profile]
             }).then((res) => {
-                if (res.data.status === "success"){
+                if (res.data.status === "success") {
                     setOpen(false)
                     setSuccess(true)
                 }
@@ -55,7 +56,7 @@ function EntrepreneurHome() {
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
-      }
+    }
 
     return (
         <div className={styles.container}>
@@ -77,7 +78,7 @@ function EntrepreneurHome() {
                 </Modal>
                 <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
                     <Alert onClose={handleToastClose} severity="success">
-                    Your Company has been created successfully!
+                        Your Company has been created successfully!
                     </Alert>
                 </Snackbar>
             </div>
