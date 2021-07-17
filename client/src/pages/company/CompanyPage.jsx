@@ -5,9 +5,13 @@ import Navbar from '../../components/Navbar'
 import { Button } from '@material-ui/core';
 import Post from '../../components/Post'
 import companyAPI from '../../api/companyAPI'
+import entrepreneurAPI from '../../api/entrepreneurAPI';
 import postAPI from '../../api/postAPI'
 import CreatePost from '../../components/CreatePost';
 import { AuthContext } from '../../App';
+import Modal from '@material-ui/core/Modal';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 function CompanyPage() {
     const { state } = useContext(AuthContext)
@@ -18,6 +22,9 @@ function CompanyPage() {
     const [documents, setDocuments] = useState()
     const [isOpen, setIsOpen] = useState(false)
     const [loading, setLoading] = useState(true)
+    const [open, setOpen] = useState(false)
+    const [email, setEmail] = useState("")
+    const [success, setSuccess] = useState(false)
 
     const toggleCreatePost = () => setIsOpen(!isOpen);
 
@@ -26,19 +33,46 @@ function CompanyPage() {
         setPosts(posts.filter(post => post.postID !== id))
     }
 
-    console.log()
+    const handleOpen = (e) => {
+        e.preventDefault()
+        setOpen(true)
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const handleToastClose = () => {
+        setSuccess(false)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        entrepreneurAPI.getEntrepreneurByEmail(email).then(res => {
+            if (res.data.status === 'Success') {
+                companyAPI.addOwner({
+                    companyID: company.companyID,
+                    newOwner: res.data.user
+                }).then(res => {
+                    if (res.data.status === 'success') {
+                        setOpen(false)
+                        setSuccess(true)
+                    }
+                })
+            } else {
+                setOpen(false)
+                setSuccess(true)
+            }
+        })
+    }
 
     useEffect(() => {
         companyAPI.getCompanyByID(id).then(response => {
             let company = response.data.company
-            console.log(company)
             setCompany(company)
-            // Uncomment below if you want to test the owners part, since we don't have working data yet
-            // company.owners = [{ name: "Elon \"uwu\" Musk", email: "uwu@tesla.com" }]
-            company.owners = [{ name: "Elon \"uwu\" Musk", email: "uwu@tesla.com", entrepreneurID: "e1" }, { name: "X AE A-XII Musk", email: "owo@tesla.com", entrepreneurID: "x1" }, { name: "Elon \"uwu\" Musk2", email: "uwu2@tesla.com", entrepreneurID: "e2" }, { name: "X AE A-XII Musk2", email: "owo2@tesla.com", entrepreneurID: "x2" }, { name: "Elon \"uwu\" Musk3", email: "uwu3@tesla.com", entrepreneurID: "e3" }, { name: "X AE A-XII Musk3", email: "owo3@tesla.com", entrepreneurID: "x3" }]
             setOwners(company.owners)
             setDocuments(company.documents)
-            // setPosts(company.posts)
         }).then(() => {
             postAPI.getPostsByCourseId(id).then((res) => {
                 setPosts(res.data.posts)
@@ -47,6 +81,10 @@ function CompanyPage() {
 
         })
     }, [id])
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
 
     return (
         <div>
@@ -87,9 +125,28 @@ function CompanyPage() {
                                 'Loading...'
                                 :
                                 owners.map(owner => {
-                                    return <p key={owner.entrepreneurID}>{`${owner.name} (${owner.email})`}</p>
+                                    return <p key={owner?.entrepreneurID}>{`${owner?.name} (${owner?.email})`}</p>
                                 })
                             }
+                            <button className={CompanyPageStyles.create} onClick={(e) => handleOpen(e)}>Add Owner</button>
+                            <div className={CompanyPageStyles.modalcontainer}>
+                                <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                >
+                                    <div className={CompanyPageStyles.form}>
+                                        <h1 style={CompanyPageStyles.label}>Entrepreneur email</h1>
+                                        <input onChange={(e) => setEmail(e.target.value)} placeholder="Enter the email here!" style={CompanyPageStyles.fields} />
+                                        <button onClick={(e) => handleSubmit(e)} className={CompanyPageStyles.submit}>Submit!</button>
+
+                                    </div>
+                                </Modal>
+                                <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
+                                    <Alert onClose={handleToastClose} severity="success">
+                                        The owner has been added successfully!
+                                    </Alert>
+                                </Snackbar>
+                            </div>
                         </div>
                         <div className={CompanyPageStyles.documentsContainer}>
                             <h1 className={CompanyPageStyles.header}>Documents</h1>
