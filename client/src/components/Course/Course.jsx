@@ -7,7 +7,6 @@ import styles from './Course.module.scss'
 function Course({course}) {
     const { state } = useContext(AuthContext)
     const [ isEnrolled, setEnrolled ] = useState(course.students.includes(state.user.id))
-    console.log(course)
 
     function enrollCourse(e) {
         e.preventDefault()
