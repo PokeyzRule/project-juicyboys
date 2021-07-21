@@ -89,7 +89,7 @@ router.post('/create', auth, (req, res) => {
  * @desc    Create an assignment for a course
  * @access  Authenticated users
  */
-router.post('/createAssignment', auth, async (req, res) => {
+router.post('/createAssignment', async (req, res) => {
   const courseID = req.body.courseID
   const newAssignment = new Assignment({
     title: req.body.title,
@@ -121,26 +121,35 @@ router.post('/createAssignment', auth, async (req, res) => {
 
 })
 
+router.post("/updateAssignment", auth, (req, res) => {
+  Assignment.updateOne({ assignmentID: req.body.assignmentID }, { $addToSet: { uploads: req.body.uploads } })
+    .then((resp) => console.log(resp))
+    .catch((err) => console.log(err))
+})
+
 router.post("/submitAssignment", auth, async (req, res) => {
   const assignmentID = req.body.assignmentID;
+  const studentName = await Student.findOne({ studentID: req.body.studentID }).then((student) => student.name)
   const submission = new Submission({
     date: Date.now(),
     uploads: req.body.uploads,
     studentID: req.body.studentID,
+    studentName: studentName,
     assignmentID: req.body.assignmentID
   })
 
   try {
     let submissionConfirmation = await submission.save()
 
-    await Assignment.updateOne({ assignmentID }, { $addToSet: { submissions: submissionConfirmation._id } })
-
+    await Assignment.updateOne({ assignmentID }, { $addToSet: { submissions: submission } })
+  
     res.status(200).json({
       status: 'success',
       msg: 'Assignment submission submitted successfully',
-      submission,
+      submission: submission
     })
   } catch (err) {
+    console.log(err)
     res.status(400).json({
       status: 'failure',
       msg: 'Assignment submission failed',
