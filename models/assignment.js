@@ -40,6 +40,14 @@ const AssignmentSchema = new Schema({
     type: Boolean,
     required: true
   },
+  isStream: {
+    type: Boolean,
+    default: false
+  },
+  zoomLink: {
+    type: String,
+    default: ""
+  },
   assignmentID: {
     type: Schema.Types.ObjectId,
     auto: true
