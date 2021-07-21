@@ -6,6 +6,33 @@ const auth = require('../../middleware/auth')
 const Company = require('../../models/company')
 const Entrepreneur = require('../../models/entrepreneur')
 
+
+/**
+ * @route   POST addDocument
+ * @desc    Add a document to the company
+ * @access  Authenticated users
+ */
+router.post('/addDocument', auth, async (req, res) => {
+  const companyID = req.body.companyID
+  const newDocument = req.body.newDocument
+
+  try {
+    if (!newDocument) throw "Missing new document"
+
+    await Company.updateOne({ companyID }, { $addToSet: { documents: newDocument } })
+    res.status(200).json({
+      status: 'success',
+      msg: 'Document uploaded successfully',
+      newDocument: newDocument
+    })
+  } catch {
+    res.status(400).json({
+      status: 'failure',
+      msg: 'Document upload failed'
+    })
+  }
+})
+
 /**
  * @route   POST create
  * @desc    Create a company
@@ -29,6 +56,11 @@ router.post('/create', auth, (req, res) => {
     }))
 })
 
+/**
+ * @route   POST addOwner
+ * @desc    Adds an owner to a company
+ * @access  Authenticated users
+ */
 router.post('/addOwner', auth, async (req, res) => {
   const { companyID, newOwner } = req.body
 
