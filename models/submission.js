@@ -14,6 +14,10 @@ const submissionSchema = new Schema({
       type: Schema.Types.ObjectId,
       auto: true
     },
+    studentName: {
+      type: String,
+      required: true
+    },
     assignmentID: {
       type: Schema.Types.ObjectId,
       auto: true
