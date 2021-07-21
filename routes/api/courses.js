@@ -91,15 +91,29 @@ router.post('/create', auth, (req, res) => {
  */
 router.post('/createAssignment', async (req, res) => {
   const courseID = req.body.courseID
-  const newAssignment = new Assignment({
-    title: req.body.title,
-    description: req.body.desc,
-    courseID: req.body.courseID,
-    uploads: req.body.uploads,
-    dueDate: req.body.dueDate,
-    assignedDate: req.body.assignedDate,
-    toSubmit: req.body.toSubmit
-  })
+
+  if (!isStream){
+    const newAssignment = new Assignment({
+      title: req.body.title,
+      description: req.body.desc,
+      courseID: req.body.courseID,
+      uploads: req.body.uploads,
+      dueDate: req.body.dueDate,
+      assignedDate: req.body.assignedDate,
+      toSubmit: req.body.toSubmit
+    })
+  }else{
+    const newAssignment = new Assignment({
+      title: req.body.title,
+      description: req.body.desc,
+      courseID: req.body.courseID,
+      assignedDate: req.body.assignedDate,
+      toSubmit: req.body.toSubmit,
+      isStream: req.body.isStream,
+      zoomLink: req.body.zoomLink
+    })
+  }
+
 
   try {
     let assignment = await newAssignment.save()
