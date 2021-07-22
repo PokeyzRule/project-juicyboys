@@ -103,7 +103,7 @@ router.get('/:companyID', auth, (req, res) => {
  * @desc         Fetch all companies with pagination
  * @access       Authenticated users
  */
-router.get('/allCompanies', auth, (req, res) => {
+router.get('/', (req, res) => {
   let limit = parseInt(req.query.limit) || 10
   let page = (Math.abs(req.query.page) || 1) - 1;
 
