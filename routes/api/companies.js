@@ -14,21 +14,22 @@ const Entrepreneur = require('../../models/entrepreneur')
  */
 router.post('/addDocument', auth, async (req, res) => {
   const companyID = req.body.companyID
-  const newDocument = req.body.newDocument
+  const newDocument = req.body.uploads
 
   try {
     if (!newDocument) throw "Missing new document"
 
-    await Company.updateOne({ companyID }, { $addToSet: { documents: newDocument } })
+    await Company.updateOne({ companyID }, { $addToSet: { documents: { $each: newDocument } } })
     res.status(200).json({
       status: 'success',
       msg: 'Document uploaded successfully',
       newDocument: newDocument
     })
-  } catch {
+  } catch (error) {
     res.status(400).json({
       status: 'failure',
-      msg: 'Document upload failed'
+      msg: 'Document upload failed',
+      error: error
     })
   }
 })
