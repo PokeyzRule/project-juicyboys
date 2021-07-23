@@ -12,6 +12,7 @@ import { AuthContext } from '../../App';
 import Modal from '@material-ui/core/Modal';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import UploadDocument from '../../components/UploadDocument/UploadDocument'
 
 function CompanyPage() {
     const { state } = useContext(AuthContext)
@@ -21,12 +22,15 @@ function CompanyPage() {
     const [owners, setOwners] = useState([])
     const [documents, setDocuments] = useState()
     const [isOpen, setIsOpen] = useState(false)
+    const [docOpen, setDocOpen] = useState(false)
     const [loading, setLoading] = useState(true)
     const [open, setOpen] = useState(false)
     const [email, setEmail] = useState("")
     const [success, setSuccess] = useState(false)
 
     const toggleCreatePost = () => setIsOpen(!isOpen);
+
+    const toggleUploadDocument = () => setDocOpen(!docOpen)
 
     const deletePost = async (id) => {
         await postAPI.deletePost(id);
@@ -149,7 +153,16 @@ function CompanyPage() {
                             </div>
                         </div>
                         <div className={CompanyPageStyles.documentsContainer}>
-                            <h1 className={CompanyPageStyles.header}>Documents</h1>
+                            <h1 className={CompanyPageStyles.header}>
+                                Documents
+                                {<Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleUploadDocument}>
+                                    Upload Documents
+                                </Button>}
+                            </h1>
+                            {docOpen && <UploadDocument
+                                setDocuments={setDocuments}
+                                handleClose={toggleUploadDocument}
+                            />}
                             TODO: Render documents next sprint somehow
                         </div>
                         {loading ?
