@@ -12,6 +12,7 @@ import { AuthContext } from '../../App';
 import Modal from '@material-ui/core/Modal';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import UploadDocument from '../../components/UploadDocument/UploadDocument'
 
 function CompanyPage() {
     const { state } = useContext(AuthContext)
@@ -21,12 +22,15 @@ function CompanyPage() {
     const [owners, setOwners] = useState([])
     const [documents, setDocuments] = useState()
     const [isOpen, setIsOpen] = useState(false)
+    const [docOpen, setDocOpen] = useState(false)
     const [loading, setLoading] = useState(true)
     const [open, setOpen] = useState(false)
     const [email, setEmail] = useState("")
     const [success, setSuccess] = useState(false)
 
     const toggleCreatePost = () => setIsOpen(!isOpen);
+
+    const toggleUploadDocument = () => setDocOpen(!docOpen)
 
     const deletePost = async (id) => {
         await postAPI.deletePost(id);
@@ -116,11 +120,16 @@ function CompanyPage() {
                 <div className={CompanyPageStyles.container}>
                     <div className={CompanyPageStyles.contentContainer}>
                         <div className={CompanyPageStyles.ownersContainer}>
-                            <h1 className={CompanyPageStyles.header}>{loading ?
-                                'Loading...'
-                                :
-                                owners.length === 1 ? 'Owner' : 'Owners'
-                            }</h1>
+                            <h1 className={CompanyPageStyles.header}>
+                                {loading ?
+                                    'Loading...'
+                                    :
+                                    owners.length === 1 ? 'Owner' : 'Owners'
+                                }
+                                {owners.some(owner => owner.email === JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={handleOpen}>
+                                    Add Owner
+                                </Button>}
+                            </h1>
                             {loading ?
                                 'Loading...'
                                 :
@@ -128,7 +137,6 @@ function CompanyPage() {
                                     return <p key={owner?.entrepreneurID}>{`${owner?.name} (${owner?.email})`}</p>
                                 })
                             }
-                            <button className={CompanyPageStyles.create} onClick={(e) => handleOpen(e)}>Add Owner</button>
                             <div className={CompanyPageStyles.modalcontainer}>
                                 <Modal
                                     open={open}
@@ -149,7 +157,16 @@ function CompanyPage() {
                             </div>
                         </div>
                         <div className={CompanyPageStyles.documentsContainer}>
-                            <h1 className={CompanyPageStyles.header}>Documents</h1>
+                            <h1 className={CompanyPageStyles.header}>
+                                Documents
+                                {owners.some(owner => owner.email === JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleUploadDocument}>
+                                    Upload Documents
+                                </Button>}
+                            </h1>
+                            {docOpen && <UploadDocument
+                                setDocuments={setDocuments}
+                                handleClose={toggleUploadDocument}
+                            />}
                             TODO: Render documents next sprint somehow
                         </div>
                         {loading ?
@@ -158,11 +175,11 @@ function CompanyPage() {
                             <div className={CompanyPageStyles.postsContainer}>
                                 <h1 className={CompanyPageStyles.header}>
                                     Posts
-                                    {company.owners.includes(JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleCreatePost}>
+                                    {owners.some(owner => owner.email === JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleCreatePost}>
                                         Create Post
                                     </Button>}
                                 </h1>
-                                {isOpen && company.owners.includes(JSON.parse(state.user).email) && <CreatePost
+                                {isOpen && owners.some(owner => owner.email === JSON.parse(state.user).email) && <CreatePost
                                     courseID={id}
                                     posts={posts}
                                     setPosts={setPosts}
@@ -185,7 +202,6 @@ function CompanyPage() {
             <hr />
         </div>
     )
-
 }
 
 export default CompanyPage
