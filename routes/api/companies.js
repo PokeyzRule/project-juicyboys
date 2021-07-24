@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const auth = require('../../middleware/auth')
+const company = require('../../models/company')
 
 // Models
 const Company = require('../../models/company')
@@ -120,6 +121,34 @@ router.get('/', auth, (req, res) => {
       status: 'Failure!',
       message: 'Unable to retrieve companies'
     }))
+})
+
+// Follow a company
+router.post('/follow', auth, (req, res) => {
+  Company.updateOne({ companyID: req.body.companyID }, { $addToSet: { followers: req.body.userID } })
+      .then((company) => res.status(200).json({
+          status: 'Success!',
+          msg: 'Company followed!',
+          followers: company.followers
+      }))
+      .catch(() => res.status(400).json({
+          status: 'Failure',
+          msg: 'Follow failed',
+      }))
+})
+
+// Unfollow a company
+router.post('/unfollow', auth, (req, res) => {
+  Company.updateOne({ companyID: req.body.companyID }, { $pull: { followers: req.body.userID } })
+      .then((company) => res.status(200).json({
+          status: 'Success!',
+          msg: 'Company unfollowed!',
+          followers: company.followers
+      }))
+      .catch(() => res.status(400).json({
+          status: 'Failure',
+          msg: 'Unfollow failed',
+      }))
 })
 
 module.exports = router
