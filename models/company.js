@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const Post = require('./post').schema
+const User = require('./user').schema
 const Entrepreneur = require('./entrepreneur').schema
 
 const companySchema = new Schema({
@@ -22,6 +23,10 @@ const companySchema = new Schema({
     },
     posts: {
         type: [Post],
+        default: []
+    },
+    followers: {
+        type: [User],
         default: []
     },
     companyID: {

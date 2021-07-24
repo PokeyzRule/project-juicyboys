@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const Company = require('./company').schema
 
 const studentSchema = new Schema({
     name: {
@@ -18,6 +19,10 @@ const studentSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    following: {
+        type: [Company],
+        default: []
     },
     studentID: {
         type: Schema.Types.ObjectId,
