@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import uploadAPI from "../../api/uploadAPI";
 import { Chip } from "@material-ui/core";
 
-const CreateAssignment = ({setAssignments, handleClose}) => {
+const CreateAssignment = ({ setAssignments, handleClose }) => {
 
     const { id } = useParams()
     const [title, setTitle] = useState('')
@@ -16,7 +16,7 @@ const CreateAssignment = ({setAssignments, handleClose}) => {
     const [uploads, setUploads] = useState([])
     const [dueDate, setDueDate] = useState("")
     const [toSubmit, setToSubmit] = useState(true)
-    
+
     const addAssignment = async (e) => {
         const payload = {
             title: title,
@@ -25,9 +25,10 @@ const CreateAssignment = ({setAssignments, handleClose}) => {
             uploads: Array.from(uploads.map((upload) => upload.location)),
             dueDate: dueDate,
             assignedDate: new Date().toISOString(),
-            toSubmit: toSubmit
+            toSubmit: toSubmit,
+            isStream: false
         }
-        
+
         const newAssignment = await (await courseAPI.addAssignment(payload)).data.assignment;
         setAssignments((assignments) => [newAssignment, ...assignments])
         handleClose()
@@ -35,7 +36,7 @@ const CreateAssignment = ({setAssignments, handleClose}) => {
 
     const handleFileUpload = (e) => {
         const file = e.target.files[0]
-        
+
         uploadAPI.addFile(file).then((data) => {
             setUploads(uploads => [...uploads, data])
         })
@@ -47,7 +48,7 @@ const CreateAssignment = ({setAssignments, handleClose}) => {
     }
 
     return (
-        <div> 
+        <div>
             <TextField
                 id="outlined-full-width"
                 multiline={true}
@@ -99,7 +100,7 @@ const CreateAssignment = ({setAssignments, handleClose}) => {
                         onChange={(date) => setDueDate(date.target.value)}
                     />
                 </form> : <div />}
-            </div> 
+            </div>
             <div style={{ marginBottom: '10px' }}>
                 {uploads.map((upload) => <Chip key={upload.key} className={styles.file} label={upload.key} onDelete={() => handleDelete(upload.key)} />)}
             </div>
@@ -117,7 +118,7 @@ const CreateAssignment = ({setAssignments, handleClose}) => {
             <Button
                 variant="contained"
                 color="primary"
-                endIcon={<SendIcon/>}
+                endIcon={<SendIcon />}
                 onClick={(e) => addAssignment(e)}
             >
                 Create Assignment!
