@@ -92,8 +92,10 @@ router.post('/create', auth, (req, res) => {
 router.post('/createAssignment', async (req, res) => {
   const courseID = req.body.courseID
 
-  if (!isStream){
-    const newAssignment = new Assignment({
+  var newAssignment;
+
+  if (!req.body.isStream){
+    newAssignment = new Assignment({
       title: req.body.title,
       description: req.body.desc,
       courseID: req.body.courseID,
@@ -103,7 +105,7 @@ router.post('/createAssignment', async (req, res) => {
       toSubmit: req.body.toSubmit
     })
   }else{
-    const newAssignment = new Assignment({
+    newAssignment = new Assignment({
       title: req.body.title,
       description: req.body.desc,
       courseID: req.body.courseID,
