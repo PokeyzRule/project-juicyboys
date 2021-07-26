@@ -10,7 +10,6 @@ const AssignmentSchema = new Schema({
   },
   description: {
     type: String,
-    required: true
   },
   courseID: {
     type: String,
