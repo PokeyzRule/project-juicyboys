@@ -15,10 +15,6 @@ const entrepreneurSchema = new Schema({
         type: String,
         required: true
     },
-    following: {
-        type: [String],
-        default: []
-    },
     associatedStartups: {
         type: [String],
         required: true

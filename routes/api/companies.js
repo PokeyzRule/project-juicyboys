@@ -126,16 +126,7 @@ router.get('/', auth, (req, res) => {
 // Follow a company
 router.post('/follow', auth, async (req, res) => {
   try {
-    if (req.body.objType == "student") {
-      await Student.updateOne({ studentID: req.body.studentID }, { $addToSet: { following: req.body.companyID } })
-    }
-    else if (req.body.objType == "teacher") {
-      await Teacher.updateOne({ teacherID: req.body.teacherID }, { $addToSet: { following: req.body.companyID } })
-    }
-    else if (req.body.objType == "entreprenuer") {
-      await Entrepreneur.updateOne({ entrepreneurID: req.body.entrepreneurID }, { $addToSet: { following: req.body.companyID } })
-    }
-    
+    await User.updateOne({ _id: req.body.userID }, { $addToSet: { following: req.body.companyID } })
     await Company.updateOne({ companyID: req.body.companyID }, { $addToSet: { followers: req.body.userID } })
     const comp = await Company.findOne({ companyID: req.body.companyID })
 
@@ -156,16 +147,7 @@ router.post('/follow', auth, async (req, res) => {
 // Unfollow a company
 router.post('/unfollow', auth, async (req, res) => {
   try {
-    if (req.body.objType == "student") {
-      await Student.updateOne({ studentID: req.body.studentID }, { $pull: { following: req.body.companyID } })
-    }
-    else if (req.body.objType == "teacher") {
-      await Teacher.updateOne({ teacherID: req.body.teacherID }, { $pull: { following: req.body.companyID } })
-    }
-    else if (req.body.objType == "entreprenuer") {
-      await Entrepreneur.updateOne({ entrepreneurID: req.body.entrepreneurID }, { $pull: { following: req.body.companyID } })
-    }
-
+    await User.updateOne({ _id: req.body.userID }, { $pull: { following: req.body.companyID } })
     await Company.updateOne({ companyID: req.body.companyID }, { $pull: { followers: req.body.userID } })
     const comp = await Company.findOne({ companyID: req.body.companyID })
 
