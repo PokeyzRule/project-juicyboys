@@ -80,7 +80,7 @@ const Assignment = () => {
                 assignmentID: aid
             }
             courseAPI.addAssignmentFiles(payload)
-        })
+        }).catch((err) => console.log(err))
     }
 
     const handleFileDelete = (name) => {
@@ -92,7 +92,7 @@ const Assignment = () => {
         
         uploadAPI.addFile(file).then((data) => {
             setSubmissions(submissions => [...submissions, data])
-        })
+        }).catch((err) => console.log(err))
     }
 
     const handleSubmissionDelete = (name) => {
@@ -106,7 +106,7 @@ const Assignment = () => {
             assignmentID: aid
         }
         
-        courseAPI.addSubmission(payload).then(() => setOpen(true))
+        courseAPI.addSubmission(payload).then(() => setOpen(true)).catch((err) => console.log(err))
     }
 
     const handleClose = (event, reason) => {
