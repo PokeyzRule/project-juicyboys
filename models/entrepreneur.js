@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const Company = require('./company').schema
 
 const entrepreneurSchema = new Schema({
     name: {
@@ -17,7 +16,7 @@ const entrepreneurSchema = new Schema({
         required: true
     },
     following: {
-        type: [Company],
+        type: [String],
         default: []
     },
     associatedStartups: {
