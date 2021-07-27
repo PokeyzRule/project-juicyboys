@@ -157,7 +157,7 @@ router.post("/submitAssignment", auth, async (req, res) => {
   try {
     let submissionConfirmation = await submission.save()
 
-    await Assignment.updateOne({ assignmentID }, { $addToSet: { submissions: submission } })
+    await Assignment.updateOne({ assignmentID }, { $addToSet: { submissions: submission.submissionID } })
   
     res.status(200).json({
       status: 'success',
@@ -165,7 +165,6 @@ router.post("/submitAssignment", auth, async (req, res) => {
       submission: submission
     })
   } catch (err) {
-    console.log(err)
     res.status(400).json({
       status: 'failure',
       msg: 'Assignment submission failed',
@@ -173,6 +172,39 @@ router.post("/submitAssignment", auth, async (req, res) => {
     })
   }
 
+})
+
+router.post('/addGrade', auth, (req, res) => {
+  const grade = req.body.grade
+  const submissionID = req.body.submissionID
+
+  Submission.updateOne({ submissionID: submissionID }, { grade: grade })
+    .then((resp) => {
+      res.status(200).json({
+        status: 'success',
+        msg: 'Grade added!',
+        submissionID: submissionID,
+        grade: grade
+      }
+    )})
+    .catch((err) => {console.log(err); res.status(400).json({
+      status: 'Failure',
+      msg: 'Unable to add grade',
+      err: err
+  })})
+})
+
+router.get('/submissions/:assignmentID', auth, (req, res) => {
+  Submission.find({ assignmentID: req.params.assignmentID })
+    .then(submissions => res.status(200).json({
+      submissions: submissions,
+      status: 'Success!',
+      message: 'Courses retrieved!'
+    }))
+    .catch((err) => {console.log(err); res.status(400).json({
+      status: 'Failure!',
+      message: 'Unable to retrieve submissions'
+    })})
 })
 
 /**
