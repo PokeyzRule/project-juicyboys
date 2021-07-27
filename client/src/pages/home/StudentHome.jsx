@@ -77,7 +77,7 @@ function StudentHome() {
                 {coursesLoading ? <h1>Loading</h1> : 
                 courses.map((course) => {
                     return(
-                        <Course course={course}/>
+                        <Course key={course.courseID} course={course}/>
                     )
                 })
                 }
