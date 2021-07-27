@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Comment = require('./comment').schema
-const Submission = require('./submission').schema
 const Schema = mongoose.Schema
 
 const AssignmentSchema = new Schema({
@@ -20,7 +19,7 @@ const AssignmentSchema = new Schema({
     default: []
   },
   submissions: {
-    type: [Submission],
+    type: [String],
     default: []
   },
   comments: {
