@@ -21,7 +21,15 @@ const submissionSchema = new Schema({
     assignmentID: {
       type: Schema.Types.ObjectId,
       auto: true
-    }
+    },
+    submissionID: {
+      type: Schema.Types.ObjectId,
+      auto: true
+    },
+    grade: {
+      type: Number,
+      default: 0
+    },
 })
 
 module.exports = mongoose.model('submission', submissionSchema)
