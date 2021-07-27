@@ -137,11 +137,12 @@ router.post('/follow', auth, async (req, res) => {
     }
     
     await Company.updateOne({ companyID: req.body.companyID }, { $addToSet: { followers: req.body.userID } })
+    const comp = await Company.findOne({ companyID: req.body.companyID })
 
     res.status(200).json({
       status: 'Success!',
       msg: 'Company followed!',
-      followers: company.followers
+      followers: comp.followers
     })
 
   } catch (err) {
@@ -166,11 +167,12 @@ router.post('/unfollow', auth, async (req, res) => {
     }
 
     await Company.updateOne({ companyID: req.body.companyID }, { $pull: { followers: req.body.userID } })
+    const comp = await Company.findOne({ companyID: req.body.companyID })
 
     res.status(200).json({
       status: 'Success!',
       msg: 'Company unfollowed!',
-      followers: company.followers
+      followers: comp.followers
     })
 
   } catch (err) {
