@@ -6,9 +6,11 @@ export const enrollCourse = (payload) => axiosClient.post(`/courses/enroll`, pay
 export const addAssignment = (payload) => axiosClient.post('/courses/createAssignment', payload)
 export const addAssignmentFiles = (payload) => axiosClient.post(`/courses/updateAssignment`, payload)
 export const addSubmission = (payload) => axiosClient.post('/courses/submitAssignment', payload)
+export const addGrade = (payload) => axiosClient.post(`/courses/addGrade`, payload)
 
 // GET
 export const getAllCourses = () => axiosClient.get(`/courses`);
+export const getSubmissionsByAssignment = (id) => axiosClient.get(`/courses/submissions/${id}`)
 export const getCourseByID = (id) => axiosClient.get(`/courses/${id}`);
 
 const courseAPI = {
@@ -17,8 +19,10 @@ const courseAPI = {
     addAssignment,
     addAssignmentFiles,
     addSubmission,
+    addGrade,
     getAllCourses,
     getCourseByID,
+    getSubmissionsByAssignment
 };
 
 export default courseAPI;

@@ -20,6 +20,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 
 const Assignment = () => {
 
@@ -30,8 +34,9 @@ const Assignment = () => {
     const [course, setCourse] = useState()
     const [submissions, setSubmissions] = useState([])
     const [files, setFiles] = useState([])
+    const [subFiles, setSubFiles] = useState([])
     const [loading, setLoading] = useState(true)
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false)
     
     useEffect(() => {
         courseAPI.getCourseByID(cid).then((resp) => {
@@ -41,10 +46,13 @@ const Assignment = () => {
                     setAssignment(a)
                     setFiles(a.uploads)
                     setLoading(false)
+                    courseAPI.getSubmissionsByAssignment(aid).then((res) => {
+                        setSubmissions(res.data.submissions)
+                    }).catch(err => console.log(err))
                     return
                 }
             })
-        })
+        }).catch(err => console.log(err))
     }, [])
 
     const UploadLink = ({link}) => {
@@ -83,25 +91,21 @@ const Assignment = () => {
         }).catch((err) => console.log(err))
     }
 
-    const handleFileDelete = (name) => {
-        setFiles(files => files.filter(file => file.key !== name))
-    }
-
     const handleSubmissionUpload = (e) => {
         const file = e.target.files[0]
         
         uploadAPI.addFile(file).then((data) => {
-            setSubmissions(submissions => [...submissions, data])
+            setSubFiles(submissions => [...submissions, data])
         }).catch((err) => console.log(err))
     }
 
     const handleSubmissionDelete = (name) => {
-        setSubmissions(submissions => submissions.filter(submission => submission.key !== name))
+        setSubFiles(subFiles => subFiles.filter(subFile => subFile.key !== name))
     }
 
     const handleSubmissionSubmit = () => {
         const payload = {
-            uploads: Array.from(submissions.map((submission) => submission.location)),
+            uploads: Array.from(subFiles.map((subFile) => subFile.location)),
             studentID: user.id,
             assignmentID: aid
         }
@@ -109,13 +113,30 @@ const Assignment = () => {
         courseAPI.addSubmission(payload).then(() => setOpen(true)).catch((err) => console.log(err))
     }
 
-    const handleClose = (event, reason) => {
+    const handleClose = (reason) => {
         if (reason === 'clickaway') {
           return;
         }
         setOpen(false);
     };
+
+    const handleChange = (props) => (e) => {
+        setSubmissions(submissions => submissions.map(x => {
+            if (x.submissionID !== props.submissionID) return x
+            return {...x, grade: e.target.value}
+        }))
+
+        courseAPI.addGrade({ submissionID: props.submissionID, grade: e.target.value })
+    }
     
+    const currentStudentGrade = () => {
+        const grades = submissions.map((submission) => {
+            if (submission.studentID === user.id) return submission.grade
+        })
+        const grade = grades.pop()
+        return grade == undefined ? 0 : grade
+    }
+
     return (
         <div>
             <Navbar />
@@ -125,6 +146,7 @@ const Assignment = () => {
                     <h1> {loading ? 'Loading...' : assignment.title}</h1>
                     <h2>Created: {loading ? 'Loading...' : new Date(assignment.assignedDate).toLocaleString()}</h2>
                     <h2>Due Date: {loading ? 'Loading...' : assignment.dueDate ? new Date(assignment.dueDate).toLocaleString() : 'N/A'}</h2>
+                    { user.type == "student" ? <h2>Grade: {loading ? 'Loading...' : currentStudentGrade() + '%'} </h2> : <div/> }
                 </div>
             </div>
             <div className={styles.description}>
@@ -138,9 +160,6 @@ const Assignment = () => {
                 <div className={styles.uploads}>
                     {loading ? <h1> 'Loading...' </h1> : files.map((file) => <UploadLink link={file} />)}
                 </div>
-                {/* <div style={{ marginBottom: '10px' }}>
-                        {files.map((file) => <Chip key={file.key} className={styles.file} label={file.key} onDelete={() => handleFileDelete(file.key)} />)}
-                </div> */}
                 { user.type == "teacher" ? 
                     <div>
                         <input
@@ -164,7 +183,7 @@ const Assignment = () => {
                     <h2>Upload Submissions</h2>
                     <hr style={{ maxWidth: 250 }}/>
                     <div style={{ marginBottom: '10px' }}>
-                        {submissions.map((submission) => <Chip key={submission.key} className={styles.file} label={submission.key} onDelete={() => handleSubmissionDelete(submission.key)} />)}
+                        {subFiles.map((submission) => <Chip key={submission.key} className={styles.file} label={submission.key} onDelete={() => handleSubmissionDelete(submission.key)} />)}
                     </div>
                     <input
                         hidden
@@ -196,19 +215,35 @@ const Assignment = () => {
                         <Table aria-label="simple table">
                             <TableHead>
                             <TableRow>
-                                <TableCell>ID</TableCell>
+                                <TableCell>Student ID</TableCell>
                                 <TableCell align="right">Name</TableCell>
                                 <TableCell align="right">Uploads</TableCell>
                                 <TableCell align="right">Upload Date</TableCell>
+                                <TableCell align="right">Grade</TableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>
-                            {assignment.submissions.map((submission) => (
-                                <TableRow key={submission.studentName}>
+                            {submissions.map((submission) => (
+                                <TableRow key={submission.submissionID}>
                                     <TableCell>{submission.studentID}</TableCell>
                                     <TableCell align="right">{submission.studentName}</TableCell>
                                     <TableCell align="right">{submission.uploads.map((upload) => (<h3><a href={upload}>{upload}</a></h3>))}</TableCell>
                                     <TableCell align="right">{new Date(submission.date).toLocaleString()}</TableCell>
+                                    <TableCell align="right">
+                                    <FormControl className={styles.grade}>
+                                        <Input
+                                            id="standard-adornment-weight"
+                                            value={submission.grade}
+                                            onChange={handleChange(submission)}
+                                            endAdornment={<InputAdornment position="end">%</InputAdornment>}
+                                            aria-describedby="standard-weight-helper-text"
+                                            inputProps={{
+                                                'aria-label': 'weight',
+                                            }}
+                                        />
+                                        <FormHelperText id="standard-weight-helper-text">Percentage</FormHelperText>
+                                    </FormControl>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                             </TableBody>
