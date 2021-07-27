@@ -19,6 +19,10 @@ const studentSchema = new Schema({
         type: String,
         required: true
     },
+    following: {
+        type: [String],
+        default: []
+    },
     studentID: {
         type: Schema.Types.ObjectId,
         auto: true

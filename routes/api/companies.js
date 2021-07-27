@@ -4,8 +4,9 @@ const auth = require('../../middleware/auth')
 
 // Models
 const Company = require('../../models/company')
+const Student = require('../../models/student')
+const Teacher = require('../../models/teacher')
 const Entrepreneur = require('../../models/entrepreneur')
-
 
 /**
  * @route   POST addDocument
@@ -120,6 +121,66 @@ router.get('/', auth, (req, res) => {
       status: 'Failure!',
       message: 'Unable to retrieve companies'
     }))
+})
+
+// Follow a company
+router.post('/follow', auth, async (req, res) => {
+  try {
+    if (req.body.objType == "student") {
+      await Student.updateOne({ studentID: req.body.studentID }, { $addToSet: { following: req.body.companyID } })
+    }
+    else if (req.body.objType == "teacher") {
+      await Teacher.updateOne({ teacherID: req.body.teacherID }, { $addToSet: { following: req.body.companyID } })
+    }
+    else if (req.body.objType == "entreprenuer") {
+      await Entrepreneur.updateOne({ entrepreneurID: req.body.entrepreneurID }, { $addToSet: { following: req.body.companyID } })
+    }
+    
+    await Company.updateOne({ companyID: req.body.companyID }, { $addToSet: { followers: req.body.userID } })
+    const comp = await Company.findOne({ companyID: req.body.companyID })
+
+    res.status(200).json({
+      status: 'Success!',
+      msg: 'Company followed!',
+      followers: comp.followers
+    })
+
+  } catch (err) {
+    res.status(400).json({
+      status: 'Failure',
+      msg: 'Follow failed',
+    })
+  }
+})
+
+// Unfollow a company
+router.post('/unfollow', auth, async (req, res) => {
+  try {
+    if (req.body.objType == "student") {
+      await Student.updateOne({ studentID: req.body.studentID }, { $pull: { following: req.body.companyID } })
+    }
+    else if (req.body.objType == "teacher") {
+      await Teacher.updateOne({ teacherID: req.body.teacherID }, { $pull: { following: req.body.companyID } })
+    }
+    else if (req.body.objType == "entreprenuer") {
+      await Entrepreneur.updateOne({ entrepreneurID: req.body.entrepreneurID }, { $pull: { following: req.body.companyID } })
+    }
+
+    await Company.updateOne({ companyID: req.body.companyID }, { $pull: { followers: req.body.userID } })
+    const comp = await Company.findOne({ companyID: req.body.companyID })
+
+    res.status(200).json({
+      status: 'Success!',
+      msg: 'Company unfollowed!',
+      followers: comp.followers
+    })
+
+  } catch (err) {
+    res.status(400).json({
+      status: 'Failure',
+      msg: 'Unfollow failed',
+    })
+  }
 })
 
 module.exports = router
