@@ -13,9 +13,12 @@ import Modal from '@material-ui/core/Modal';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import UploadDocument from '../../components/UploadDocument/UploadDocument'
+import Icon from '@material-ui/core/Icon';
+import AddIcon from '@material-ui/icons/Add'
 
 function CompanyPage() {
     const { state } = useContext(AuthContext)
+    const user = JSON.parse(state.user)
     const { id } = useParams()
     const [company, setCompany] = useState()
     const [posts, setPosts] = useState([])
@@ -27,6 +30,7 @@ function CompanyPage() {
     const [open, setOpen] = useState(false)
     const [email, setEmail] = useState("")
     const [success, setSuccess] = useState(false)
+    const [isFollowing, setIsFollowing] = useState(false)
 
     const toggleCreatePost = () => setIsOpen(!isOpen);
 
@@ -71,18 +75,25 @@ function CompanyPage() {
         })
     }
 
+    const handleFollow = () => {
+        isFollowing ? companyAPI.removeFollower({ userID: user.id, companyID: company.companyID })
+                    : companyAPI.addFollower({ userID: user.id, companyID: company.companyID })
+
+        setIsFollowing(!isFollowing)
+    }
+
     useEffect(() => {
         companyAPI.getCompanyByID(id).then(response => {
             let company = response.data.company
             setCompany(company)
             setOwners(company.owners)
             setDocuments(company.documents)
+            setIsFollowing(company.followers.includes(user.id))
         }).then(() => {
             postAPI.getPostsByCourseId(id).then((res) => {
                 setPosts(res.data.posts)
                 setLoading(false)
             })
-
         })
     }, [id])
 
@@ -113,6 +124,17 @@ function CompanyPage() {
                             company.description
                         }
                     </h2>
+                </div>
+                <div className={CompanyPageStyles.info}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        endIcon={!isFollowing ? <AddIcon/> : null}
+                        className={CompanyPageStyles.follow}
+                        onClick={handleFollow}
+                    >
+                        {isFollowing ? 'Following' : 'Follow'}
+                    </Button>
                 </div>
             </div>
 
