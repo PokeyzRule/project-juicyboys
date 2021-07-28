@@ -13,8 +13,8 @@ import Modal from '@material-ui/core/Modal';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import UploadDocument from '../../components/UploadDocument/UploadDocument'
-import Icon from '@material-ui/core/Icon';
 import AddIcon from '@material-ui/icons/Add'
+import Document from '../../components/Document'
 
 function CompanyPage() {
     const { state } = useContext(AuthContext)
@@ -35,11 +35,6 @@ function CompanyPage() {
     const toggleCreatePost = () => setIsOpen(!isOpen);
 
     const toggleUploadDocument = () => setDocOpen(!docOpen)
-
-    const deletePost = async (id) => {
-        await postAPI.deletePost(id);
-        setPosts(posts.filter(post => post.postID !== id))
-    }
 
     const handleOpen = (e) => {
         e.preventDefault()
@@ -77,7 +72,7 @@ function CompanyPage() {
 
     const handleFollow = () => {
         isFollowing ? companyAPI.removeFollower({ userID: user.id, companyID: company.companyID })
-                    : companyAPI.addFollower({ userID: user.id, companyID: company.companyID })
+            : companyAPI.addFollower({ userID: user.id, companyID: company.companyID })
 
         setIsFollowing(!isFollowing)
     }
@@ -129,7 +124,7 @@ function CompanyPage() {
                     <Button
                         variant="contained"
                         color="primary"
-                        endIcon={!isFollowing ? <AddIcon/> : null}
+                        endIcon={!isFollowing ? <AddIcon /> : null}
                         className={CompanyPageStyles.follow}
                         onClick={handleFollow}
                     >
@@ -189,7 +184,15 @@ function CompanyPage() {
                                 setDocuments={setDocuments}
                                 handleClose={toggleUploadDocument}
                             />}
-                            TODO: Render documents next sprint somehow
+                            <div className={CompanyPageStyles.documentList}>
+                                {loading ?
+                                    'Loading...'
+                                    :
+                                    documents.map(document => {
+                                        return <Document document={document} />
+                                    })
+                                }
+                            </div>
                         </div>
                         {loading ?
                             <h1>Loading</h1>
@@ -212,7 +215,7 @@ function CompanyPage() {
                                     {loading ? <h1>Loading</h1> :
                                         posts.map((post) => {
                                             return (
-                                                <Post key={post.postID} post={post} deletePost={deletePost} />
+                                                <Post key={post.postID} post={post} setPosts={setPosts} />
                                             )
                                         })
                                     }
