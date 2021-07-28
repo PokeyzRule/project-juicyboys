@@ -21,7 +21,7 @@ const CreateAssignment = ({ setDocuments, handleClose }) => {
         }
 
         const newDocument = await (await companyAPI.addDocument(payload)).data.newDocument;
-        setDocuments((documents) => [newDocument, ...documents])
+        setDocuments((documents) => [...documents, ...newDocument])
         handleClose()
     }
 
