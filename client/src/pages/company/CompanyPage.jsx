@@ -36,11 +36,6 @@ function CompanyPage() {
 
     const toggleUploadDocument = () => setDocOpen(!docOpen)
 
-    const deletePost = async (id) => {
-        await postAPI.deletePost(id);
-        setPosts(posts.filter(post => post.postID !== id))
-    }
-
     const handleOpen = (e) => {
         e.preventDefault()
         setOpen(true)
@@ -212,7 +207,7 @@ function CompanyPage() {
                                     {loading ? <h1>Loading</h1> :
                                         posts.map((post) => {
                                             return (
-                                                <Post key={post.postID} post={post} deletePost={deletePost} />
+                                                <Post key={post.postID} post={post} setPosts={setPosts} />
                                             )
                                         })
                                     }
