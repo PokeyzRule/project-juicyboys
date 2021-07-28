@@ -19,7 +19,8 @@ router.get('/:id', auth, (req, res) => {
                 return res.status(200).json({
                     user: teacher,
                     status: 'Success',
-                    message: 'teacher profile fetched successfully'
+                    message: 'teacher profile fetched successfully',
+                    courses: courses
                 })
             })
 
