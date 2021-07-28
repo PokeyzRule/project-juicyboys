@@ -1,0 +1,19 @@
+.container {
+    width: 69px;
+    padding: 10px 10px;
+    &:first-of-type{
+        padding-left: 0px;
+    }
+
+    &:last-of-type{
+        padding-right: 0px;
+    }
+}
+
+.fileName {
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+    overflow: clip;
+}

@@ -48,11 +48,15 @@
     }
 }
 
-.documentsContainer{
+.documentsContainer {
     padding: 0px 50px;
     flex: 1 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 1fr);
+    flex-flow: row wrap;
+}
+
+.documentList {
+    display: flex;
+    flex-direction: row;
 }
 
 .postsContainer {
@@ -100,10 +104,7 @@
 
 .divider {
     height: 3px;
-    margin-left: 0px;
-    margin-right: 115px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     background-color: #CCCCCC;
 }
 
@@ -118,7 +119,7 @@
     font-family: "Roboto", sans-serif;
     font-weight: normal;
     margin-bottom: 10px;
-    width: 80%
+    // width: 80%
 }
 
 .subheader{
