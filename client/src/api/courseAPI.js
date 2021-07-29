@@ -12,6 +12,7 @@ export const addGrade = (payload) => axiosClient.post(`/courses/addGrade`, paylo
 export const getAllCourses = () => axiosClient.get(`/courses`);
 export const getSubmissionsByAssignment = (id) => axiosClient.get(`/courses/submissions/${id}`)
 export const getCourseByID = (id) => axiosClient.get(`/courses/${id}`);
+export const getCoursesByTeacher = (id) => axiosClient.get(`/courses/teacher/${id}`);
 
 const courseAPI = {
     insertCourse,
@@ -22,7 +23,8 @@ const courseAPI = {
     addGrade,
     getAllCourses,
     getCourseByID,
-    getSubmissionsByAssignment
+    getSubmissionsByAssignment,
+    getCoursesByTeacher
 };
 
 export default courseAPI;
