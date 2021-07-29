@@ -21,7 +21,11 @@ const userSchema = new Schema({
     ID: {
         type: Schema.Types.ObjectId,
         auto: true
-    }
+    },
+    following: {
+        type: [String],
+        default: []
+    },
 })
 
 module.exports = User = mongoose.model('User', userSchema)
