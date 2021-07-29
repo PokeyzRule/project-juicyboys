@@ -89,17 +89,33 @@ router.post('/create', auth, (req, res) => {
  * @desc    Create an assignment for a course
  * @access  Authenticated users
  */
-router.post('/createAssignment', auth, async (req, res) => {
+router.post('/createAssignment', async (req, res) => {
   const courseID = req.body.courseID
-  const newAssignment = new Assignment({
-    title: req.body.title,
-    description: req.body.desc,
-    courseID: req.body.courseID,
-    uploads: req.body.uploads,
-    dueDate: req.body.dueDate,
-    assignedDate: req.body.assignedDate,
-    toSubmit: req.body.toSubmit
-  })
+
+  var newAssignment;
+
+  if (!req.body.isStream){
+    newAssignment = new Assignment({
+      title: req.body.title,
+      description: req.body.desc,
+      courseID: req.body.courseID,
+      uploads: req.body.uploads,
+      dueDate: req.body.dueDate,
+      assignedDate: req.body.assignedDate,
+      toSubmit: req.body.toSubmit
+    })
+  }else{
+    newAssignment = new Assignment({
+      title: req.body.title,
+      description: req.body.desc,
+      courseID: req.body.courseID,
+      assignedDate: req.body.assignedDate,
+      toSubmit: req.body.toSubmit,
+      isStream: req.body.isStream,
+      zoomLink: req.body.zoomLink
+    })
+  }
+
 
   try {
     let assignment = await newAssignment.save()
@@ -121,24 +137,32 @@ router.post('/createAssignment', auth, async (req, res) => {
 
 })
 
+router.post("/updateAssignment", auth, (req, res) => {
+  Assignment.updateOne({ assignmentID: req.body.assignmentID }, { $addToSet: { uploads: req.body.uploads } })
+    .then((resp) => console.log(resp))
+    .catch((err) => console.log(err))
+})
+
 router.post("/submitAssignment", auth, async (req, res) => {
   const assignmentID = req.body.assignmentID;
+  const studentName = await Student.findOne({ studentID: req.body.studentID }).then((student) => student.name)
   const submission = new Submission({
     date: Date.now(),
     uploads: req.body.uploads,
     studentID: req.body.studentID,
+    studentName: studentName,
     assignmentID: req.body.assignmentID
   })
 
   try {
     let submissionConfirmation = await submission.save()
 
-    await Assignment.updateOne({ assignmentID }, { $addToSet: { submissions: submissionConfirmation._id } })
-
+    await Assignment.updateOne({ assignmentID }, { $addToSet: { submissions: submission.submissionID } })
+  
     res.status(200).json({
       status: 'success',
       msg: 'Assignment submission submitted successfully',
-      submission,
+      submission: submission
     })
   } catch (err) {
     res.status(400).json({
@@ -148,6 +172,39 @@ router.post("/submitAssignment", auth, async (req, res) => {
     })
   }
 
+})
+
+router.post('/addGrade', auth, (req, res) => {
+  const grade = req.body.grade
+  const submissionID = req.body.submissionID
+
+  Submission.updateOne({ submissionID: submissionID }, { grade: grade })
+    .then((resp) => {
+      res.status(200).json({
+        status: 'success',
+        msg: 'Grade added!',
+        submissionID: submissionID,
+        grade: grade
+      }
+    )})
+    .catch((err) => {console.log(err); res.status(400).json({
+      status: 'Failure',
+      msg: 'Unable to add grade',
+      err: err
+  })})
+})
+
+router.get('/submissions/:assignmentID', auth, (req, res) => {
+  Submission.find({ assignmentID: req.params.assignmentID })
+    .then(submissions => res.status(200).json({
+      submissions: submissions,
+      status: 'Success!',
+      message: 'Courses retrieved!'
+    }))
+    .catch((err) => {console.log(err); res.status(400).json({
+      status: 'Failure!',
+      message: 'Unable to retrieve submissions'
+    })})
 })
 
 /**

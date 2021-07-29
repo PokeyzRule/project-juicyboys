@@ -9,7 +9,6 @@ const AssignmentSchema = new Schema({
   },
   description: {
     type: String,
-    required: true
   },
   courseID: {
     type: String,
@@ -38,6 +37,14 @@ const AssignmentSchema = new Schema({
   toSubmit: {
     type: Boolean,
     required: true
+  },
+  isStream: {
+    type: Boolean,
+    default: false
+  },
+  zoomLink: {
+    type: String,
+    default: ""
   },
   assignmentID: {
     type: Schema.Types.ObjectId,

@@ -24,6 +24,10 @@ const companySchema = new Schema({
         type: [Post],
         default: []
     },
+    followers: {
+        type: [String],
+        default: []
+    },
     companyID: {
         type: Schema.Types.ObjectId,
         auto: true

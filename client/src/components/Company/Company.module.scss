@@ -5,16 +5,14 @@
 }
 
 .background{
-    background-color: #C4C4C4;
     height: 160px;
     padding: 20px;
-    color: black;
+    color: white;
 }
 
 .info{
     background-color: #ECECEC;
-    min-height: 75px;
-    height: fit-content;
+    height: 75px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -30,11 +28,27 @@
     padding-top: 15px;
     font-family: "Roboto", sans-serif;
     font-weight: 200;
-    margin-bottom: 15px;
 }
 
 .desc{
     font-family: "Roboto", sans-serif;
     font-weight: 200;
     color: black;
+}
+
+.enroll{
+    width: 100px;
+    padding: 7px;
+    outline: none;
+    border: none;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    opacity: 1;
+}
+
+.enroll:hover{
+    opacity: 0.8;
+    transition: 0.1s;
+    cursor: pointer;
 }
