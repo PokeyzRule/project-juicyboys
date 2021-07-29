@@ -1,22 +1,33 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import styles from './Home.module.scss'
-import teacherAPI from '../../api/teacherAPI'
 import {AuthContext} from '../../App'
 import Course from '../../components/Course'
+import AddIcon from '@material-ui/icons/Add'
+import { Button } from '@material-ui/core';
+import CreateCourse from '../../components/CreateCourse'
+import courseAPI from '../../api/courseAPI'
+
 
 function TeacherHome() {
 
     const { state } = useContext(AuthContext)
     const [ courses, setCourses ] = useState([])
     const [loading, setLoading] = useState(true)
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleModal = () => setIsOpen(!isOpen);
 
     useEffect(() => {
-        teacherAPI.getTeacherByID(state.user.id).then((res) => {
+        courseAPI.getCoursesByTeacher(state.user.name).then((res) => {
             setCourses(res.data.courses)
             setLoading(false)
         })
     }, [])
+
+    const updateCourses = (course) => {
+        setCourses([...courses, course])
+    }
 
     return (
         <div>
@@ -29,6 +40,16 @@ function TeacherHome() {
                     <h3>Your Classes</h3>
                     <p>See all of your classes here!</p>
                 </div>
+                <div className={styles.create}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        endIcon={<AddIcon />}
+                        onClick={toggleModal}
+                    >
+                        Create Course
+                    </Button>
+                </div>
             </div>
             <div className={styles.divider}></div>
             <div className={styles.courseContainer}>
@@ -39,6 +60,9 @@ function TeacherHome() {
                     )
                 })
                 }
+            </div>
+            <div> 
+            {isOpen && <CreateCourse teacher={state.user.name} updateCourses={updateCourses} handleClose={toggleModal}/>}
             </div>
         </div>
     )
