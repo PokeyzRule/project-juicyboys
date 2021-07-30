@@ -140,4 +140,18 @@ router.post('/login', (req, res) => {
     })
 })
 
+const NODE_ENV = process.env.NODE_ENV;
+
+// Logout user
+router.get('/logout', auth, (req, res) => {
+  const options = {
+    expires: new Date(Date.now() + 10000),
+    secure: NODE_ENV === "production" ? true : true,
+    httpOnly: NODE_ENV === "production" ? true : false
+  };
+  
+  res.cookie("jwt", "expiredtoken", options)
+  res.status(200).json({ status: "success" })
+}
+
 module.exports = router
