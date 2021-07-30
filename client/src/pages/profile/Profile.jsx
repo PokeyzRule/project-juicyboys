@@ -7,12 +7,12 @@ import TeacherProfile from './TeacherProfile'
 function Profile() {
 
     const { state } = useContext(AuthContext)
-
-    if (JSON.parse(state.user).type == "student"){
+    console.log(state.user.type);
+    if (state.user.type == "student"){
         return (
             <StudentProfile />
         )
-    }else if (JSON.parse(state.user).type == "entrepreneur"){
+    }else if (state.user.type == "entrepreneur"){
         return(
             <EntrepreneurProfile />
         )
