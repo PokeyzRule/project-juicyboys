@@ -152,6 +152,6 @@ router.get('/logout', auth, (req, res) => {
   
   res.cookie("jwt", "expiredtoken", options)
   res.status(200).json({ status: "success" })
-}
+})
 
 module.exports = router

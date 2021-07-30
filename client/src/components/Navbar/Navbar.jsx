@@ -1,14 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Drawer from '@material-ui/core/Drawer';
 import styles from './Navbar.module.scss'
 import MenuIcon from '@material-ui/icons/Menu';
 import ProfilePicture from '../../assets/profile-pic.png'
 import { Link } from 'react-router-dom';
-import reducer, { initialState }  from '../../reducers/authReducer'
+import reducer from '../../reducers/authReducer'
+import { AuthContext } from '../../App'
+import { useHistory } from 'react-router-dom'
 
 function Navbar() {
     const [ toggle, setToggle ] = useState(false)
 
+    const { state, dispatch } = useContext(AuthContext)
+    const history = useHistory()
+
+
+    function Logout(e) {
+        e.preventDefault()
+        dispatch({
+            type: "LOGOUT",
+            payload: null
+        })
+        history.push("/login")
+    }
+
+    console.log(state)
 
     return (
         <div className={styles.container}>
@@ -21,7 +37,7 @@ function Navbar() {
                         <Link className={styles.link} to="/profile">Profile</Link>
                     </div>
                     <div className={styles.linkContainer}>
-                        <Link className={styles.link} to={Logout}>Logout</Link>
+                        <Link className={styles.link} onClick={e => Logout(e)}>Logout</Link>
                     </div>
                 </div>
             </Drawer> 
@@ -36,8 +52,6 @@ function Navbar() {
     )
 }
 
-function Logout() {
-    reducer(initialState, "LOGOUT")
-}
+
 
 export default Navbar
