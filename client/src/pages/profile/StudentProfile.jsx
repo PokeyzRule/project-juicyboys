@@ -12,13 +12,14 @@ function StudentProfile() {
     const { state } = useContext(AuthContext)
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(true)
-
+console.log(state.user.id);
     useEffect(() => {
         studentAPI.getStudentByID(state.user.id).then((response) => {
-            setUser(response.data)
+            setUser(response.data.user)
             setLoading(false)
         })
     }, [])
+    console.log(user);
 
     return (
         <div>
@@ -47,13 +48,11 @@ function StudentProfile() {
                             <div>
                                 <h1 className={StudentProfileStyles.header}>User Info</h1>
                                 <p className={StudentProfileStyles.subheader}>Your Recent Courses</p>
-                                {loading ?
-                                    <h1>Loading</h1>
-                                    :
+                                {loading ?  <h1>Loading</h1> :
                                     <div className={StudentProfileStyles.courseContainer}>
                                         {user.courses.map((course) => {
                                             return (
-                                                <Course course={course} />
+                                                <Course key={course.courseID} course={course}/>
                                             )
                                         })}
                                     </div>
