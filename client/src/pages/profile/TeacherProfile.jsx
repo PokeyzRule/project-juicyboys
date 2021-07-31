@@ -1,73 +1,55 @@
 import React, { useState, useEffect, useContext } from 'react'
-import StudentProfileStyles from './Profile.module.scss'
-import student from '../../assets/student.png'
+import ProfileStyles from './Profile.module.scss'
 import Navbar from '../../components/Navbar'
 import { AuthContext } from '../../App'
 import Course from '../../components/Course'
-import studentAPI from '../../api/studentAPI'
-
-
-function Profile() {
-
+import teacherAPI from '../../api/teacherAPI'
+function TeacherProfile() {
     const { state } = useContext(AuthContext)
-<<<<<<< HEAD
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(true)
+    const [ courses, setCourses ] = useState([])
 
     useEffect(() => {
-        studentAPI.getStudentByID(state.user.id).then((response) => {
-            setUser(response.data)
+        teacherAPI.getTeacherByID(state.user.id).then((res) => {
+            setUser(res.data.user)
+            setCourses(res.data.courses)
             setLoading(false)
         })
     }, [])
+    console.log(courses);
 
     return (
         <div>
             < Navbar />
-            <div className={StudentProfileStyles.infoBar}>
-                <div className={StudentProfileStyles.info}>
+            <div className={ProfileStyles.infoBar}>
+                <div className={ProfileStyles.info}>
                     <h1>Name</h1>
                     <h2>{state.user.name}</h2>
                 </div>
-                <div className={StudentProfileStyles.info}>
+                <div className={ProfileStyles.info}>
                     <h1>Email</h1>
                     <h2>{state.user.email}</h2>
                 </div>
-                <div className={StudentProfileStyles.info}>
+                <div className={ProfileStyles.info}>
                     <h1>Bio</h1>
                     <h2>Lorem Ipsum</h2>
                 </div>
             </div>
-            <div className={StudentProfileStyles.wrapper}>
+            <div className={ProfileStyles.wrapper}>
 
-                <div className={StudentProfileStyles.container}>
+                <div className={ProfileStyles.container}>
 
-                    <div className={StudentProfileStyles.contentContainer}>
+                    <div className={ProfileStyles.contentContainer}>
                         <div>
-=======
-    console.log(state.user.type);
-    if (state.user.type == "student"){
-        return (
-            <StudentProfile />
-        )
-    }else if (state.user.type == "entrepreneur"){
-        return(
-            <EntrepreneurProfile />
-        )
-    }else{
-        return(
-            <TeacherProfile />
-        )
-    }
->>>>>>> ed809cbd886332102bf079b07d5d712c520d3a76
 
                             <div>
-                                <h1 className={StudentProfileStyles.header}>User Info</h1>
-                                <p className={StudentProfileStyles.subheader}>Your Recent Courses</p>
+                                <h1 className={ProfileStyles.header}>User Info</h1>
+                                <p className={ProfileStyles.subheader}>Your Recent Courses</p>
                                 {loading ?
                                     <h1>Loading</h1>
                                     :
-                                    <div className={StudentProfileStyles.courseContainer}>
+                                    <div className={ProfileStyles.courseContainer}>
                                         {user.courses.map((course) => {
                                             return (
                                                 <Course course={course} />
@@ -78,7 +60,6 @@ function Profile() {
                                 <hr width="100%" size="2" color="#C4C4C4" />
                                 <br />
                             </div>
-                            <p className={StudentProfileStyles.subheader}>Don't forget your deadlines!</p>
                         </div>
                     </div>
                 </div>
@@ -88,4 +69,4 @@ function Profile() {
     )
 }
 
-export default Profile
+export default TeacherProfile

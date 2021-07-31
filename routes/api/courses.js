@@ -61,6 +61,27 @@ router.get("/:courseID", auth, (req, res) => {
 })
 
 /**
+ * @route       GET /:teacherID
+ * @queryParam  teacherID to search
+ * @desc        Fetch the course specified by the provided teacherID
+ * @access      Authenticated users
+ */
+router.get("/teacher/:teacherName", auth, (req, res) => {
+  Course.find({ teacher: req.params.teacherName })
+    .then(courses => {
+      res.status(200).json({
+        status: 'success',
+        msg: 'Courses retrieved successfully',
+        courses: courses,
+      })
+    })
+    .catch(() => res.status(400).json({
+      status: 'failure',
+      msg: 'Courses retrieval failed',
+    }))
+})
+
+/**
  * @route   POST create
  * @desc    Create a course
  * @access  Authenticated users
@@ -76,7 +97,7 @@ router.post('/create', auth, (req, res) => {
   newCourse.save().then(course => res.json({
     status: 'success',
     msg: 'Course created successfully',
-    code: course.courseID,
+    course: course,
   })).catch(() => res.status(400)
     .json({
       status: 'failure',

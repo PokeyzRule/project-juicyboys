@@ -7,19 +7,19 @@ import Course from '../../components/Course'
 import studentAPI from '../../api/studentAPI'
 
 
-function Profile() {
+function StudentProfile() {
 
     const { state } = useContext(AuthContext)
-<<<<<<< HEAD
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(true)
-
+console.log(state.user.id);
     useEffect(() => {
         studentAPI.getStudentByID(state.user.id).then((response) => {
-            setUser(response.data)
+            setUser(response.data.user)
             setLoading(false)
         })
     }, [])
+    console.log(user);
 
     return (
         <div>
@@ -44,33 +44,15 @@ function Profile() {
 
                     <div className={StudentProfileStyles.contentContainer}>
                         <div>
-=======
-    console.log(state.user.type);
-    if (state.user.type == "student"){
-        return (
-            <StudentProfile />
-        )
-    }else if (state.user.type == "entrepreneur"){
-        return(
-            <EntrepreneurProfile />
-        )
-    }else{
-        return(
-            <TeacherProfile />
-        )
-    }
->>>>>>> ed809cbd886332102bf079b07d5d712c520d3a76
 
                             <div>
                                 <h1 className={StudentProfileStyles.header}>User Info</h1>
                                 <p className={StudentProfileStyles.subheader}>Your Recent Courses</p>
-                                {loading ?
-                                    <h1>Loading</h1>
-                                    :
+                                {loading ?  <h1>Loading</h1> :
                                     <div className={StudentProfileStyles.courseContainer}>
                                         {user.courses.map((course) => {
                                             return (
-                                                <Course course={course} />
+                                                <Course key={course.courseID} course={course}/>
                                             )
                                         })}
                                     </div>
@@ -88,4 +70,4 @@ function Profile() {
     )
 }
 
-export default Profile
+export default StudentProfile

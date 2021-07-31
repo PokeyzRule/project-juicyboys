@@ -13,7 +13,7 @@ function HomeHandler() {
     const { state } = useContext(AuthContext)
     const history = useHistory()
 
-    if (!state.isAuthenticated) {
+    if (!state.isAuthenticated || state.user.type == null) {
         history.push("/login")
     }
 
