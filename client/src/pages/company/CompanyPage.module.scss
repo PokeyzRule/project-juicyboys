@@ -48,15 +48,11 @@
     }
 }
 
-.documentsContainer {
+.documentsContainer{
     padding: 0px 50px;
     flex: 1 0;
-    flex-flow: row wrap;
-}
-
-.documentList {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 1fr);
 }
 
 .postsContainer {
@@ -104,7 +100,10 @@
 
 .divider {
     height: 3px;
-    margin: 20px 0;
+    margin-left: 0px;
+    margin-right: 115px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     background-color: #CCCCCC;
 }
 
@@ -119,7 +118,7 @@
     font-family: "Roboto", sans-serif;
     font-weight: normal;
     margin-bottom: 10px;
-    // width: 80%
+    width: 80%
 }
 
 .subheader{
@@ -183,8 +182,4 @@ hr{
     border-left: 0;
     border-right: 0;
     color: #C4C4C4;
-}
-
-.follow {
-    margin-top: 12px !important;
 }
