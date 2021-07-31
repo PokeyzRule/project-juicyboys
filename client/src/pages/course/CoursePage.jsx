@@ -39,7 +39,7 @@ function CoursePage() {
             postAPI.getPostsByCourseId(id).then((response) => {
                 setPosts(response.data.posts)
                 setLoading(false)
-            }).catch((e) => console.log(e))
+            })
         })
     }, [id])
 

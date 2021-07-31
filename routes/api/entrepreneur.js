@@ -1,5 +1,4 @@
 const express = require('express')
-const  Company = require('../../models/company')
 const router = express.Router()
 const auth = require('../../middleware/auth')
 
@@ -38,18 +37,11 @@ router.get('/:id', auth, (req, res) => {
     Entrepreneur.findOne({ entrepreneurID: req.params.id })
         .then((entrepreneur) => {
 
-            const startupIDs = entrepreneur.associatedStartups
-            
-            Company.find({}).where('companyID').in(startupIDs).then((startups) => {
-                return res.status(200).json({
-                    user: entrepreneur,
-                    status: 'Success',
-                    message: 'entrepreneur profile fetched successfully',
-                    startups: startups
-                })
+            return res.status(200).json({
+                user: entrepreneur,
+                status: 'Success',
+                message: 'entrepreneur profile fetched successfully'
             })
-
-            
 
         })
         .catch((err) => res.status(400).json({

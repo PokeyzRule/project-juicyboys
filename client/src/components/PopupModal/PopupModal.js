@@ -3,7 +3,6 @@ import { Tab, Tabs, Paper } from "@material-ui/core";
 import styles from './PopupModal.module.scss'
 import CreatePost from "../CreatePost";
 import CreateAssignment from "../CreateAssignment/CreateAssignment";
-import CreateZoom from "../CreateZoom";
 
 const PopupModal = ({setPosts, setAssignments, handleClose}) => {
 
@@ -27,11 +26,10 @@ const PopupModal = ({setPosts, setAssignments, handleClose}) => {
                     >
                         <Tab label="Create Post" />
                         <Tab label="Create Assignment" />
-                        <Tab label="Create Livestream" />
                     </Tabs>
-                    {value == 0 ? <CreatePost setPosts={setPosts} handleClose={handleClose} /> : null}
-                    {value == 1 ? <CreateAssignment setAssignments={setAssignments} handleClose={handleClose} /> : null}
-                    {value == 2 ? <CreateZoom handleClose={handleClose} setAssignments={setAssignments} /> : null}
+                    {value == 0 ? 
+                    <CreatePost setPosts={setPosts} handleClose={handleClose} /> :
+                    <CreateAssignment setAssignments={setAssignments} handleClose={handleClose} />}
                 </Paper>
             </div>
         </div>

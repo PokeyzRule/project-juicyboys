@@ -12,29 +12,26 @@ import { AuthContext } from '../../App';
 import Modal from '@material-ui/core/Modal';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import UploadDocument from '../../components/UploadDocument/UploadDocument'
-import AddIcon from '@material-ui/icons/Add'
-import Document from '../../components/Document'
 
 function CompanyPage() {
     const { state } = useContext(AuthContext)
-    const user = JSON.parse(state.user)
     const { id } = useParams()
     const [company, setCompany] = useState()
     const [posts, setPosts] = useState([])
     const [owners, setOwners] = useState([])
     const [documents, setDocuments] = useState()
     const [isOpen, setIsOpen] = useState(false)
-    const [docOpen, setDocOpen] = useState(false)
     const [loading, setLoading] = useState(true)
     const [open, setOpen] = useState(false)
     const [email, setEmail] = useState("")
     const [success, setSuccess] = useState(false)
-    const [isFollowing, setIsFollowing] = useState(false)
 
     const toggleCreatePost = () => setIsOpen(!isOpen);
 
-    const toggleUploadDocument = () => setDocOpen(!docOpen)
+    const deletePost = async (id) => {
+        await postAPI.deletePost(id);
+        setPosts(posts.filter(post => post.postID !== id))
+    }
 
     const handleOpen = (e) => {
         e.preventDefault()
@@ -70,25 +67,18 @@ function CompanyPage() {
         })
     }
 
-    const handleFollow = () => {
-        isFollowing ? companyAPI.removeFollower({ userID: user.id, companyID: company.companyID })
-            : companyAPI.addFollower({ userID: user.id, companyID: company.companyID })
-
-        setIsFollowing(!isFollowing)
-    }
-
     useEffect(() => {
         companyAPI.getCompanyByID(id).then(response => {
             let company = response.data.company
             setCompany(company)
             setOwners(company.owners)
             setDocuments(company.documents)
-            setIsFollowing(company.followers.includes(user.id))
         }).then(() => {
             postAPI.getPostsByCourseId(id).then((res) => {
                 setPosts(res.data.posts)
                 setLoading(false)
             })
+
         })
     }, [id])
 
@@ -120,33 +110,17 @@ function CompanyPage() {
                         }
                     </h2>
                 </div>
-                <div className={CompanyPageStyles.info}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        endIcon={!isFollowing ? <AddIcon /> : null}
-                        className={CompanyPageStyles.follow}
-                        onClick={handleFollow}
-                    >
-                        {isFollowing ? 'Following' : 'Follow'}
-                    </Button>
-                </div>
             </div>
 
             <div className={CompanyPageStyles.wrapper}>
                 <div className={CompanyPageStyles.container}>
                     <div className={CompanyPageStyles.contentContainer}>
                         <div className={CompanyPageStyles.ownersContainer}>
-                            <h1 className={CompanyPageStyles.header}>
-                                {loading ?
-                                    'Loading...'
-                                    :
-                                    owners.length === 1 ? 'Owner' : 'Owners'
-                                }
-                                {owners.some(owner => owner.email === JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={handleOpen}>
-                                    Add Owner
-                                </Button>}
-                            </h1>
+                            <h1 className={CompanyPageStyles.header}>{loading ?
+                                'Loading...'
+                                :
+                                owners.length === 1 ? 'Owner' : 'Owners'
+                            }</h1>
                             {loading ?
                                 'Loading...'
                                 :
@@ -154,6 +128,7 @@ function CompanyPage() {
                                     return <p key={owner?.entrepreneurID}>{`${owner?.name} (${owner?.email})`}</p>
                                 })
                             }
+                            <button className={CompanyPageStyles.create} onClick={(e) => handleOpen(e)}>Add Owner</button>
                             <div className={CompanyPageStyles.modalcontainer}>
                                 <Modal
                                     open={open}
@@ -174,25 +149,8 @@ function CompanyPage() {
                             </div>
                         </div>
                         <div className={CompanyPageStyles.documentsContainer}>
-                            <h1 className={CompanyPageStyles.header}>
-                                Documents
-                                {owners.some(owner => owner.email === JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleUploadDocument}>
-                                    Upload Documents
-                                </Button>}
-                            </h1>
-                            {docOpen && <UploadDocument
-                                setDocuments={setDocuments}
-                                handleClose={toggleUploadDocument}
-                            />}
-                            <div className={CompanyPageStyles.documentList}>
-                                {loading ?
-                                    'Loading...'
-                                    :
-                                    documents.map(document => {
-                                        return <Document document={document} />
-                                    })
-                                }
-                            </div>
+                            <h1 className={CompanyPageStyles.header}>Documents</h1>
+                            TODO: Render documents next sprint somehow
                         </div>
                         {loading ?
                             <h1>Loading</h1>
@@ -200,11 +158,11 @@ function CompanyPage() {
                             <div className={CompanyPageStyles.postsContainer}>
                                 <h1 className={CompanyPageStyles.header}>
                                     Posts
-                                    {owners.some(owner => owner.email === JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleCreatePost}>
+                                    {company.owners.includes(JSON.parse(state.user).email) && <Button variant="contained" color="primary" style={{ float: 'right' }} onClick={toggleCreatePost}>
                                         Create Post
                                     </Button>}
                                 </h1>
-                                {isOpen && owners.some(owner => owner.email === JSON.parse(state.user).email) && <CreatePost
+                                {isOpen && company.owners.includes(JSON.parse(state.user).email) && <CreatePost
                                     courseID={id}
                                     posts={posts}
                                     setPosts={setPosts}
@@ -215,7 +173,7 @@ function CompanyPage() {
                                     {loading ? <h1>Loading</h1> :
                                         posts.map((post) => {
                                             return (
-                                                <Post key={post.postID} post={post} setPosts={setPosts} />
+                                                <Post key={post.postID} post={post} deletePost={deletePost} />
                                             )
                                         })
                                     }
@@ -227,6 +185,7 @@ function CompanyPage() {
             <hr />
         </div>
     )
+
 }
 
 export default CompanyPage
