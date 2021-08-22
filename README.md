@@ -32,7 +32,7 @@ $ npm run client-install
 ### 3. Create a .env file and add the connection to the MongoDB
 On Unix:
 ```shell
-$ echo "ATLAS_URI=mongodb+srv://ammarT:C7kHJ42WzHCbuvEG@juicyboys.bqnoy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" >> .env
+$ echo "***REMOVED***" >> .env
 ```
 Or, manually create a `.env` file in the root directory:
 ```shell
@@ -40,7 +40,7 @@ $ touch .env
 ```
 Open the file and paste in the following key-value pair:
 ```
-ATLAS_URI=mongodb+srv://ammarT:C7kHJ42WzHCbuvEG@juicyboys.bqnoy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+ATLAS_URI=***REMOVED***
 ```
 
 ### 4. Run the (dev) server
